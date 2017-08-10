@@ -3,55 +3,84 @@
  */
 import React, {Component} from 'react';
 import InputBox from './components/InputBox/InputBox';
+import * as $ from 'jquery';
 
 const data = [{
     "id": 1,
-    "first_name": "Lilia",
-    "last_name": "Quittonden",
-    "email": "lquittonden0@marriott.com",
-    "gender": "Female",
-    "ip_address": "253.47.78.184"
+    "date": "01.01.2017",
+    "payment": "Room Rent",
+    "category": "Housing",
+    "debit": "",
+    "credit": ""
 }, {
     "id": 2,
-    "first_name": "Keenan",
-    "last_name": "Heyfield",
-    "email": "kheyfield1@paypal.com",
-    "gender": "Male",
-    "ip_address": "199.192.191.180"
+    "date": "02.01.2017",
+    "payment": "Happy Noodles",
+    "category": "Lunch Outside",
+    "debit": "",
+    "credit": "4"
 }, {
     "id": 3,
-    "first_name": "Valina",
-    "last_name": "Graves",
-    "email": "vgraves2@godaddy.com",
-    "gender": "Female",
-    "ip_address": "128.190.154.37"
+    "date": "03.01.2017",
+    "payment": "XYZ",
+    "category": "Salary",
+    "debit": "2000",
+    "credit": ""
 }, {
     "id": 4,
-    "first_name": "Karla",
-    "last_name": "Deeble",
-    "email": "kdeeble3@columbia.edu",
-    "gender": "Female",
-    "ip_address": "209.156.86.197"
+    "date": "04.01.2017",
+    "payment": "drei",
+    "category": "Mobile",
+    "debit": "",
+    "credit": "15"
 }, {
     "id": 5,
-    "first_name": "Viola",
-    "last_name": "Dendle",
-    "email": "vdendle4@bbc.co.uk",
-    "gender": "Female",
-    "ip_address": "241.213.125.36"
+    "date": "05.01.2017",
+    "payment": "Hofer",
+    "category": "Groceries",
+    "debit": "",
+    "credit": "20"
 }];
 
 
 class App extends Component {
 
+
+    constructor() {
+        super();
+        this.state = {
+            data: data,
+            fields: {
+                id: '',
+                date: '',
+                payment: '',
+                category: '',
+                debit: '',
+                credit: ''
+            },
+            isEditMode: false
+        }
+    }
+
+
     renderRow() {
-        const rows = data.map(d=><div className="row">
+        const rows = this.state.data.map(d=><div className="row" data-id={d.id}>
             <div className="col-md-1 items">{d.id}</div>
-            <div className="col-md-2 items">{d.first_name}</div>
-            <div className="col-md-3 items">{d.last_name}</div>
-            <div className="col-md-2 items">{d.email}</div>
-            <div className="col-md-2 items">{d.gender}</div>
-            <div className="col-md-2 items">{d.ip_address}</div>
+            <div className="col-md-2 items">{d.date}</div>
+            <div className="col-md-3 items">{d.payment}</div>
+            <div className="col-md-2 items">{d.category}</div>
+            <div className="col-md-1 items">{d.debit}</div>
+            <div className="col-md-1 items">{d.credit}</div>
+            <div className="col-md-1 items">
+                <a href="#">
+                    <span onClick={this.editRow.bind(this, d.id)} className="glyphicon glyphicon-edit"></span>
+                </a>
+            </div>
+            <div className="col-md-1 items">
+                <a href="#">
+                    <span onClick={this.deleteRow.bind(this, d.id)} className="glyphicon glyphicon-trash"></span>
+                </a>
+            </div>
 
         </div>)
 
@@ -60,7 +89,41 @@ class App extends Component {
     }
 
 
+    dangerRow() {
+        return {__html: 'First &middot; Second'};
+    }
+
+
+    editRow = (id) => {
+        const index = this.state.data.findIndex(d=>d.id === id);
+
+    }
+
+
+    deleteRow = (id) => {
+        const index = this.state.data.findIndex(d=>d.id === id);
+        const temp = this.state.data.slice();
+        temp.splice(index, 1);
+        this.setState({data: temp})
+
+
+    }
+    handleChange = (ref, args)=> {
+
+        const fields = {...this.state.fields, [ref]: args}
+        this.setState({fields: fields})
+
+    }
+
+    save = ()=> {
+        const temp = this.state.data;
+        temp.push(this.state.fields)
+        this.setState({data: temp})
+
+    }
+
     render() {
+        console.log(this.state)
         return (<div className="app">
             <div className="container-fluid ">
                 <div className="row">
@@ -68,24 +131,52 @@ class App extends Component {
                     <div className="col-md-2 heading">Date</div>
                     <div className="col-md-3 heading">Payment Description</div>
                     <div className="col-md-2 heading">Category</div>
-                    <div className="col-md-2 heading">Debit</div>
-                    <div className="col-md-2 heading">Credit</div>
+                    <div className="col-md-1 heading">Debit</div>
+                    <div className="col-md-1 heading">Credit</div>
                 </div>
                 {this.renderRow()}
 
                 <div className="row">
-                    <div className="col-md-1 "><InputBox placeholder="Enter #.."/></div>
-                    <div className="col-md-2"><InputBox placeholder="Enter date.."/></div>
-                    <div className="col-md-3"><InputBox placeholder="Enter description.."/></div>
-                    <div className="col-md-2"><InputBox placeholder="Enter cateogry.."/></div>
-                    <div className="col-md-2"><InputBox placeholder="Enter debit.."/></div>
-                    <div className="col-md-2"><InputBox placeholder="Enter credit.."/></div>
+                    <div className="col-md-1 ">
+                        <InputBox
+                            ref='id'
+                            placeholder="Enter #.."
+                            onChange={this.handleChange.bind(this, 'id')}/>
+                    </div>
+                    <div className="col-md-2">
+                        <InputBox
+                            ref='date'
+                            placeholder="Enter date.."
+                            onChange={this.handleChange.bind(this, 'date')}/></div>
+                    <div className="col-md-3">
+                        <InputBox
+                            ref='payment'
+                            placeholder="Enter description.."
+                            onChange={this.handleChange.bind(this, 'payment')}/>
+                    </div>
+                    <div className="col-md-2">
+                        <InputBox
+                            ref='category'
+                            placeholder="Enter cateogry.."
+                            onChange={this.handleChange.bind(this, 'category')}/>
+                    </div>
+                    <div className="col-md-1">
+                        <InputBox
+                            ref='debit'
+                            placeholder="Enter debit.."
+                            onChange={this.handleChange.bind(this, 'debit')}/></div>
+                    <div className="col-md-1">
+                        <InputBox
+                            ref='credit'
+                            placeholder="Enter credit.."
+                            onChange={this.handleChange.bind(this, 'credit')}/>
+                    </div>
                 </div>
 
 
                 <div className="row saveRow">
                     <div className="col-md-2 saveCol">
-                        <button type="button" className="btn btn-primary saveButton">Save</button>
+                        <button type="button" className="btn btn-primary saveButton" onClick={this.save}>Save</button>
                     </div>
 
                 </div>
