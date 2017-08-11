@@ -2,6 +2,7 @@
  * Created by bikramkawan on 8/10/17.
  */
 import React, {Component} from 'react';
+const mystore = require('store2');
 
 export  default class InputBox extends Component {
 
@@ -14,12 +15,12 @@ export  default class InputBox extends Component {
     }
 
     handleChange = ({target:{value}}) => {
-
+        mystore.set('2','fromInput')
         this.setState({value: value}, ()=>this.props.onChange(value))
     }
 
     render() {
-
+        console.log(mystore.getAll())
         return (<div className="inputContainer">
                 <input type="text" placeholder={this.props.placeholder}
                        onChange={this.handleChange}

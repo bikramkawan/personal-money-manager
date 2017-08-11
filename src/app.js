@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 import InputBox from './components/InputBox/InputBox';
 import * as $ from 'jquery';
+var store = require('store2');
 
 const data = [{
     "id": 1,
@@ -119,11 +120,13 @@ class App extends Component {
         const temp = this.state.data;
         temp.push(this.state.fields)
         this.setState({data: temp})
+        store.set('1','Bikram')
 
     }
 
     render() {
-        console.log(this.state)
+
+        console.log(store.getAll())
         return (<div className="app">
             <div className="container-fluid ">
                 <div className="row">
