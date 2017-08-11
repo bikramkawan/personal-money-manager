@@ -125,6 +125,7 @@ class App extends Component {
                                  onChange={this.handleChange}
                                  onEdit={this.editRow}
                                  store={this.props.store}
+                                 key = {data.id}
                     />)}
                 <AddItem onChange={this.handleChange}/>
                 <div className="row saveRow">
