@@ -2,9 +2,11 @@
  * Created by bikramkawan on 8/9/17.
  */
 import React, {Component} from 'react';
-import InputBox from './components/InputBox/InputBox';
-import * as $ from 'jquery';
-var store = require('store2');
+import Header from './components/Rows/Header'
+import Transaction from './components/Rows/Transaction'
+import AddItem from './components/Rows/AddItem';
+import  {isSaved} from './actions'
+import * as _ from 'lodash'
 
 const data = [{
     "id": 1,
@@ -12,7 +14,7 @@ const data = [{
     "payment": "Room Rent",
     "category": "Housing",
     "debit": "",
-    "credit": ""
+    "credit": "430"
 }, {
     "id": 2,
     "date": "02.01.2017",
@@ -47,8 +49,8 @@ const data = [{
 class App extends Component {
 
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             data: data,
             fields: {
@@ -59,44 +61,15 @@ class App extends Component {
                 debit: '',
                 credit: ''
             },
-            isEditMode: false
+            isEditMode: false,
+            updateData: {},
+
         }
+        this.store = this.props.store;
     }
-
-
-    renderRow() {
-        const rows = this.state.data.map(d=><div className="row" data-id={d.id}>
-            <div className="col-md-1 items">{d.id}</div>
-            <div className="col-md-2 items">{d.date}</div>
-            <div className="col-md-3 items">{d.payment}</div>
-            <div className="col-md-2 items">{d.category}</div>
-            <div className="col-md-1 items">{d.debit}</div>
-            <div className="col-md-1 items">{d.credit}</div>
-            <div className="col-md-1 items">
-                <a href="#">
-                    <span onClick={this.editRow.bind(this, d.id)} className="glyphicon glyphicon-edit"></span>
-                </a>
-            </div>
-            <div className="col-md-1 items">
-                <a href="#">
-                    <span onClick={this.deleteRow.bind(this, d.id)} className="glyphicon glyphicon-trash"></span>
-                </a>
-            </div>
-
-        </div>)
-
-        return rows;
-
-    }
-
-
-    dangerRow() {
-        return {__html: 'First &middot; Second'};
-    }
-
 
     editRow = (id) => {
-        const index = this.state.data.findIndex(d=>d.id === id);
+        this.setState({isEditMode: true});
 
     }
 
@@ -109,74 +82,51 @@ class App extends Component {
 
 
     }
-    handleChange = (ref, args)=> {
+    handleChange = (args)=> {
+        if (!_.isUndefined(args.id)) {
+            const index = this.state.data.findIndex(d=>d.id === args.id);
+            const temp = this.state.data.slice();
+            const obj = temp[index];
+            const updateObj = {...obj, [args.ref]: args.value};
+            this.setState({updateData: {index: index, data: updateObj}})
 
-        const fields = {...this.state.fields, [ref]: args}
+
+        }
+        const fields = {...this.state.fields, [args.ref]: args.value}
         this.setState({fields: fields})
+
 
     }
 
+
     save = ()=> {
-        const temp = this.state.data;
-        temp.push(this.state.fields)
-        this.setState({data: temp})
-        store.set('1','Bikram')
+        if (this.state.isEditMode) {
+            const temp = this.state.data.slice();
+            temp.splice(this.state.updateData.index, 1, this.state.updateData.data)
+            this.setState({data: temp, isEditMode: false})
+
+        } else {
+            const temp = this.state.data;
+            temp.push(this.state.fields)
+            this.setState({data: temp})
+        }
+
+        this.store.dispatch(isSaved());
 
     }
 
     render() {
 
-        console.log(store.getAll())
         return (<div className="app">
             <div className="container-fluid ">
-                <div className="row">
-                    <div className="col-md-1 heading">#</div>
-                    <div className="col-md-2 heading">Date</div>
-                    <div className="col-md-3 heading">Payment Description</div>
-                    <div className="col-md-2 heading">Category</div>
-                    <div className="col-md-1 heading">Debit</div>
-                    <div className="col-md-1 heading">Credit</div>
-                </div>
-                {this.renderRow()}
-
-                <div className="row">
-                    <div className="col-md-1 ">
-                        <InputBox
-                            ref='id'
-                            placeholder="Enter #.."
-                            onChange={this.handleChange.bind(this, 'id')}/>
-                    </div>
-                    <div className="col-md-2">
-                        <InputBox
-                            ref='date'
-                            placeholder="Enter date.."
-                            onChange={this.handleChange.bind(this, 'date')}/></div>
-                    <div className="col-md-3">
-                        <InputBox
-                            ref='payment'
-                            placeholder="Enter description.."
-                            onChange={this.handleChange.bind(this, 'payment')}/>
-                    </div>
-                    <div className="col-md-2">
-                        <InputBox
-                            ref='category'
-                            placeholder="Enter cateogry.."
-                            onChange={this.handleChange.bind(this, 'category')}/>
-                    </div>
-                    <div className="col-md-1">
-                        <InputBox
-                            ref='debit'
-                            placeholder="Enter debit.."
-                            onChange={this.handleChange.bind(this, 'debit')}/></div>
-                    <div className="col-md-1">
-                        <InputBox
-                            ref='credit'
-                            placeholder="Enter credit.."
-                            onChange={this.handleChange.bind(this, 'credit')}/>
-                    </div>
-                </div>
-
-
+                <Header/>
+                {this.state.data.map(data=>
+                    <Transaction data={data} onDeleteRow={this.deleteRow}
+                                 onChange={this.handleChange}
+                                 onEdit={this.editRow}
+                                 store={this.props.store}
+                    />)}
+                <AddItem onChange={this.handleChange}/>
                 <div className="row saveRow">
                     <div className="col-md-2 saveCol">
                         <button type="button" className="btn btn-primary saveButton" onClick={this.save}>Save</button>
