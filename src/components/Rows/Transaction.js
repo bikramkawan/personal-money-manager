@@ -55,8 +55,6 @@ class Transaction extends Component {
     }
 
     render() {
-
-
         return (
             <div className="row" data-id={this.props.data.id}>
                 <div className="col-md-1 items">{this.toggleRender('id', this.props.data.id)}</div>
@@ -66,13 +64,13 @@ class Transaction extends Component {
                 <div className="col-md-1 items">{this.toggleRender('debit', this.props.data.debit)}</div>
                 <div className="col-md-1 items">{this.toggleRender('credit', this.props.data.credit)}</div>
                 <div className="col-md-1 items">
-                        <span onClick={this.editMe.bind(this, this.props.data.id)}
-                              className="glyphicon glyphicon-edit"></span>
+                    <span onClick={this.editMe.bind(this, this.props.data.id)}
+                          className="glyphicon glyphicon-edit"></span>
 
                 </div>
                 <div className="col-md-1 items">
-                       <span onClick={this.delete.bind(this, this.props.data.id)}
-                             className="glyphicon glyphicon-trash"></span>
+                   <span onClick={this.delete.bind(this, this.props.data.id)}
+                         className="glyphicon glyphicon-trash"></span>
 
                 </div>
 

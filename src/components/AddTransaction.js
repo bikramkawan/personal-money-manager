@@ -68,7 +68,7 @@ class AddTransaction extends Component {
     }
 
     editRow = (id) => {
-           console.log(id)
+        console.log(id)
         this.setState({isEditMode: true});
 
     }
@@ -117,10 +117,7 @@ class AddTransaction extends Component {
 
     render() {
 
-        console.log(this.store)
-        return (
-
-            <div className="container-fluid ">
+        return (<div className="container-fluid ">
                 <Header/>
                 {this.state.data.map(data=>
                     <Transaction data={data} onDeleteRow={this.deleteRow}

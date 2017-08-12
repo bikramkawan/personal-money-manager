@@ -1,0 +1,39 @@
+@import "../../app";
+
+.container-fluid {
+  width: 100%;
+  .row {
+    height: 40px;
+    border-top: 1px solid #eceeef;
+    font-size: 18px;
+    .glyphicon {
+      color: @link-color;
+      cursor: pointer;
+
+    }
+    &.saveRow {
+      height: 50px;
+    }
+    .saveButton {
+      width: 100%;
+      font-size: 20px;
+      float: right;
+    }
+    .saveCol {
+      float: right;
+    }
+  }
+
+  .heading {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .row:nth-child(even) {
+    background-color: #F2F2F2;
+  }
+
+  .row:nth-child(odd) {
+    background-color: #FFF
+  }
+}
