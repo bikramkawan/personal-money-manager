@@ -1,23 +1,22 @@
 /**
  * Created by bikramkawan on 8/11/17.
  */
-
 import React, {Component} from 'react'
+import {Row, Col} from 'react-bootstrap';
 
 class Header extends Component {
-
 
     render() {
 
         return (
-            <div className="row">
-                <div className="col-md-1 heading">#</div>
-                <div className="col-md-2 heading">Date</div>
-                <div className="col-md-3 heading">Payment Description</div>
-                <div className="col-md-2 heading">Category</div>
-                <div className="col-md-1 heading">Debit</div>
-                <div className="col-md-1 heading">Credit</div>
-            </div>
+            <Row>
+                <Col md={1} className="heading">#</Col>
+                <Col md={2} className="heading">Date</Col>
+                <Col md={3} className="heading">Payment Description</Col>
+                <Col md={2} className="heading">Category</Col>
+                <Col md={1} className="heading">Debit</Col>
+                <Col md={1} className="heading">Credit</Col>
+            </Row>
         )
 
     }

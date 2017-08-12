@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './app';
 import './app.css';
 import 'bootstrap/dist/css/bootstrap.css';
+// import 'jquery';
+// import 'bootstrap/dist/js/bootstrap.js';
+
 import myApp from './reducers'
 import { createStore } from 'redux';
 import {HashRouter} from 'react-router-dom'

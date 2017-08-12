@@ -14,10 +14,14 @@ class App extends Component {
 
     }
 
+    open =()=>{
+        
+    }
     render() {
         return (
             <div className="app">
                 <Menu/>
+
                 <Route path='/AddTransaction/' component={()=> <AddTransaction store={this.store}/>}/>
             </div>)
     }

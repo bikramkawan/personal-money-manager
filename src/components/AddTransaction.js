@@ -6,7 +6,10 @@ import Header from './Rows/Header'
 import Transaction from './Rows/Transaction'
 import AddItem from './Rows/AddItem';
 import  {isSaved} from '../actions'
-import * as _ from 'lodash'
+import {Grid, Row, Col, Button} from 'react-bootstrap';
+import AlertDismissable from './AlertDismissable'
+import * as _ from 'lodash';
+import * as $ from 'jquery'
 
 const data = [{
     "id": 1,
@@ -63,6 +66,7 @@ class AddTransaction extends Component {
             isEditMode: false,
             updateData: {},
 
+
         }
         this.store = this.props.store;
     }
@@ -112,12 +116,13 @@ class AddTransaction extends Component {
         }
 
         this.store.dispatch(isSaved());
-
+        $('.alertMessage').show();
     }
+
 
     render() {
 
-        return (<div className="container-fluid ">
+        return (<Grid fluid={true}>
                 <Header/>
                 {this.state.data.map(data=>
                     <Transaction data={data} onDeleteRow={this.deleteRow}
@@ -127,13 +132,21 @@ class AddTransaction extends Component {
                                  key={data.id}
                     />)}
                 <AddItem onChange={this.handleChange}/>
-                <div className="row saveRow">
-                    <div className="col-md-2 saveCol">
-                        <button type="button" className="btn btn-primary saveButton" onClick={this.save}>Save</button>
-                    </div>
 
-                </div>
-            </div>
+                <Row className="alertMessage">
+                    <Col md={4} className="saveCol">
+                        <AlertDismissable/>
+                    </Col>
+                </Row>
+
+
+                <Row className="saveRow">
+                    <Col md={2} className="saveCol">
+                        <Button bsStyle="primary" className="saveButton" onClick={this.save}>Save</Button>
+                    </Col>
+
+                </Row>
+            </Grid>
         )
     }
 

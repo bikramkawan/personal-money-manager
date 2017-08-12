@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import InputBox from '../InputBox/InputBox';
 import {connect} from 'react-redux'
-
+import {Glyphicon, Row, Col, Button} from 'react-bootstrap';
 const mapStateToProps = state => {
     return {...state}
 }
@@ -56,25 +56,26 @@ class Transaction extends Component {
 
     render() {
         return (
-            <div className="row" data-id={this.props.data.id}>
-                <div className="col-md-1 items">{this.toggleRender('id', this.props.data.id)}</div>
-                <div className="col-md-2 items">{this.toggleRender('date', this.props.data.date)}</div>
-                <div className="col-md-3 items">{this.toggleRender('payment', this.props.data.payment)}</div>
-                <div className="col-md-2 items">{this.toggleRender('category', this.props.data.category)}</div>
-                <div className="col-md-1 items">{this.toggleRender('debit', this.props.data.debit)}</div>
-                <div className="col-md-1 items">{this.toggleRender('credit', this.props.data.credit)}</div>
-                <div className="col-md-1 items">
-                    <span onClick={this.editMe.bind(this, this.props.data.id)}
-                          className="glyphicon glyphicon-edit"></span>
+            <Row data-id={this.props.data.id}>
+                <Col md={1}>{this.toggleRender('id', this.props.data.id)}</Col>
+                <Col md={2}>{this.toggleRender('date', this.props.data.date)}</Col>
+                <Col md={3}>{this.toggleRender('payment', this.props.data.payment)}</Col>
+                <Col md={2}>{this.toggleRender('category', this.props.data.category)}</Col>
+                <Col md={1}>{this.toggleRender('debit', this.props.data.debit)}</Col>
+                <Col md={1}>{this.toggleRender('credit', this.props.data.credit)}</Col>
+                <Col md={1}>
+                    <Button onClick={this.editMe.bind(this, this.props.data.id)}><Glyphicon
+                        glyph="glyphicon glyphicon-edit"/></Button>
 
-                </div>
-                <div className="col-md-1 items">
-                   <span onClick={this.delete.bind(this, this.props.data.id)}
-                         className="glyphicon glyphicon-trash"></span>
+                </Col>
+                <Col md={1}>
+                    <Button onClick={this.delete.bind(this, this.props.data.id)}>
+                        <Glyphicon glyph="glyphicon glyphicon-trash"/></Button>
 
-                </div>
 
-            </div>
+                </Col>
+
+            </Row>
         )
 
     }
