@@ -32,7 +32,7 @@ class Transaction extends Component {
     }
 
     editMe = (id) => {
-
+        console.log(id)
         this.setState({isEditMode: true}, ()=>this.props.onEdit(id))
     }
 
@@ -66,16 +66,14 @@ class Transaction extends Component {
                 <div className="col-md-1 items">{this.toggleRender('debit', this.props.data.debit)}</div>
                 <div className="col-md-1 items">{this.toggleRender('credit', this.props.data.credit)}</div>
                 <div className="col-md-1 items">
-                    <a href="#">
                         <span onClick={this.editMe.bind(this, this.props.data.id)}
                               className="glyphicon glyphicon-edit"></span>
-                    </a>
+
                 </div>
                 <div className="col-md-1 items">
-                    <a href="#">
-                        <span onClick={this.delete.bind(this, this.props.data.id)}
-                              className="glyphicon glyphicon-trash"></span>
-                    </a>
+                       <span onClick={this.delete.bind(this, this.props.data.id)}
+                             className="glyphicon glyphicon-trash"></span>
+
                 </div>
 
             </div>
