@@ -1,0 +1,24 @@
+@import "../../app";
+
+.budgetSummary {
+  & > .row {
+    height: 40px;
+  }
+
+  .header {
+    background-color: grey;
+    color: white;
+  }
+  .title {
+    .font-medium;
+  }
+  .body {
+    background-color: gainsboro;
+    color: black;
+    .font-medium;
+    &.net {
+      border-top-style: double;
+    }
+  }
+
+}
