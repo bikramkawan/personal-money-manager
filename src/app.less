@@ -1,8 +1,10 @@
 @import "./components/InputBox/input";
 @import "./components/Rows/Transaction";
 @import "./components/Report/BudgetSummary";
+@import "./components/Report/BarChart";
+
 @link-color: #337ab7;
-@font-medium:20px;
+@font-medium: 20px;
 .app {
   background-color: aliceblue;
   height: 100vh;
@@ -14,6 +16,13 @@
 
 }
 
-.font-medium{
+.font-medium {
   font-size: 20px;
+}
+
+.grid {
+  .font-medium;
+  & > .row {
+    height: 40px;
+  }
 }

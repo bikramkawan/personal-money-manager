@@ -2,8 +2,9 @@
  * Created by bikramkawan on 8/13/17.
  */
 import React, {Component} from 'react';
-import BudgetSummary from './Report/BudgetSummary'
-import * as _ from 'lodash'
+import BudgetSummary from './Report/BudgetSummary';
+import * as _ from 'lodash';
+import BarChart from './Report/BarChart'
 
 export default class Report extends Component {
 
@@ -25,7 +26,10 @@ export default class Report extends Component {
         const summary = this.getSummary();
 
         return (
-            <BudgetSummary summary={summary}/>
+            <div><BudgetSummary summary={summary}/>
+                <BarChart summary={summary}/>
+            </div>
+
         )
     }
 
