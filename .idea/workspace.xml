@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="926c9b71-d91b-4772-acb2-cc34945059e3" name="Default" comment="change bootstrap = &gt; react-bootstrap">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/Report/BarChart.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/Report/BarChart.less" />
+    <list default="true" id="926c9b71-d91b-4772-acb2-cc34945059e3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/Report/Cateogry/Income.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/Report/Cateogry/Income.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.less" afterPath="$PROJECT_DIR$/src/app.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Report.js" afterPath="$PROJECT_DIR$/src/components/Report.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Report/BudgetSummary.js" afterPath="$PROJECT_DIR$/src/components/Report/BudgetSummary.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Report/BudgetSummary.less" afterPath="$PROJECT_DIR$/src/components/Report/BudgetSummary.less" />
     </list>
     <ignored path="myapp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -16,6 +14,7 @@
     <ignored path="src/app.css" />
     <ignored path="src/components/Report/BudgetSummary.css" />
     <ignored path="src/components/Rows/Transaction.css" />
+    <ignored path="src/components/Report/BarChart.css" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,33 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddTransaction.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/AddTransaction.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-              <folding>
-                <element signature="e#46#85#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="app.less" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Transaction.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Rows/Transaction.js">
-          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="60" />
+              <caret line="4" column="44" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -80,7 +57,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/Report.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+              <caret line="30" column="40" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
               <folding>
                 <element signature="e#46#85#0" expanded="true" />
               </folding>
@@ -88,29 +65,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BarChart.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BarChart.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Report/BarChart.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="28" column="26" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+            <state relative-caret-position="120">
+              <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
               <folding>
                 <element signature="e#46#85#0" expanded="true" />
-                <marker date="1502752361000" expanded="true" signature="765:2073" ph="..." />
-                <marker date="1502752361000" expanded="true" signature="783:1089" ph="..." />
-                <marker date="1502752361000" expanded="true" signature="1129:1452" ph="..." />
-                <marker date="1502752361000" expanded="true" signature="1470:1656" ph="..." />
-                <marker date="1502752361000" expanded="true" signature="1674:1862" ph="..." />
-                <marker date="1502752361000" expanded="true" signature="1880:2057" ph="..." />
+                <marker date="1502754402000" expanded="true" signature="765:2073" ph="..." />
+                <marker date="1502754402000" expanded="true" signature="783:1089" ph="..." />
+                <marker date="1502754402000" expanded="true" signature="1129:1452" ph="..." />
+                <marker date="1502754402000" expanded="true" signature="1470:1656" ph="..." />
+                <marker date="1502754402000" expanded="true" signature="1674:1862" ph="..." />
+                <marker date="1502754402000" expanded="true" signature="1880:2057" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BarChart.less" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Income.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Report/Cateogry/Income.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+              <folding>
+                <element signature="e#46#85#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Income.less" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Report/Cateogry/Income.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BarChart.less" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Report/BarChart.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="36" selection-end-column="1" />
+            <state relative-caret-position="300">
+              <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -119,11 +118,9 @@
       <file leaf-file-name="BudgetSummary.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Report/BudgetSummary.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="49" column="38" selection-start-line="49" selection-start-column="38" selection-end-line="49" selection-end-column="38" />
-              <folding>
-                <element signature="e#46#84#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="30">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,8 +138,8 @@
       <file leaf-file-name="Transaction.less" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Rows/Transaction.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="20" />
+            <state relative-caret-position="300">
+              <caret line="45" column="3" selection-start-line="39" selection-start-column="1" selection-end-line="45" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -194,12 +191,14 @@
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/src/components/AddTransaction.js" />
         <option value="$PROJECT_DIR$/src/app.js" />
-        <option value="$PROJECT_DIR$/src/components/Report.js" />
         <option value="$PROJECT_DIR$/src/components/Report/BudgetSummary.js" />
         <option value="$PROJECT_DIR$/src/components/Report/BudgetSummary.less" />
-        <option value="$PROJECT_DIR$/src/app.less" />
-        <option value="$PROJECT_DIR$/src/components/Report/BarChart.js" />
         <option value="$PROJECT_DIR$/src/components/Report/BarChart.less" />
+        <option value="$PROJECT_DIR$/src/components/Report.js" />
+        <option value="$PROJECT_DIR$/src/app.less" />
+        <option value="$PROJECT_DIR$/src/components/Report/Cateogry/Income.less" />
+        <option value="$PROJECT_DIR$/src/components/Report/Cateogry/Income.js" />
+        <option value="$PROJECT_DIR$/src/components/Report/BarChart.js" />
       </list>
     </option>
   </component>
@@ -289,28 +288,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="personal-money-manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="personal-money-manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Report" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -636,7 +613,14 @@
       <option name="project" value="LOCAL" />
       <updated>1502746855472</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="simple bar chart added">
+      <created>1502752538434</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1502752538434</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -685,23 +669,14 @@
     <MESSAGE value="change bootstrap = &gt; react-bootstrap" />
     <MESSAGE value="add budget summary to report" />
     <MESSAGE value="deploy gh-pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="deploy gh-pages" />
+    <MESSAGE value="simple bar chart added" />
+    <option name="LAST_COMMIT_MESSAGE" value="simple bar chart added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Comment.js" />
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.js" />
     <entry file="file://$PROJECT_DIR$/Procfile" />
     <entry file="file://$PROJECT_DIR$/src/model/comments.js" />
     <entry file="file://$PROJECT_DIR$/src/index.js">
@@ -806,14 +781,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="9" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
@@ -896,40 +863,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Rows/Transaction.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="9" column="15" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
           <folding>
             <element signature="e#45#84#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Report.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding>
-            <element signature="e#46#85#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Report/BudgetSummary.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="49" column="38" selection-start-line="49" selection-start-column="38" selection-end-line="49" selection-end-column="38" />
-          <folding>
-            <element signature="e#46#84#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -942,35 +881,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app.less">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="90">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="9" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Report/BarChart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="28" column="26" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
-          <folding>
-            <element signature="e#46#85#0" expanded="true" />
-            <marker date="1502752361000" expanded="true" signature="765:2073" ph="..." />
-            <marker date="1502752361000" expanded="true" signature="783:1089" ph="..." />
-            <marker date="1502752361000" expanded="true" signature="1129:1452" ph="..." />
-            <marker date="1502752361000" expanded="true" signature="1470:1656" ph="..." />
-            <marker date="1502752361000" expanded="true" signature="1674:1862" ph="..." />
-            <marker date="1502752361000" expanded="true" signature="1880:2057" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Report/BarChart.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="36" selection-end-column="1" />
+        <state relative-caret-position="300">
+          <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Report/BudgetSummary.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Report.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="30" column="40" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
+          <folding>
+            <element signature="e#46#85#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/restapienv/lib/python3.6/site-packages/django/contrib/admin/static/admin/css/base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="638" column="1" selection-start-line="638" selection-start-column="1" selection-end-line="638" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Rows/Transaction.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="45" column="3" selection-start-line="39" selection-start-column="1" selection-end-line="45" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="44" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Report/Cateogry/Income.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Report/Cateogry/Income.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+          <folding>
+            <element signature="e#46#85#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Report/BarChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <folding>
+            <element signature="e#46#85#0" expanded="true" />
+            <marker date="1502754402000" expanded="true" signature="765:2073" ph="..." />
+            <marker date="1502754402000" expanded="true" signature="783:1089" ph="..." />
+            <marker date="1502754402000" expanded="true" signature="1129:1452" ph="..." />
+            <marker date="1502754402000" expanded="true" signature="1470:1656" ph="..." />
+            <marker date="1502754402000" expanded="true" signature="1674:1862" ph="..." />
+            <marker date="1502754402000" expanded="true" signature="1880:2057" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

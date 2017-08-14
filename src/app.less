@@ -2,6 +2,7 @@
 @import "./components/Rows/Transaction";
 @import "./components/Report/BudgetSummary";
 @import "./components/Report/BarChart";
+@import "./components/Report/Cateogry/Income";
 
 @link-color: #337ab7;
 @font-medium: 20px;
@@ -25,4 +26,16 @@
   & > .row {
     height: 40px;
   }
+
+  &.makeTable {
+    .row:nth-child(even) {
+      background-color: #F2F2F2;
+    }
+
+    .row:nth-child(odd) {
+      background-color: #FFF
+    }
+  }
+
 }
+

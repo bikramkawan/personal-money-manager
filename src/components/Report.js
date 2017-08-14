@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import BudgetSummary from './Report/BudgetSummary';
 import * as _ from 'lodash';
 import BarChart from './Report/BarChart'
+import Income from './Report/Cateogry/Income';
 
 export default class Report extends Component {
 
@@ -17,17 +18,17 @@ export default class Report extends Component {
 
         const totalCredit = _.sumBy(this.props.data, (d)=> d.credit > 0 ? d.credit : 0);
         const totalDebit = _.sumBy(this.props.data, (d)=> d.debit > 0 ? d.debit : 0);
-        console.log(totalCredit, totalDebit)
         return {totalCredit: totalCredit, totalDebit: totalDebit}
 
     }
 
     render() {
         const summary = this.getSummary();
-
+        const income = {salary:summary.totalDebit}
         return (
             <div><BudgetSummary summary={summary}/>
                 <BarChart summary={summary}/>
+                <Income income = {income}/>
             </div>
 
         )
