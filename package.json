@@ -2,6 +2,7 @@
   "name": "myapp",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://bikramkawan.github.io/personal-money-manager",
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
@@ -18,7 +19,6 @@
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.2",
-    "react-scripts": "1.0.10",
     "redux": "^3.7.2",
     "store2": "^2.5.2"
   },
@@ -27,9 +27,13 @@
     "start-dev": "nf start -p 3000",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.23.0"
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "react-scripts": "1.0.10",
+    "gh-pages": "^1.0.0"
   }
 }
