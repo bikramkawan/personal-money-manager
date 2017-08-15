@@ -6,6 +6,7 @@ import BudgetSummary from './Report/BudgetSummary';
 import * as _ from 'lodash';
 import BarChart from './Report/BarChart'
 import Income from './Report/Cateogry/Income';
+import Expense from './Report/Cateogry/Expense';
 
 export default class Report extends Component {
 
@@ -24,11 +25,13 @@ export default class Report extends Component {
 
     render() {
         const summary = this.getSummary();
-        const income = {salary:summary.totalDebit}
+        const income = {salary: summary.totalDebit};
+
         return (
-            <div><BudgetSummary summary={summary}/>
+            <div style={{overflow:'auto'}}><BudgetSummary summary={summary}/>
                 <BarChart summary={summary}/>
-                <Income income = {income}/>
+                <Income income={income}/>
+                <Expense data={this.props.data}/>
             </div>
 
         )
