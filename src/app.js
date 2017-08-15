@@ -11,14 +11,14 @@ const data = [{
     "id": 1,
     "date": "01.01.2017",
     "payment": "Room Rent",
-    "category": "Housing",
-    "debit":'' ,
+    "category": "rent",
+    "debit": '',
     "credit": 430
 }, {
     "id": 2,
     "date": "02.01.2017",
     "payment": "Happy Noodles",
-    "category": "Lunch Outside",
+    "category": "groceries",
     "debit": '',
     "credit": 4
 }, {
@@ -32,8 +32,8 @@ const data = [{
     "id": 4,
     "date": "04.01.2017",
     "payment": "drei",
-    "category": "Mobile",
-    "debit":'',
+    "category": "utilities",
+    "debit": '',
     "credit": 15
 }, {
     "id": 5,
@@ -42,6 +42,13 @@ const data = [{
     "category": "Groceries",
     "debit": '',
     "credit": 20
+}, {
+    "id": 6,
+    "date": "05.01.2017",
+    "payment": "Wien Liner",
+    "category": "transportation",
+    "debit": '',
+    "credit": 31
 }];
 
 
