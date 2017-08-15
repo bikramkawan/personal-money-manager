@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="926c9b71-d91b-4772-acb2-cc34945059e3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.js" afterPath="$PROJECT_DIR$/src/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Report.js" afterPath="$PROJECT_DIR$/src/components/Report.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Report/Cateogry/Expense.js" afterPath="$PROJECT_DIR$/src/components/Report/Cateogry/Expense.js" />
     </list>
     <ignored path="myapp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,7 +29,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="143">
@@ -53,8 +54,8 @@
       <file leaf-file-name="Report.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Report.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="30" column="39" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
+            <state relative-caret-position="330">
+              <caret line="33" column="80" selection-start-line="33" selection-start-column="80" selection-end-line="33" selection-end-column="80" />
               <folding>
                 <element signature="e#46#85#0" expanded="true" />
               </folding>
@@ -80,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Expense.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Expense.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Report/Cateogry/Expense.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="7" column="49" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="49" />
+            <state relative-caret-position="315">
+              <caret line="77" column="51" selection-start-line="77" selection-start-column="51" selection-end-line="77" selection-end-column="51" />
               <folding>
                 <element signature="e#46#85#0" expanded="true" />
               </folding>
@@ -196,9 +197,9 @@
         <option value="$PROJECT_DIR$/src/components/Report/Cateogry/Income.less" />
         <option value="$PROJECT_DIR$/src/components/Report/Cateogry/Income.js" />
         <option value="$PROJECT_DIR$/src/components/Report/BarChart.js" />
+        <option value="$PROJECT_DIR$/src/app.js" />
         <option value="$PROJECT_DIR$/src/components/Report.js" />
         <option value="$PROJECT_DIR$/src/components/Report/Cateogry/Expense.js" />
-        <option value="$PROJECT_DIR$/src/app.js" />
       </list>
     </option>
   </component>
@@ -685,7 +686,14 @@
       <option name="project" value="LOCAL" />
       <updated>1502756053250</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="update data template">
+      <created>1502756207602</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1502756207602</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -737,7 +745,8 @@
     <MESSAGE value="simple bar chart added" />
     <MESSAGE value="income category prototype added" />
     <MESSAGE value="prepare template for expense summary" />
-    <option name="LAST_COMMIT_MESSAGE" value="prepare template for expense summary" />
+    <MESSAGE value="update data template" />
+    <option name="LAST_COMMIT_MESSAGE" value="update data template" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1019,10 +1028,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
+          <folding>
+            <element signature="e#45#84#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Report.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="30" column="39" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
+        <state relative-caret-position="330">
+          <caret line="33" column="80" selection-start-line="33" selection-start-column="80" selection-end-line="33" selection-end-column="80" />
           <folding>
             <element signature="e#46#85#0" expanded="true" />
           </folding>
@@ -1031,20 +1050,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Report/Cateogry/Expense.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="7" column="49" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="49" />
+        <state relative-caret-position="315">
+          <caret line="77" column="51" selection-start-line="77" selection-start-column="51" selection-end-line="77" selection-end-column="51" />
           <folding>
             <element signature="e#46#85#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
-          <folding>
-            <element signature="e#45#84#0" expanded="true" />
           </folding>
         </state>
       </provider>
