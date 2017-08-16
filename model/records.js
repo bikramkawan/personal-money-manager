@@ -19,4 +19,4 @@ var recordSchema = new Schema({
 });
 
 //export our module to use in server.js
-module.exports = mongoose.model('Comment', recordSchema);
+module.exports = mongoose.model('records', recordSchema);
