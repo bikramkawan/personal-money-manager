@@ -10,12 +10,12 @@ var Schema = mongoose.Schema;
 //create new instance of the mongoose.schema. the schema takes an object that shows
 //the shape of your database entries.
 var recordSchema = new Schema({
-    id: String,
+    id: Number,
     date: String,
     payment: String,
     category: String,
-    debit: String,
-    credit: String
+    debit: Number,
+    credit: Number
 });
 
 //export our module to use in server.js

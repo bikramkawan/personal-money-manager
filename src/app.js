@@ -121,7 +121,7 @@ class App extends Component {
                            onSave={this.onSave}/>}
 
                 />
-                <Route path='/Report/' component={()=> <Report store={this.store} data={data}/>}/>
+                <Route path='/Report/' component={()=> <Report store={this.store} data={this.state.data}/>}/>
             </div>)
     }
 
