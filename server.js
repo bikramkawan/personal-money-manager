@@ -96,7 +96,7 @@ router.route('/records')
         (req.body.category) ? records.category = req.body.category : null;
         (req.body.credit) ? records.credit = req.body.credit : null;
         (req.body.debit) ? records.debit = req.body.debit : null;
-
+        console.log(records)
         records.save(function (err) {
             if (err)
                 res.send(err);
@@ -105,29 +105,35 @@ router.route('/records')
     });
 
 //Adding a route to a specific comment based on the database ID
-router.route('/comments/:comment_id')
+router.route('/records/:records_id')
 //The put method gives us the chance to update our comment based on the ID passed to the route
-//     .put(function (req, res) {
-//         Records.findById(req.params.comment_id, function (err, comment) {
-//             if (err)
-//                 res.send(err);
-//             //setting the new author and text to whatever was changed. If nothing was changed
-//             // we will not alter the field.
-//             (req.body.author) ? comment.author = req.body.author : null;
-//             (req.body.text) ? comment.text = req.body.text : null;
-//             (req.body.age) ? comment.text = req.body.age : null;
-//             //save comment
-//             comment.save(function (err) {
-//                 if (err)
-//                     res.send(err);
-//                 res.json({message: 'Records has been updated'});
-//             });
-//         });
-//     })
-//delete method for removing a comment from our database
+    .put(function (req, res) {
+
+        Records.findById(req.params.records_id, function (err, records) {
+            console.log(err, records, req.params.records_id, req.body)
+            if (err)
+                res.send(err);
+            //setting the new author and text to whatever was changed. If nothing was changed
+            // we will not alter the field.
+
+            (req.body.id) ? records.id = req.body.id : null;
+            (req.body.date) ? records.date = req.body.date : null;
+            (req.body.payment) ? records.payment = req.body.payment : null;
+            (req.body.category) ? records.category = req.body.category : null;
+            (req.body.credit) ? records.credit = req.body.credit : null;
+            (req.body.debit) ? records.debit = req.body.debit : null;
+            //save comment
+            records.save(function (err) {
+                if (err)
+                    res.send(err);
+                res.json({message: 'Records has been updated'});
+            });
+        });
+    })
+    //delete method for removing a comment from our database
     .delete(function (req, res) {
         //selects the comment by its ID, then removes it.
-        Records.remove({_id: req.params.comment_id}, function (err, comment) {
+        Records.remove({_id: req.params.records_id}, function (err, comment) {
             if (err)
                 res.send(err);
             res.json({message: 'Records has been deleted'})

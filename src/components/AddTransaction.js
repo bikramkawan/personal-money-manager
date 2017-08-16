@@ -19,7 +19,7 @@ class AddTransaction extends Component {
         this.state = {
             data: props.data,
             fields: {
-                id: '',
+                uniqueKey: '',
                 date: '',
                 payment: '',
                 category: '',
@@ -41,25 +41,36 @@ class AddTransaction extends Component {
     }
 
 
-    deleteRow = (id) => {
-        const index = this.state.data.findIndex(d=>d.id === id);
+    deleteRow = (uniqueKey) => {
+        console.log(uniqueKey)
+        const index = this.state.data.findIndex(d=>d._id === uniqueKey);
         const temp = this.state.data.slice();
         temp.splice(index, 1);
-        this.setState({data: temp})
+        this.setState({data: temp}, ()=>this.props.onDelete(uniqueKey))
 
 
     }
     handleChange = (args)=> {
-        if (!_.isUndefined(args.id)) {
-            const index = this.state.data.findIndex(d=>d.id === args.id);
+        console.log(args)
+        if (!_.isUndefined(args.uniqueKey)) {
+            const index = this.state.data.findIndex(d=>d._id === args.uniqueKey);
             const temp = this.state.data.slice();
             const obj = temp[index];
-            const updateObj = {...obj, [args.ref]: args.value};
-            this.setState({updateData: {index: index, data: updateObj}})
 
+            const updateObj = {...obj, [args.ref]: args.value};
+
+            this.setState({
+                updateData: {
+                    index: index,
+                    data: updateObj
+                }
+            }, ()=>this.props.onUpdate(args.uniqueKey, updateObj))
+            console.log(this.state)
 
         }
+
         const fields = {...this.state.fields, [args.ref]: args.value}
+
         this.setState({fields: fields})
 
 
@@ -67,9 +78,11 @@ class AddTransaction extends Component {
 
 
     save = ()=> {
+
         if (this.state.isEditMode) {
             const temp = this.state.data.slice();
             temp.splice(this.state.updateData.index, 1, this.state.updateData.data)
+
             this.setState({data: temp, isEditMode: false})
 
         } else {
@@ -87,12 +100,14 @@ class AddTransaction extends Component {
 
         return (<Grid fluid={true}>
                 <Header/>
-                {this.state.data.map(data=>
+                {this.state.data.map((data, index)=>
                     <Transaction data={data} onDeleteRow={this.deleteRow}
                                  onChange={this.handleChange}
                                  onEdit={this.editRow}
                                  store={this.props.store}
-                                 key={data.id}
+                                 uniqueKey={data._id}
+                                 id={index}
+                                 key={data._id}
                     />)}
                 <AddItem onChange={this.handleChange}/>
 

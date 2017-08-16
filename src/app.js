@@ -74,11 +74,30 @@ class App extends Component {
     onSave = (data) => {
         let records = this.state.data;
         let newComments = records.concat([data]);
+
         this.setState({data: newComments});
         axios.post(this.props.url, data)
             .catch(err => {
 
                 this.setState({data: records});
+            });
+
+    }
+
+    onUpdate = (uniqueKey, data) => {
+        axios.put(`${this.props.url}/${uniqueKey}`, data)
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    onDelete = (uniqueKey) => {
+        axios.delete(`${this.props.url}/${uniqueKey}`)
+            .then(res => {
+                console.log('Comment deleted');
+            })
+            .catch(err => {
+                console.error(err);
             });
 
     }
@@ -97,6 +116,8 @@ class App extends Component {
                        component={()=> <AddTransaction
                            store={this.store}
                            data={this.state.data}
+                           onUpdate={this.onUpdate}
+                           onDelete={this.onDelete}
                            onSave={this.onSave}/>}
 
                 />
