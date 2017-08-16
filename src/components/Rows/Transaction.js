@@ -38,6 +38,7 @@ class Transaction extends Component {
 
     toggleRender(ref, value) {
         if (this.state.isEditMode) {
+
             return <InputBox
                 ref={ref}
                 placeholder="Enter #.."
@@ -61,7 +62,7 @@ class Transaction extends Component {
                 <Col md={1}>{this.props.id}</Col>
                 <Col md={2}>{this.toggleRender('date', this.props.data.date)}</Col>
                 <Col md={3}>{this.toggleRender('payment', this.props.data.payment)}</Col>
-                <Col md={2}>{this.toggleRender('category', this.props.data.category)}</Col>
+                <Col md={2} className="text-capitalize">{this.toggleRender('category', this.props.data.category)}</Col>
                 <Col md={1}>{this.toggleRender('debit', this.props.data.debit)}</Col>
                 <Col md={1}>{this.toggleRender('credit', this.props.data.credit)}</Col>
                 <Col md={1}>

@@ -4,13 +4,27 @@
 import React, {Component} from 'react';
 import InputBox from '../InputBox/InputBox';
 import {Row, Col} from 'react-bootstrap';
+import SelectBox from '../SelectBox/SelectBox'
+import * as _ from 'lodash';
+
+
+const categories = {
+    rent: 'rent',
+    groceries: 'groceries',
+    salary: 'salary',
+    utilities: 'utilities',
+    transportation: 'transportation'
+}
+
+
 export default class AddItem extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             ref: '',
-            value: ''
+            value: '',
+
         }
     }
 
@@ -20,15 +34,20 @@ export default class AddItem extends Component {
 
     }
 
+    handleSelect = (categoryName) => {
+        this.props.onSelect(categoryName)
+    }
+
 
     render() {
+
         return (
             <Row>
                 <Col md={1}>
                     {/*<InputBox*/}
-                        {/*ref='id'*/}
-                        {/*placeholder="Enter #.."*/}
-                        {/*onChange={this.handleChange.bind(this, 'id')}/>*/}
+                    {/*ref='id'*/}
+                    {/*placeholder="Enter #.."*/}
+                    {/*onChange={this.handleChange.bind(this, 'id')}/>*/}
                 </Col>
                 <Col md={2}>
                     <InputBox
@@ -42,10 +61,8 @@ export default class AddItem extends Component {
                         onChange={this.handleChange.bind(this, 'payment')}/>
                 </Col>
                 <Col md={2}>
-                    <InputBox
-                        ref='category'
-                        placeholder="Enter cateogry.."
-                        onChange={this.handleChange.bind(this, 'category')}/>
+                    <SelectBox ref='category' menuItems={_.keys(categories)}
+                               onSelect={this.handleSelect}/>
                 </Col>
                 <Col md={1}>
                     <InputBox

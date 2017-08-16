@@ -10,6 +10,7 @@ import {Grid, Row, Col, Button} from 'react-bootstrap';
 import AlertDismissable from './AlertDismissable'
 import * as _ from 'lodash';
 import * as $ from 'jquery'
+import SelectBox from './SelectBox/SelectBox'
 
 
 class AddTransaction extends Component {
@@ -41,7 +42,7 @@ class AddTransaction extends Component {
 
 
     deleteRow = (uniqueKey) => {
-        console.log(uniqueKey)
+
         const index = this.state.data.findIndex(d=>d._id === uniqueKey);
         const temp = this.state.data.slice();
         temp.splice(index, 1);
@@ -92,6 +93,10 @@ class AddTransaction extends Component {
     }
 
 
+    handleSelect = (categoryName) => {
+        this.setState({fields: {...this.state.fields, category: categoryName}})
+    }
+
     render() {
         return (<Grid fluid={true}>
                 <Header/>
@@ -104,7 +109,7 @@ class AddTransaction extends Component {
                                  id={index}
                                  key={data._id}
                     />)}
-                <AddItem onChange={this.handleChange}/>
+                <AddItem onChange={this.handleChange} onSelect={this.handleSelect}/>
 
                 <Row className="alertMessage">
                     <Col md={4} className="saveCol">
