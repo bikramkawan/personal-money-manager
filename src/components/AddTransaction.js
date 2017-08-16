@@ -12,7 +12,6 @@ import * as _ from 'lodash';
 import * as $ from 'jquery'
 
 
-
 class AddTransaction extends Component {
 
     constructor(props) {
@@ -76,7 +75,7 @@ class AddTransaction extends Component {
         } else {
             const temp = this.state.data;
             temp.push(this.state.fields)
-            this.setState({data: temp})
+            this.setState({data: temp}, ()=>this.props.onSave(this.state.fields))
         }
 
         this.store.dispatch(isSaved());

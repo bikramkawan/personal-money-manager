@@ -11,7 +11,6 @@ export default class Income extends Component {
     }
 
     render() {
-        console.log(this.props.income)
         return (<Grid className="grid makeTable Income">
             <Row className='header'>
                 <Col md={6}>Income</Col>

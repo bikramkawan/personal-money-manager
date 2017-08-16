@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 // import 'bootstrap/dist/js/bootstrap.js';
 
 import myApp from './reducers'
-import { createStore } from 'redux';
+import {createStore} from 'redux';
 import {HashRouter} from 'react-router-dom'
 
 
@@ -15,6 +15,6 @@ let store = createStore(myApp)
 
 
 ReactDOM.render(
-  <HashRouter><App store={store}/></HashRouter>,
-  document.getElementById('root')
+    <HashRouter><App url='http://localhost:3001/api/records' store={store}/></HashRouter>,
+    document.getElementById('root')
 );

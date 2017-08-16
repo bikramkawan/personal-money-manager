@@ -6,6 +6,7 @@ import AddTransaction from './components/AddTransaction'
 import {Route} from 'react-router-dom'
 import Menu from './components/Menu'
 import Report from './components/Report'
+import axios from 'axios';
 
 const data = [{
     "id": 1,
@@ -56,10 +57,34 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.store = this.props.store;
+        this.state = {
+            data: []
+        }
 
     }
 
-    open = ()=> {
+
+    loadRecordsFromServer() {
+        axios.get(this.props.url)
+            .then(res => {
+                this.setState({data: res.data});
+            })
+    }
+
+    onSave = (data) => {
+        let records = this.state.data;
+        let newComments = records.concat([data]);
+        this.setState({data: newComments});
+        axios.post(this.props.url, data)
+            .catch(err => {
+
+                this.setState({data: records});
+            });
+
+    }
+
+    componentDidMount() {
+        this.loadRecordsFromServer();
 
     }
 
@@ -68,7 +93,13 @@ class App extends Component {
             <div className="app">
                 <Menu/>
 
-                <Route path='/AddTransaction/' component={()=> <AddTransaction store={this.store} data={data}/>}/>
+                <Route path='/AddTransaction/'
+                       component={()=> <AddTransaction
+                           store={this.store}
+                           data={this.state.data}
+                           onSave={this.onSave}/>}
+
+                />
                 <Route path='/Report/' component={()=> <Report store={this.store} data={data}/>}/>
             </div>)
     }

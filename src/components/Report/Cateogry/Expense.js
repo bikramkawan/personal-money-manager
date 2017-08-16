@@ -21,7 +21,6 @@ export default class Expense extends Component {
         const rent = _.sumBy(filterByExpense, (d)=> {
             if (d.category === expensesCat.rent) return d.credit
         });
-        console.log(rent)
         const transportation = _.sumBy(filterByExpense, (d)=> {
             if (d.category === expensesCat.transportation) return d.credit
         });
@@ -39,7 +38,7 @@ export default class Expense extends Component {
 
     render() {
         const expenseByCat = this.prepareData();
-        console.log(expenseByCat,this.props)
+        console.log(expenseByCat, this.props)
         return (<Grid className="grid makeTable Income">
             <Row className='header'>
                 <Col md={6}>Expenses</Col>
