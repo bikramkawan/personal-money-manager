@@ -58,7 +58,7 @@ class Transaction extends Component {
 
         return (
             <Row data-id={this.props.id}>
-                <Col md={1}>{this.toggleRender('id', this.props.id)}</Col>
+                <Col md={1}>{this.props.id}</Col>
                 <Col md={2}>{this.toggleRender('date', this.props.data.date)}</Col>
                 <Col md={3}>{this.toggleRender('payment', this.props.data.payment)}</Col>
                 <Col md={2}>{this.toggleRender('category', this.props.data.category)}</Col>

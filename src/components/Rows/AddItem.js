@@ -25,10 +25,10 @@ export default class AddItem extends Component {
         return (
             <Row>
                 <Col md={1}>
-                    <InputBox
-                        ref='id'
-                        placeholder="Enter #.."
-                        onChange={this.handleChange.bind(this, 'id')}/>
+                    {/*<InputBox*/}
+                        {/*ref='id'*/}
+                        {/*placeholder="Enter #.."*/}
+                        {/*onChange={this.handleChange.bind(this, 'id')}/>*/}
                 </Col>
                 <Col md={2}>
                     <InputBox
