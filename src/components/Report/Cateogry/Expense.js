@@ -34,10 +34,12 @@ export default class Expense extends Component {
 
         const expenseByCat = {rent: rent, transportation: transportation, utilities: utilities, groceries: groceries}
 
+        return expenseByCat;
     }
 
     render() {
-        this.prepareData()
+        const expenseByCat = this.prepareData();
+        console.log(expenseByCat,this.props)
         return (<Grid className="grid makeTable Income">
             <Row className='header'>
                 <Col md={6}>Expenses</Col>
@@ -48,32 +50,32 @@ export default class Expense extends Component {
             <Row className='title'>
                 <Col md={6}>Rent</Col>
                 <Col md={2}>0.0</Col>
-                {/*<Col md={2}>{this.props.income.salary}</Col>*/}
-                {/*<Col md={2}>{this.props.income.salary}</Col>*/}
+                <Col md={2}>{expenseByCat.rent}</Col>
+                <Col md={2}>{expenseByCat.rent}</Col>
             </Row>
             <Row className='title'>
                 <Col md={6}>Transportation</Col>
                 <Col md={2}>0.0</Col>
-                <Col md={2}>0</Col>
-                <Col md={2}>0</Col>
+                <Col md={2}>{expenseByCat.transportation}</Col>
+                <Col md={2}>{expenseByCat.transportation}</Col>
             </Row>
             <Row className='title'>
                 <Col md={6}>Groceries</Col>
                 <Col md={2}>0.0</Col>
-                <Col md={2}>0.0</Col>
-                <Col md={2}>0.0</Col>
+                <Col md={2}>{expenseByCat.groceries}</Col>
+                <Col md={2}>{expenseByCat.groceries}</Col>
             </Row>
             <Row className='title'>
                 <Col md={6}>Utilities</Col>
                 <Col md={2}>0.0</Col>
-                <Col md={2}>0.0</Col>
-                <Col md={2}>0.0</Col>
+                <Col md={2}>{expenseByCat.utilities}</Col>
+                <Col md={2}>{expenseByCat.utilities}</Col>
             </Row>
             <Row className='total'>
                 <Col md={6}>Total Expense</Col>
                 <Col md={2}>0.0</Col>
-                {/*<Col md={2}>{this.props.income.salary}</Col>*/}
-                {/*<Col md={2}>{this.props.income.salary}</Col>*/}
+                <Col md={2}>{this.props.totalCredit}</Col>
+                <Col md={2}>{this.props.totalCredit}</Col>
             </Row>
         </Grid>)
     }

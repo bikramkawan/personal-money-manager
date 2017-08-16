@@ -31,7 +31,7 @@ export default class Report extends Component {
             <div style={{overflow:'auto'}}><BudgetSummary summary={summary}/>
                 <BarChart summary={summary}/>
                 <Income income={income}/>
-                <Expense data={this.props.data}/>
+                <Expense data={this.props.data} totalCredit={summary.totalCredit}/>
             </div>
 
         )
