@@ -19,7 +19,6 @@ class AddTransaction extends Component {
         this.state = {
             data: props.data,
             fields: {
-                uniqueKey: '',
                 date: '',
                 payment: '',
                 category: '',
@@ -51,7 +50,7 @@ class AddTransaction extends Component {
 
     }
     handleChange = (args)=> {
-        console.log(args)
+
         if (!_.isUndefined(args.uniqueKey)) {
             const index = this.state.data.findIndex(d=>d._id === args.uniqueKey);
             const temp = this.state.data.slice();
@@ -65,7 +64,6 @@ class AddTransaction extends Component {
                     data: updateObj
                 }
             }, ()=>this.props.onUpdate(args.uniqueKey, updateObj))
-            console.log(this.state)
 
         }
 
@@ -82,13 +80,11 @@ class AddTransaction extends Component {
         if (this.state.isEditMode) {
             const temp = this.state.data.slice();
             temp.splice(this.state.updateData.index, 1, this.state.updateData.data)
-
             this.setState({data: temp, isEditMode: false})
 
         } else {
-            const temp = this.state.data;
-            temp.push(this.state.fields)
-            this.setState({data: temp}, ()=>this.props.onSave(this.state.fields))
+
+            this.props.onSave(this.state.fields)
         }
 
         this.store.dispatch(isSaved());
@@ -97,7 +93,6 @@ class AddTransaction extends Component {
 
 
     render() {
-
         return (<Grid fluid={true}>
                 <Header/>
                 {this.state.data.map((data, index)=>
