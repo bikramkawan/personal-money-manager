@@ -19,7 +19,6 @@ export default class BarChart extends Component {
         $('.income').css('width', `${totalIncome}%`)
         $('.expense').css('width', `${totalExpense}%`)
         $('.netDiff').css('width', `${totalIncome - totalExpense}%`)
-        console.log('je')
     }
 
     render() {

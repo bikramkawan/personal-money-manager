@@ -106,6 +106,7 @@ class AddTransaction extends Component {
                                  onEdit={this.editRow}
                                  store={this.props.store}
                                  uniqueKey={data._id}
+                                 onSelect={this.handleSelect}
                                  id={index}
                                  key={data._id}
                     />)}

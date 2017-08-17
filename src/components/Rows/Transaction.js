@@ -5,6 +5,10 @@ import React, {Component} from 'react';
 import InputBox from '../InputBox/InputBox';
 import {connect} from 'react-redux'
 import {Glyphicon, Row, Col, Button} from 'react-bootstrap';
+import SelectBox from '../SelectBox/SelectBox'
+import * as _ from 'lodash';
+import categories from '../../shared/utils'
+
 const mapStateToProps = state => {
     return {...state}
 }
@@ -38,6 +42,12 @@ class Transaction extends Component {
 
     toggleRender(ref, value) {
         if (this.state.isEditMode) {
+
+            if (ref === 'category') {
+
+                return <SelectBox ref='category' menuItems={_.keys(categories)}
+                                  onSelect={this.handleChange.bind(this, 'category')}/>
+            }
 
             return <InputBox
                 ref={ref}

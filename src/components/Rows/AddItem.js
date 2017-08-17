@@ -6,15 +6,7 @@ import InputBox from '../InputBox/InputBox';
 import {Row, Col} from 'react-bootstrap';
 import SelectBox from '../SelectBox/SelectBox'
 import * as _ from 'lodash';
-
-
-const categories = {
-    rent: 'rent',
-    groceries: 'groceries',
-    salary: 'salary',
-    utilities: 'utilities',
-    transportation: 'transportation'
-}
+import categories from '../../shared/utils'
 
 
 export default class AddItem extends Component {
