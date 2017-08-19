@@ -6,7 +6,7 @@ import Header from './Rows/Header'
 import Transaction from './Rows/Transaction'
 import AddItem from './Rows/AddItem';
 import  {isSaved} from '../actions'
-import {Grid, Row, Col, Button} from 'react-bootstrap';
+import {Grid, Row, Col, Button, FormGroup, Form, FormControl, ControlLabel, HelpBlock} from 'react-bootstrap';
 import AlertDismissable from './AlertDismissable'
 import * as _ from 'lodash';
 import * as $ from 'jquery'
@@ -28,6 +28,7 @@ class AddTransaction extends Component {
             },
             isEditMode: false,
             updateData: {},
+            value: ''
 
 
         }
@@ -52,6 +53,7 @@ class AddTransaction extends Component {
     }
     handleChange = (args)=> {
 
+        console.log(args)
         if (!_.isUndefined(args.uniqueKey)) {
             const index = this.state.data.findIndex(d=>d._id === args.uniqueKey);
             const temp = this.state.data.slice();
@@ -97,6 +99,19 @@ class AddTransaction extends Component {
         this.setState({fields: {...this.state.fields, category: categoryName}})
     }
 
+    getValidationState() {
+        const length = this.state.value.length;
+        console.log(length)
+        if (length > 10) return 'success';
+        else if (length > 5) return 'warning';
+        else if (length > 0) return 'error';
+    }
+
+    handleChangeForm(e) {
+        console.log(e.target.value)
+        this.setState({value: e.target.value});
+    }
+
     render() {
         return (<Grid fluid={true}>
                 <Header/>
@@ -125,6 +140,25 @@ class AddTransaction extends Component {
                     </Col>
 
                 </Row>
+
+
+                <Row className="saveRow">
+                    <Col md={2} className="saveCol">
+                        <FormGroup
+                            controlId="formBasicText"
+                            validationState={this.getValidationState()}>
+                            <ControlLabel>Working example with validation</ControlLabel>
+                            <FormControl
+                                type="text"
+                                value={this.state.value}
+                                placeholder="Enter text"
+                                onChange={this.handleChangeForm.bind(this)}/>
+                        </FormGroup>
+                    </Col>
+
+                </Row>
+
+
             </Grid>
         )
     }
