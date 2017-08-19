@@ -20,7 +20,16 @@ export default class AddItem extends Component {
             category: '',
             debit: '',
             credit: '',
-            date: ''
+            date: '',
+            isValidDate: false,
+            isValidPayment: false,
+
+            isValidEntry: {
+                isdate: false,
+                payment: false,
+                debit: false,
+                credit: false,
+            }
 
         }
     }
@@ -28,6 +37,7 @@ export default class AddItem extends Component {
 
     handleChange = (ref, e)=> {
         const val = e.target.value;
+        this.isValidAll();
         this.setState({ref: ref, [ref]: val}, ()=>this.props.onChange({ref: ref, value: val}))
 
     }
@@ -39,9 +49,11 @@ export default class AddItem extends Component {
     validatePayment() {
         const length = this.state.payment.length;
         if (length < 1) return;
+
         return (length > 6) ? 'success' : 'error';
 
     }
+
 
     validateDate() {
         if (this.state.date.length < 1) return;
@@ -52,7 +64,11 @@ export default class AddItem extends Component {
         } else {
             checkLength = false
         }
-        if (checkLength) return 'success';
+        if (checkLength) {
+
+            return 'success'
+        }
+
         else if (!checkLength) return 'error';
 
     }
@@ -63,9 +79,24 @@ export default class AddItem extends Component {
 
     }
 
+    isValidAll() {
+        const isDate = (this.validateDate() === 'success');
+        const isPayment = (this.validatePayment() === 'success');
+        const isDebit = (this.validateIsNumber(this.state.debit) === 'success');
+        const isCredit = (this.validateIsNumber(this.state.credit) === 'success');
+
+        if (isCredit && isDebit && isPayment && isDate) {
+            this.props.isValidItem(true)
+        } else {
+            this.props.isValidItem(false);
+        }
+
+
+    }
+
 
     render() {
-        console.log(this.state)
+
         return (
             <Row>
                 <Col md={1}>

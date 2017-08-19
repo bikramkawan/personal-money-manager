@@ -28,7 +28,8 @@ class AddTransaction extends Component {
             },
             isEditMode: false,
             updateData: {},
-            value: ''
+            value: '',
+            isDisableSaveButton: true
 
 
         }
@@ -36,7 +37,6 @@ class AddTransaction extends Component {
     }
 
     editRow = (id) => {
-        console.log(id)
         this.setState({isEditMode: true});
 
     }
@@ -53,7 +53,6 @@ class AddTransaction extends Component {
     }
     handleChange = (args)=> {
 
-        console.log(args)
         if (!_.isUndefined(args.uniqueKey)) {
             const index = this.state.data.findIndex(d=>d._id === args.uniqueKey);
             const temp = this.state.data.slice();
@@ -99,20 +98,20 @@ class AddTransaction extends Component {
         this.setState({fields: {...this.state.fields, category: categoryName}})
     }
 
-    getValidationState() {
-        const length = this.state.value.length;
-        console.log(length)
-        if (length > 10) return 'success';
-        else if (length > 5) return 'warning';
-        else if (length > 0) return 'error';
-    }
 
-    handleChangeForm(e) {
-        console.log(e.target.value)
-        this.setState({value: e.target.value});
+    isValidateItem = (isValid)=> {
+
+        if (isValid) {
+            this.setState({isDisableSaveButton: false})
+        } else {
+            this.setState({isDisableSaveButton: true})
+        }
+
+
     }
 
     render() {
+
         return (<Grid fluid={true}>
                 <Header/>
                 {this.state.data.map((data, index)=>
@@ -125,7 +124,8 @@ class AddTransaction extends Component {
                                  id={index}
                                  key={data._id}
                     />)}
-                <AddItem onChange={this.handleChange} onSelect={this.handleSelect}/>
+                <AddItem onChange={this.handleChange} onSelect={this.handleSelect}
+                         isValidItem={this.isValidateItem}/>
 
                 <Row className="alertMessage">
                     <Col md={4} className="saveCol">
@@ -136,28 +136,11 @@ class AddTransaction extends Component {
 
                 <Row className="saveRow">
                     <Col md={2} className="saveCol">
-                        <Button bsStyle="primary" className="saveButton" onClick={this.save}>Save</Button>
+                        <Button bsStyle="primary" className="saveButton" disabled={this.state.isDisableSaveButton}
+                                onClick={this.save}>Save</Button>
                     </Col>
 
                 </Row>
-
-
-                <Row className="saveRow">
-                    <Col md={2} className="saveCol">
-                        <FormGroup
-                            controlId="formBasicText"
-                            validationState={this.getValidationState()}>
-                            <ControlLabel>Working example with validation</ControlLabel>
-                            <FormControl
-                                type="text"
-                                value={this.state.value}
-                                placeholder="Enter text"
-                                onChange={this.handleChangeForm.bind(this)}/>
-                        </FormGroup>
-                    </Col>
-
-                </Row>
-
 
             </Grid>
         )
