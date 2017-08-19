@@ -1,0 +1,30 @@
+.barChart {
+  margin-top: 40px;
+}
+.legend {
+  display: flex;
+  justify-content: space-between;
+}
+.legend .budget {
+  width: 30px;
+  background-color: black;
+}
+.legend .actual {
+  width: 30px;
+  background-color: gray;
+}
+.indicator.row {
+  text-align: right;
+  padding: 0;
+  margin-left: 15px;
+}
+.indicator .col-md-3 {
+  padding: 0;
+}
+.bar {
+  height: 35px;
+}
+.bar > div {
+  height: 35px;
+  background-color: gray;
+}

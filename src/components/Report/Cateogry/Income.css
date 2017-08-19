@@ -1,0 +1,10 @@
+.Income {
+  margin-top: 50px;
+}
+.Income .header {
+  background-color: darkgreen!important;
+  color: white;
+}
+.Income .total {
+  background-color: lightgreen!important;
+}

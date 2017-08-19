@@ -22,6 +22,9 @@
     "redux": "^3.7.2",
     "store2": "^2.5.2"
   },
+  "engines": {
+    "node": "6.11.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "start-dev": "nf start -p 3000",

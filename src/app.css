@@ -1,0 +1,126 @@
+input {
+  width: 100%;
+}
+.container-fluid {
+  width: 100%;
+}
+.container-fluid .row {
+  height: 50px;
+  border-top: 1px solid #eceeef;
+  font-size: 18px;
+}
+.container-fluid .row .glyphicon {
+  color: #337ab7;
+  cursor: pointer;
+}
+.container-fluid .row.saveRow {
+  height: 50px;
+}
+.container-fluid .row .saveButton {
+  width: 100%;
+  font-size: 20px;
+  float: right;
+}
+.container-fluid .row .saveCol {
+  float: right;
+}
+.container-fluid .row .itemValidation {
+  margin: 0;
+}
+.container-fluid .row .itemValidation .form-control {
+  height: 40px;
+}
+.container-fluid .row .itemValidation label {
+  font-size: 15px;
+  margin: 0;
+  font-weight: normal;
+}
+.container-fluid .heading {
+  font-size: 20px;
+  font-weight: bold;
+}
+.container-fluid .row:nth-child(even) {
+  background-color: #F2F2F2;
+}
+.container-fluid .row:nth-child(odd) {
+  background-color: #FFF;
+}
+.budgetSummary .header {
+  background-color: grey;
+  color: white;
+}
+.budgetSummary .title {
+  font-size: 20px;
+}
+.budgetSummary .body {
+  background-color: gainsboro;
+  color: black;
+  font-size: 20px;
+}
+.budgetSummary .body.net {
+  border-top-style: double;
+}
+.barChart {
+  margin-top: 40px;
+}
+.legend {
+  display: flex;
+  justify-content: space-between;
+}
+.legend .budget {
+  width: 30px;
+  background-color: black;
+}
+.legend .actual {
+  width: 30px;
+  background-color: gray;
+}
+.indicator.row {
+  text-align: right;
+  padding: 0;
+  margin-left: 15px;
+}
+.indicator .col-md-3 {
+  padding: 0;
+}
+.bar {
+  height: 35px;
+}
+.bar > div {
+  height: 35px;
+  background-color: gray;
+}
+.Income {
+  margin-top: 50px;
+}
+.Income .header {
+  background-color: darkgreen!important;
+  color: white;
+}
+.Income .total {
+  background-color: lightgreen!important;
+}
+.app {
+  background-color: aliceblue;
+  height: 100vh;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.font-medium {
+  font-size: 20px;
+}
+.grid {
+  font-size: 20px;
+}
+.grid > .row {
+  height: 40px;
+}
+.grid.makeTable .row:nth-child(even) {
+  background-color: #F2F2F2;
+}
+.grid.makeTable .row:nth-child(odd) {
+  background-color: #FFF;
+}
