@@ -20,24 +20,29 @@ class AddTransaction extends Component {
         this.state = {
             data: props.data,
             fields: {
-                date: '',
-                payment: '',
-                category: '',
-                debit: '',
-                credit: ''
+                payment: null,
+                category: null,
+                debit: null,
+                credit: null,
+                date: null,
             },
             isEditMode: false,
-            updateData: {},
+            updateIndex: {},
             value: '',
-            isDisableSaveButton: true
-
+            isDisableSaveButton: true,
 
         }
+
         this.store = this.props.store;
     }
 
-    editRow = (id) => {
+    editRow = (uniqueKey) => {
         this.setState({isEditMode: true});
+        const index = this.state.data.findIndex(d=>d._id === uniqueKey);
+        const temp = this.state.data.slice();
+        const obj = temp[index];
+        this.setState({fields: obj})
+
 
     }
 
@@ -54,23 +59,15 @@ class AddTransaction extends Component {
     handleChange = (args)=> {
 
         if (!_.isUndefined(args.uniqueKey)) {
-            const index = this.state.data.findIndex(d=>d._id === args.uniqueKey);
-            const temp = this.state.data.slice();
-            const obj = temp[index];
-
+            const obj = this.state.fields
             const updateObj = {...obj, [args.ref]: args.value};
-
             this.setState({
-                updateData: {
-                    index: index,
-                    data: updateObj
-                }
+                fields: updateObj
             }, ()=>this.props.onUpdate(args.uniqueKey, updateObj))
 
         }
 
         const fields = {...this.state.fields, [args.ref]: args.value}
-
         this.setState({fields: fields})
 
 
@@ -81,7 +78,7 @@ class AddTransaction extends Component {
 
         if (this.state.isEditMode) {
             const temp = this.state.data.slice();
-            temp.splice(this.state.updateData.index, 1, this.state.updateData.data)
+            temp.splice(this.state.updateIndex, 1, this.state.fields)
             this.setState({data: temp, isEditMode: false})
 
         } else {
@@ -123,6 +120,7 @@ class AddTransaction extends Component {
                                  onSelect={this.handleSelect}
                                  id={index}
                                  key={data._id}
+                                 isValidItem={this.isValidateItem}
                     />)}
                 <AddItem onChange={this.handleChange} onSelect={this.handleSelect}
                          isValidItem={this.isValidateItem}/>

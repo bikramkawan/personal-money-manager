@@ -19,7 +19,14 @@ class Transaction extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEditMode: false, value: ''
+            isEditMode: false,
+            value: '',
+            ref: '',
+            payment: this.props.data.payment || '',
+            category: this.props.data.category || '',
+            debit: this.props.data.debit || '',
+            credit: this.props.data.credit || '',
+            date: this.props.data.date || '',
         }
         this.store = this.props.store;
 
@@ -30,9 +37,15 @@ class Transaction extends Component {
 
         this.props.onDeleteRow(uniqueKey);
     }
-    handleChange = (ref, args)=> {
+    handleChange = (ref, e)=> {
+        const val = e.target.value;
+        this.isValidAll();
+        this.setState({ref: ref, [ref]: val}, ()=>this.props.onChange({
+            ref: ref,
+            value: val,
+            uniqueKey: this.props.uniqueKey
+        }))
 
-        this.props.onChange({ref: ref, value: args, uniqueKey: this.props.uniqueKey})
 
     }
 
@@ -41,45 +54,145 @@ class Transaction extends Component {
         this.setState({isEditMode: true}, ()=>this.props.onEdit(uniqueKey))
     }
 
-    getValidationState() {
-        const length = this.state.value.length;
-        console.log(length)
-        if (length > 10) return 'success';
-        else if (length > 5) return 'warning';
-        else if (length > 0) return 'error';
+    validatePayment() {
+        const length = this.state.payment.length;
+        if (length < 1) return;
+
+        return (length > 6) ? 'success' : 'error';
+
     }
 
-    toggleRender(ref, value) {
+    validateDate() {
+        if (this.state.date.length < 1) return;
+        const date = this.state.date.split('.');
+        let checkLength;
+        if (date.length === 3 && date[0].length === 2 && date[1].length === 2 && date[2].length === 4) {
+            checkLength = true
+        } else {
+            checkLength = false
+        }
+        if (checkLength) {
+
+            return 'success'
+        }
+
+        else if (!checkLength) return 'error';
+
+    }
+
+    validateIsNumber(val) {
+        if (val < 1) return;
+        return _.isFinite(parseFloat(val)) ? 'success' : 'error';
+
+    }
+
+    isValidAll() {
+        const isDate = (this.validateDate() === 'success');
+        const isPayment = (this.validatePayment() === 'success');
+        const isDebit = (this.validateIsNumber(this.state.debit) === 'success');
+        const isCredit = (this.validateIsNumber(this.state.credit) === 'success');
+
+        if (isCredit && isDebit && isPayment && isDate) {
+            this.props.isValidItem(true)
+        } else {
+            this.props.isValidItem(false);
+        }
+
+
+    }
+
+
+    toggleDateRender(ref, value) {
         if (this.state.isEditMode) {
-
-            if (ref === 'category') {
-
-                return <SelectBox ref='category' menuItems={_.keys(categories)}
-                                  onSelect={this.handleChange.bind(this, 'category')}/>
-            }
-
-            // return <InputBox
-            //     ref={ref}
-            //     placeholder="Enter #.."
-            //     value={value}
-            //     onChange={this.handleChange.bind(this, ref)}
-            // />
-
             return <FormGroup
-                controlId="formBasicText"
-                validationState={this.getValidationState()}>
-                <ControlLabel>Working example with validation</ControlLabel>
+                className='itemValidation'
+                controlId="date"
+                validationState={this.validateDate()}>
                 <FormControl
                     type="text"
-                    value={this.state.value}
-                    placeholder="Enter text"
-                    onChange={this.handleChange.bind(this, ref)}/>
+                    ref='date'
+                    value={this.state.date}
+                    placeholder="Enter date"
+                    onChange={this.handleChange.bind(this, 'date')}/>
+                <ControlLabel srOnly={this.state.ref !== 'date'}>Date is invalid</ControlLabel>
             </FormGroup>
 
         }
         return value;
 
     }
+
+    togglePaymentRender(ref, value) {
+        if (this.state.isEditMode) {
+
+            return <FormGroup
+                className='itemValidation'
+                controlId="payment"
+                validationState={this.validatePayment()}>
+                <FormControl
+                    type="text"
+                    ref='payment'
+                    value={this.state.payment}
+                    placeholder="Short payment description"
+                    onChange={this.handleChange.bind(this, 'payment')}/>
+                <ControlLabel srOnly={this.state.ref !== 'payment'}>Payment description is short</ControlLabel>
+            </FormGroup>
+
+        }
+        return value;
+
+    }
+
+
+    toggleCategoryRender(ref, value) {
+        if (this.state.isEditMode) {
+            return <SelectBox ref='category' menuItems={_.keys(categories)}
+                              onSelect={this.handleChange.bind(this, 'category')}/>
+        }
+        return value;
+
+    }
+
+    toggleCreditRender(ref, value) {
+        if (this.state.isEditMode) {
+            return <FormGroup
+                className='itemValidation'
+                controlId="credit"
+                validationState={this.validateIsNumber(this.state.credit)}>
+                <FormControl
+                    type="text"
+                    ref='credit'
+                    placeholder="Enter credit amount"
+                    value={this.state.credit}
+                    onChange={this.handleChange.bind(this, 'credit')}/>
+                <ControlLabel srOnly={this.state.ref !== 'credit'}>Credit is invalid</ControlLabel>
+            </FormGroup>
+
+        }
+        return value;
+
+    }
+
+    toggleDebitRender(ref, value) {
+        if (this.state.isEditMode) {
+            return <FormGroup
+                className='itemValidation'
+                controlId="debit"
+                validationState={this.validateIsNumber(this.state.debit)}>
+                <FormControl
+                    type="text"
+                    ref='debit'
+                    value={this.state.debit}
+                    placeholder="Enter debit amount"
+                    onChange={this.handleChange.bind(this, 'debit')}/>
+                <ControlLabel srOnly={this.state.ref !== 'debit'}>Debit is invalid</ControlLabel>
+            </FormGroup>
+
+        }
+        return value;
+
+    }
+
 
     componentWillReceiveProps() {
 
@@ -91,11 +204,12 @@ class Transaction extends Component {
         return (
             <Row data-id={this.props.id}>
                 <Col md={1}>{this.props.id}</Col>
-                <Col md={2}>{this.toggleRender('date', this.props.data.date)}</Col>
-                <Col md={3}>{this.toggleRender('payment', this.props.data.payment)}</Col>
-                <Col md={2} className="text-capitalize">{this.toggleRender('category', this.props.data.category)}</Col>
-                <Col md={1}>{this.toggleRender('debit', this.props.data.debit)}</Col>
-                <Col md={1}>{this.toggleRender('credit', this.props.data.credit)}</Col>
+                <Col md={2}>{this.toggleDateRender('date', this.props.data.date)}</Col>
+                <Col md={3}>{this.togglePaymentRender('payment', this.props.data.payment)}</Col>
+                <Col md={2}
+                     className="text-capitalize">{this.toggleCategoryRender('category', this.props.data.category)}</Col>
+                <Col md={1}>{this.toggleDebitRender('debit', this.props.data.debit)}</Col>
+                <Col md={1}>{this.toggleCreditRender('credit', this.props.data.credit)}</Col>
                 <Col md={1}>
                     <Button onClick={this.editMe.bind(this, this.props.uniqueKey)}><Glyphicon
                         glyph="glyphicon glyphicon-edit"/></Button>
