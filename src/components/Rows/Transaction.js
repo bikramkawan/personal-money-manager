@@ -9,8 +9,9 @@ import {Grid, FormGroup, Form, FormControl, ControlLabel, HelpBlock} from 'react
 import SelectBox from '../SelectBox/SelectBox'
 import * as _ from 'lodash';
 import categories from '../../shared/utils'
-
+import ReactDOM from 'react-dom';
 const mapStateToProps = state => {
+    console.log(state)
     return {...state}
 }
 
@@ -29,6 +30,7 @@ class Transaction extends Component {
             date: this.props.data.date || '',
         }
         this.store = this.props.store;
+
 
     }
 
@@ -52,6 +54,11 @@ class Transaction extends Component {
     editMe = (uniqueKey) => {
 
         this.setState({isEditMode: true}, ()=>this.props.onEdit(uniqueKey))
+    }
+
+    update = (uniqueKey) => {
+
+        this.setState({isEditMode: false}, ()=>this.props.onEdit(uniqueKey))
     }
 
     validatePayment() {
@@ -194,25 +201,28 @@ class Transaction extends Component {
     }
 
 
-    componentWillReceiveProps() {
-
-        this.setState({isEditMode: false})
-    }
+    // componentWillReceiveProps() {
+    //
+    //     this.setState({isEditMode: false})
+    // }
 
     render() {
-
+        console.log(this.state)
         return (
             <Row data-id={this.props.id}>
                 <Col md={1}>{this.props.id}</Col>
-                <Col md={2}>{this.toggleDateRender('date', this.props.data.date)}</Col>
-                <Col md={3}>{this.togglePaymentRender('payment', this.props.data.payment)}</Col>
+                <Col md={2}>{this.toggleDateRender('date', this.state.date)}</Col>
+                <Col md={3}>{this.togglePaymentRender('payment', this.state.payment)}</Col>
                 <Col md={2}
-                     className="text-capitalize">{this.toggleCategoryRender('category', this.props.data.category)}</Col>
-                <Col md={1}>{this.toggleDebitRender('debit', this.props.data.debit)}</Col>
-                <Col md={1}>{this.toggleCreditRender('credit', this.props.data.credit)}</Col>
+                     className="text-capitalize">{this.toggleCategoryRender('category', this.state.category)}</Col>
+                <Col md={1}>{this.toggleDebitRender('debit', this.state.debit)}</Col>
+                <Col md={1}>{this.toggleCreditRender('credit', this.state.credit)}</Col>
                 <Col md={1}>
-                    <Button onClick={this.editMe.bind(this, this.props.uniqueKey)}><Glyphicon
-                        glyph="glyphicon glyphicon-edit"/></Button>
+                    {!this.state.isEditMode ? <Button onClick={this.editMe.bind(this, this.props.uniqueKey)}><Glyphicon
+                        glyph="glyphicon glyphicon-edit"/></Button> :
+                        <Button onClick={this.update.bind(this, this.props.uniqueKey)}><Glyphicon
+                            glyph="glyphicon glyphicon-ok"/></Button>
+                    }
 
                 </Col>
                 <Col md={1}>

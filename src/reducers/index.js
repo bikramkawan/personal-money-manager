@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
             return true;
 
         default:
-            return true;
+            return false;
 
 
 

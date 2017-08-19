@@ -29,7 +29,6 @@ class App extends Component {
     onSave = (data) => {
         let records = this.state.data;
         let newComments = records.concat([data]);
-        console.log(records)
         this.setState({data: newComments});
         axios.post(this.props.url, data)
             .catch(err => {

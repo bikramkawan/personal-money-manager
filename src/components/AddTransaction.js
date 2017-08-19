@@ -2,6 +2,7 @@
  * Created by bikramkawan on 8/12/17.
  */
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import Header from './Rows/Header'
 import Transaction from './Rows/Transaction'
 import AddItem from './Rows/AddItem';
@@ -62,7 +63,7 @@ class AddTransaction extends Component {
             const obj = this.state.fields
             const updateObj = {...obj, [args.ref]: args.value};
             this.setState({
-                fields: updateObj
+                fields: updateObj,
             }, ()=>this.props.onUpdate(args.uniqueKey, updateObj))
 
         }
@@ -77,9 +78,10 @@ class AddTransaction extends Component {
     save = ()=> {
 
         if (this.state.isEditMode) {
-            const temp = this.state.data.slice();
-            temp.splice(this.state.updateIndex, 1, this.state.fields)
-            this.setState({data: temp, isEditMode: false})
+            // const temp = this.state.data.slice();
+            // temp.splice(this.state.updateIndex, 1, this.state.fields)
+            // this.setState({data: temp, isDisableSaveButton: true})
+            // console.log(this.state.data)
 
         } else {
 
@@ -87,7 +89,7 @@ class AddTransaction extends Component {
         }
 
         this.store.dispatch(isSaved());
-        $('.alertMessage').show();
+
     }
 
 
@@ -108,7 +110,7 @@ class AddTransaction extends Component {
     }
 
     render() {
-
+        console.log(this.state.data)
         return (<Grid fluid={true}>
                 <Header/>
                 {this.state.data.map((data, index)=>
@@ -121,16 +123,11 @@ class AddTransaction extends Component {
                                  id={index}
                                  key={data._id}
                                  isValidItem={this.isValidateItem}
+
+
                     />)}
                 <AddItem onChange={this.handleChange} onSelect={this.handleSelect}
                          isValidItem={this.isValidateItem}/>
-
-                <Row className="alertMessage">
-                    <Col md={4} className="saveCol">
-                        <AlertDismissable/>
-                    </Col>
-                </Row>
-
 
                 <Row className="saveRow">
                     <Col md={2} className="saveCol">
