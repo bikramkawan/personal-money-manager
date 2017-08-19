@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="926c9b71-d91b-4772-acb2-cc34945059e3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/AddTransaction.js" afterPath="$PROJECT_DIR$/src/components/AddTransaction.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Rows/AddItem.js" afterPath="$PROJECT_DIR$/src/components/Rows/AddItem.js" />
     </list>
     <ignored path="myapp.iws" />
@@ -51,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddTransaction.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AddTransaction.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/AddTransaction.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1340">
+            <state relative-caret-position="1250">
               <caret line="127" column="36" selection-start-line="127" selection-start-column="25" selection-end-line="127" selection-end-column="36" />
               <folding>
                 <element signature="e#46#85#0" expanded="true" />
@@ -107,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddItem.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AddItem.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Rows/AddItem.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-465">
-              <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
+            <state relative-caret-position="285">
+              <caret line="165" column="55" selection-start-line="0" selection-start-column="0" selection-end-line="176" selection-end-column="1" />
               <folding>
                 <element signature="e#46#85#0" expanded="true" />
               </folding>
@@ -753,7 +752,14 @@
       <option name="project" value="LOCAL" />
       <updated>1503136240643</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="enable save button on valid state only">
+      <created>1503141982545</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1503141982545</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -793,7 +799,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove long description" />
     <MESSAGE value="store2 test" />
     <MESSAGE value="added functionality for edit, delete and update the whole rows." />
     <MESSAGE value="add key to remove warning" />
@@ -818,7 +823,8 @@
     <MESSAGE value="add dropdown for category" />
     <MESSAGE value="add dropdown in edit mode" />
     <MESSAGE value="add validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="add validation" />
+    <MESSAGE value="enable save button on valid state only" />
+    <option name="LAST_COMMIT_MESSAGE" value="enable save button on valid state only" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -960,6 +966,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1108,20 +1115,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Rows/AddItem.js">
+    <entry file="file://$PROJECT_DIR$/src/components/AddTransaction.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-465">
-          <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
+        <state relative-caret-position="1250">
+          <caret line="127" column="36" selection-start-line="127" selection-start-column="25" selection-end-line="127" selection-end-column="36" />
           <folding>
             <element signature="e#46#85#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/AddTransaction.js">
+    <entry file="file://$PROJECT_DIR$/src/components/Rows/AddItem.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1340">
-          <caret line="127" column="36" selection-start-line="127" selection-start-column="25" selection-end-line="127" selection-end-column="36" />
+        <state relative-caret-position="285">
+          <caret line="165" column="55" selection-start-line="0" selection-start-column="0" selection-end-line="176" selection-end-column="1" />
           <folding>
             <element signature="e#46#85#0" expanded="true" />
           </folding>

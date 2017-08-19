@@ -112,14 +112,14 @@ export default class AddItem extends Component {
                     {/*onChange={this.handleChange.bind(this, 'date')}/>*/}
                     <FormGroup
                         className='itemValidation'
-                        controlId="formBasicText"
+                        controlId="date"
                         validationState={this.validateDate()}>
                         <FormControl
                             type="text"
                             ref='date'
-                            placeholder="Enter text"
+                            placeholder="Enter date"
                             onChange={this.handleChange.bind(this, 'date')}/>
-                        <ControlLabel>Date is invalid</ControlLabel>
+                        <ControlLabel srOnly={this.state.ref !== 'date'}>Date is invalid</ControlLabel>
                     </FormGroup>
 
 
@@ -127,14 +127,14 @@ export default class AddItem extends Component {
                 <Col md={3}>
                     <FormGroup
                         className='itemValidation'
-                        controlId="formBasicText"
+                        controlId="payment"
                         validationState={this.validatePayment()}>
                         <FormControl
                             type="text"
                             ref='payment'
-                            placeholder="Enter text"
+                            placeholder="Short payment description"
                             onChange={this.handleChange.bind(this, 'payment')}/>
-                        <ControlLabel>Payment description is short</ControlLabel>
+                        <ControlLabel srOnly={this.state.ref !== 'payment'}>Payment description is short</ControlLabel>
                     </FormGroup>
                 </Col>
                 <Col md={2}>
@@ -144,28 +144,28 @@ export default class AddItem extends Component {
                 <Col md={1}>
                     <FormGroup
                         className='itemValidation'
-                        controlId="formBasicText"
+                        controlId="debit"
                         validationState={this.validateIsNumber(this.state.debit)}>
                         <FormControl
                             type="text"
                             ref='debit'
-                            placeholder="Enter text"
+                            placeholder="Enter debit amount"
                             onChange={this.handleChange.bind(this, 'debit')}/>
-                        <ControlLabel>Debit is invalid</ControlLabel>
+                        <ControlLabel srOnly={this.state.ref !== 'debit'}>Debit is invalid</ControlLabel>
                     </FormGroup>
 
                 </Col>
                 <Col md={1}>
                     <FormGroup
                         className='itemValidation'
-                        controlId="formBasicText"
+                        controlId="credit"
                         validationState={this.validateIsNumber(this.state.credit)}>
                         <FormControl
                             type="text"
                             ref='credit'
-                            placeholder="Enter text"
+                            placeholder="Enter credit amount"
                             onChange={this.handleChange.bind(this, 'credit')}/>
-                        <ControlLabel>Credit is invalid</ControlLabel>
+                        <ControlLabel srOnly={this.state.ref !== 'credit'}>Credit is invalid</ControlLabel>
                     </FormGroup>
                 </Col>
             </Row>
