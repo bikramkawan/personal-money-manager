@@ -6,6 +6,9 @@
     height: 50px;
     border-top: 1px solid #eceeef;
     font-size: 18px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
     .glyphicon {
       color: @link-color;
       cursor: pointer;
@@ -20,6 +23,7 @@
     //
     //}
     &.saveRow {
+      justify-content: flex-end;
       height: 50px;
     }
     .saveButton {
@@ -41,6 +45,8 @@
         font-size: 15px;
         margin: 0;
         font-weight: normal;
+        z-index: 5;
+        position: absolute;
       }
     }
 
@@ -49,6 +55,13 @@
   .heading {
     font-size: 20px;
     font-weight: bold;
+    &.sortable {
+      cursor: pointer;
+    }
+
+    span {
+      margin-left: 15px;
+    }
   }
 
   .row:nth-child(even) {

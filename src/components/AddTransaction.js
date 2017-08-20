@@ -31,6 +31,7 @@ class AddTransaction extends Component {
             updateIndex: {},
             value: '',
             isDisableSaveButton: true,
+            sortByAsc: true,
 
         }
 
@@ -73,6 +74,21 @@ class AddTransaction extends Component {
 
 
     }
+    onSortByName = () => {
+        const data = this.state.data.slice();
+        const sortBy = this.state.sortByAsc ? 'asc' : 'desc';
+        const sortedData = _.orderBy(data, 'payment', sortBy)
+        this.setState({data: sortedData, sortByAsc: !this.state.sortByAsc})
+
+    }
+
+    onSortBy = (ref) => {
+        const data = this.state.data.slice();
+        const sortBy = this.state.sortByAsc ? 'asc' : 'desc';
+        const sortedData = _.orderBy(data, ref, sortBy)
+        this.setState({data: sortedData, sortByAsc: !this.state.sortByAsc})
+
+    }
 
 
     save = ()=> {
@@ -110,9 +126,9 @@ class AddTransaction extends Component {
     }
 
     render() {
-        console.log(this.state.data)
+
         return (<Grid fluid={true}>
-                <Header/>
+                <Header onSortBy={this.onSortBy}/>
                 {this.state.data.map((data, index)=>
                     <Transaction data={data} onDeleteRow={this.deleteRow}
                                  onChange={this.handleChange}
