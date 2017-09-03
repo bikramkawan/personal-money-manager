@@ -6,7 +6,6 @@ import {firebaseApp} from '../config/Firebase'
 
 class Login extends Component {
 
-
     constructor(props) {
         super(props);
         this.state = {

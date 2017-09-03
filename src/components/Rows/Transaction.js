@@ -2,21 +2,13 @@
  * Created by bikramkawan on 8/11/17.
  */
 import React, {Component} from 'react';
-import InputBox from '../InputBox/InputBox';
-import {connect} from 'react-redux'
 import {Glyphicon, Row, Col, Button} from 'react-bootstrap';
-import {Grid, FormGroup, Form, FormControl, ControlLabel, HelpBlock} from 'react-bootstrap';
+import {FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import SelectBox from '../SelectBox/SelectBox'
 import * as _ from 'lodash';
 import categories from '../../shared/utils'
-import ReactDOM from 'react-dom';
-const mapStateToProps = state => {
-    console.log(state)
-    return {...state}
-}
 
 class Transaction extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -42,18 +34,16 @@ class Transaction extends Component {
     }
     handleChange = (ref, e)=> {
 
-        console.log(ref,e)
         const val = e.target.value;
         this.isValidAll();
         let {fields} = this.state;
-        fields={...fields,[ref]:val};
-        console.log(fields)
-          this.setState({ref: ref,fields }, ()=>this.props.onChange({
-           fields,
-           uniqueKey: this.props.uniqueKey
+        fields = {...fields, [ref]: val};
+        this.setState({ref: ref, fields}, ()=>this.props.onChange({
+            fields,
+            uniqueKey: this.props.uniqueKey
         }))
 
-            }
+    }
 
     editMe = (uniqueKey) => {
 
@@ -211,7 +201,7 @@ class Transaction extends Component {
     // }
 
     render() {
-        console.log(this.state)
+
         return (
             <Row data-id={this.props.id}>
                 <Col md={1}>{this.props.id}</Col>

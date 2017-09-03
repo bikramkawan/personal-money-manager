@@ -5,9 +5,6 @@ import React, {Component} from 'react';
 import BudgetSummary from './Report/BudgetSummary';
 import * as _ from 'lodash';
 import BarChart from './Report/BarChart'
-import Income from './Report/Cateogry/Income';
-import Expense from './Report/Cateogry/Expense';
-import ExpenseSummary from './Report/ExpenseSummary'
 import {Nav, NavItem} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
@@ -27,7 +24,6 @@ export default class Report extends Component {
     }
 
     render() {
-        console.log(this.props)
         const summary = this.getSummary();
         const income = {salary: summary.totalDebit};
 

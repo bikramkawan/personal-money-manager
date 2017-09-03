@@ -18,15 +18,14 @@ class Dashboard extends Component {
     }
 
     onSave = (data) => {
-        console.log(data)
+
         this.userRef.push(data)
 
 
     }
     onUpdate = (uniqueKey, data) => {
 
-        console.log(data, uniqueKey)
-        if(data.payment===null) return;
+        if (data.payment === null) return;
         this.userRef.child(uniqueKey).set(data);
 
     }
@@ -42,7 +41,6 @@ class Dashboard extends Component {
         thisUser.on('value', (snap, i)=> {
             let data = [];
             snap.forEach((d, i)=> {
-                console.log(d.key)
                 data.push({...d.val(), key: d.key})
 
             })
@@ -53,7 +51,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        console.log(this.props, this.userid)
+
         return (<div><Navbar>
                 <Nav>
                     <NavItem><Link to="/dashboard/addtransaction">Add Transaction</Link></NavItem>

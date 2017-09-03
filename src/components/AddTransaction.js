@@ -2,17 +2,12 @@
  * Created by bikramkawan on 8/12/17.
  */
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import Header from './Rows/Header'
 import Transaction from './Rows/Transaction'
 import AddItem from './Rows/AddItem';
-import  {isSaved} from '../actions'
-import {Grid, Row, Col, Button, FormGroup, Form, FormControl, ControlLabel, HelpBlock} from 'react-bootstrap';
-import AlertDismissable from './AlertDismissable'
+import {Grid, Row, Col, Button} from 'react-bootstrap';
+
 import * as _ from 'lodash';
-import * as $ from 'jquery'
-import SelectBox from './SelectBox/SelectBox';
-import {userdata} from '../config/Firebase'
 
 
 class AddTransaction extends Component {
@@ -41,11 +36,6 @@ class AddTransaction extends Component {
 
     editRow = (uniqueKey) => {
         this.setState({isEditMode: true});
-        const index = this.state.data.findIndex(d=>d.key === uniqueKey);
-        const temp = this.state.data.slice();
-        const obj = temp[index];
-        console.log(obj)
-        console.log(this.state.fields,uniqueKey)
         this.props.onUpdate(uniqueKey, this.state.fields)
 
 
@@ -55,7 +45,6 @@ class AddTransaction extends Component {
     deleteRow = (uniqueKey) => {
 
         const index = this.state.data.findIndex(d=>d.key === uniqueKey);
-        console.log(uniqueKey, index)
         const temp = this.state.data.slice();
         temp.splice(index, 1);
         this.setState({data: temp}, ()=>this.props.onDelete(uniqueKey))
@@ -64,8 +53,7 @@ class AddTransaction extends Component {
     }
     handleChange = (args)=> {
 
-        console.log(args)
-     this.setState({fields: args.fields})
+        this.setState({fields: args.fields})
 
 
     }
@@ -88,12 +76,10 @@ class AddTransaction extends Component {
 
     save = ()=> {
 
-        console.log(this.state)
         if (this.state.isEditMode) {
             const temp = this.state.data.slice();
             temp.splice(this.state.updateIndex, 1, this.state.fields)
             this.setState({data: temp, isDisableSaveButton: true})
-            // console.log(this.state.data)
 
         } else {
 
@@ -105,8 +91,7 @@ class AddTransaction extends Component {
 
 
     handleSelect = (args) => {
-        console.log(args)
-        this.setState({fields:args.fields})
+        this.setState({fields: args.fields})
     }
 
 
@@ -121,8 +106,6 @@ class AddTransaction extends Component {
 
 
     render() {
-        console.log(this.state)
-
         return (<Grid fluid={true}>
                 <Header onSortBy={this.onSortBy}/>
                 {this.state.data.map((data, index)=>

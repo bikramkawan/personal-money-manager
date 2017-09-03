@@ -3,8 +3,8 @@
  */
 import React, {Component} from 'react';
 import SelectBox from '../SelectBox/SelectBox'
-import {Glyphicon, Row, Col, Button} from 'react-bootstrap';
-import {Grid, FormGroup, Form, FormControl, ControlLabel, HelpBlock} from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
+import {FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import * as _ from 'lodash';
 import categories from '../../shared/utils'
 
