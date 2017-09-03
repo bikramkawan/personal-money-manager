@@ -4,9 +4,10 @@
 import React, {Component} from 'react';
 import {Route, Link} from 'react-router-dom';
 import Report from './Report';
+import * as _ from 'lodash';
 import AddTransaction from './AddTransaction';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
-import {userdata} from '../config/Firebase'
+import {userdata} from '../config/Firebase';
 
 class Dashboard extends Component {
 
@@ -25,7 +26,8 @@ class Dashboard extends Component {
     }
     onUpdate = (uniqueKey, data) => {
 
-        if (data.payment === null) return;
+        const isNull = _.some(data, _.isEmpty);
+        if (isNull) return;
         this.userRef.child(uniqueKey).set(data);
 
     }
