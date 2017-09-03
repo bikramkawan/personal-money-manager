@@ -16,11 +16,13 @@ export default class AddItem extends Component {
         this.state = {
             ref: '',
             value: '',
-            payment: '',
-            category: '',
-            debit: '',
-            credit: '',
-            date: '',
+            fields: {
+                payment: '',
+                category: '',
+                debit: '',
+                credit: '',
+                date: '',
+            },
             isValidDate: false,
             isValidPayment: false,
 
@@ -38,16 +40,30 @@ export default class AddItem extends Component {
     handleChange = (ref, e)=> {
         const val = e.target.value;
         this.isValidAll();
-        this.setState({ref: ref, [ref]: val}, ()=>this.props.onChange({ref: ref, value: val}))
+        let {fields} = this.state;
+        fields = {...fields, [ref]: val};
+        console.log(fields)
+        this.setState({ref: ref, fields}, ()=>this.props.onChange({
+            fields,
+            uniqueKey: this.props.uniqueKey
+        }))
+        //  this.setState({ref: ref, [ref]: val}, ()=>this.props.onChange({ref: ref, value: val}))
 
     }
 
     handleSelect = (categoryName) => {
-        this.props.onSelect(categoryName)
+        let {fields} = this.state;
+        fields = {...fields, ['category']: categoryName};
+        console.log(fields)
+        this.setState({fields}, ()=>this.props.onSelect({
+            fields,
+            uniqueKey: this.props.uniqueKey
+        }))
+
     }
 
     validatePayment() {
-        const length = this.state.payment.length;
+        const length = this.state.fields.payment.length;
         if (length < 1) return;
 
         return (length > 6) ? 'success' : 'error';
@@ -56,8 +72,8 @@ export default class AddItem extends Component {
 
 
     validateDate() {
-        if (this.state.date.length < 1) return;
-        const date = this.state.date.split('.');
+        if (this.state.fields.date.length < 1) return;
+        const date = this.state.fields.date.split('.');
         let checkLength;
         if (date.length === 3 && date[0].length === 2 && date[1].length === 2 && date[2].length === 4) {
             checkLength = true
@@ -82,8 +98,8 @@ export default class AddItem extends Component {
     isValidAll() {
         const isDate = (this.validateDate() === 'success');
         const isPayment = (this.validatePayment() === 'success');
-        const isDebit = (this.validateIsNumber(this.state.debit) === 'success');
-        const isCredit = (this.validateIsNumber(this.state.credit) === 'success');
+        const isDebit = (this.validateIsNumber(this.state.fields.debit) === 'success');
+        const isCredit = (this.validateIsNumber(this.state.fields.credit) === 'success');
 
         if (isCredit && isDebit && isPayment && isDate) {
             this.props.isValidItem(true)
@@ -145,7 +161,7 @@ export default class AddItem extends Component {
                     <FormGroup
                         className='itemValidation'
                         controlId="debit"
-                        validationState={this.validateIsNumber(this.state.debit)}>
+                        validationState={this.validateIsNumber(this.state.fields.debit)}>
                         <FormControl
                             type="text"
                             ref='debit'
@@ -159,7 +175,7 @@ export default class AddItem extends Component {
                     <FormGroup
                         className='itemValidation'
                         controlId="credit"
-                        validationState={this.validateIsNumber(this.state.credit)}>
+                        validationState={this.validateIsNumber(this.state.fields.credit)}>
                         <FormControl
                             type="text"
                             ref='credit'

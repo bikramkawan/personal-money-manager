@@ -12,46 +12,68 @@ class Dashboard extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {data: []};
+        this.userid = this.props.userid;
+        this.userRef = userdata.child(this.userid);
     }
 
     onSave = (data) => {
-        console.log(data);
-        const {userid} = this.props;
-        const thisUser = userdata.child(userid);
-        thisUser.push(data)
+        console.log(data)
+        this.userRef.push(data)
 
 
     }
     onUpdate = (uniqueKey, data) => {
 
+        console.log(data, uniqueKey)
+        if(data.payment===null) return;
+        this.userRef.child(uniqueKey).set(data);
+
     }
 
     onDelete = (uniqueKey) => {
+        this.userRef.child(uniqueKey).remove();
+
+    }
+
+    componentDidMount() {
+        const {userid} = this.props;
+        const thisUser = userdata.child(userid);
+        thisUser.on('value', (snap, i)=> {
+            let data = [];
+            snap.forEach((d, i)=> {
+                console.log(d.key)
+                data.push({...d.val(), key: d.key})
+
+            })
+            this.setState({data})
+        })
+
 
     }
 
     render() {
-        console.log(this.props)
+        console.log(this.props, this.userid)
         return (<div><Navbar>
-            <Nav>
-                <NavItem><Link to="/dashboard/addtransaction">Add Transaction</Link></NavItem>
-                <NavItem><Link to="/dashboard/report">Report</Link></NavItem>
-            </Nav>
+                <Nav>
+                    <NavItem><Link to="/dashboard/addtransaction">Add Transaction</Link></NavItem>
+                    <NavItem><Link to="/dashboard/report">Report</Link></NavItem>
+                </Nav>
 
-        </Navbar>
-            <Route path='/dashboard/addtransaction' component={()=> <AddTransaction
-                {...this.props}
-                onUpdate={this.onUpdate}
-                onDelete={this.onDelete}
-                onSave={this.onSave}/>}/>
-            <Route path='/dashboard/report' component={Report}/>
+            </Navbar>
+                <Route path='/dashboard/addtransaction' component={()=> <AddTransaction
+                    {...this.props}
+                    data={this.state.data}
+                    onUpdate={this.onUpdate}
+                    onDelete={this.onDelete}
+                    onSave={this.onSave}/>}/>
+                <Route path='/dashboard/report' component={()=><Report {...this.props} data={this.state.data}/>}/>
 
-        </div>
-    )
+            </div>
+        )
     }
 
 
-    }
+}
 
-    export default Dashboard;
+export default Dashboard;

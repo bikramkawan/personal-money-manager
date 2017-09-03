@@ -23,13 +23,14 @@ class Transaction extends Component {
             isEditMode: false,
             value: '',
             ref: '',
-            payment: this.props.data.payment || '',
-            category: this.props.data.category || '',
-            debit: this.props.data.debit || '',
-            credit: this.props.data.credit || '',
-            date: this.props.data.date || '',
+            fields: {
+                payment: this.props.data.payment || '',
+                category: this.props.data.category || '',
+                debit: this.props.data.debit || '',
+                credit: this.props.data.credit || '',
+                date: this.props.data.date || '',
+            }
         }
-
 
 
     }
@@ -40,16 +41,19 @@ class Transaction extends Component {
         this.props.onDeleteRow(uniqueKey);
     }
     handleChange = (ref, e)=> {
+
+        console.log(ref,e)
         const val = e.target.value;
         this.isValidAll();
-        this.setState({ref: ref, [ref]: val}, ()=>this.props.onChange({
-            ref: ref,
-            value: val,
-            uniqueKey: this.props.uniqueKey
+        let {fields} = this.state;
+        fields={...fields,[ref]:val};
+        console.log(fields)
+          this.setState({ref: ref,fields }, ()=>this.props.onChange({
+           fields,
+           uniqueKey: this.props.uniqueKey
         }))
 
-
-    }
+            }
 
     editMe = (uniqueKey) => {
 
@@ -62,7 +66,7 @@ class Transaction extends Component {
     }
 
     validatePayment() {
-        const length = this.state.payment.length;
+        const length = this.state.fields.payment.length;
         if (length < 1) return;
 
         return (length > 6) ? 'success' : 'error';
@@ -70,8 +74,8 @@ class Transaction extends Component {
     }
 
     validateDate() {
-        if (this.state.date.length < 1) return;
-        const date = this.state.date.split('.');
+        if (this.state.fields.date.length < 1) return;
+        const date = this.state.fields.date.split('.');
         let checkLength;
         if (date.length === 3 && date[0].length === 2 && date[1].length === 2 && date[2].length === 4) {
             checkLength = true
@@ -96,8 +100,8 @@ class Transaction extends Component {
     isValidAll() {
         const isDate = (this.validateDate() === 'success');
         const isPayment = (this.validatePayment() === 'success');
-        const isDebit = (this.validateIsNumber(this.state.debit) === 'success');
-        const isCredit = (this.validateIsNumber(this.state.credit) === 'success');
+        const isDebit = (this.validateIsNumber(this.state.fields.debit) === 'success');
+        const isCredit = (this.validateIsNumber(this.state.fields.credit) === 'success');
 
         if (isCredit && isDebit && isPayment && isDate) {
             this.props.isValidItem(true)
@@ -118,7 +122,7 @@ class Transaction extends Component {
                 <FormControl
                     type="text"
                     ref='date'
-                    value={this.state.date}
+                    value={this.state.fields.date}
                     placeholder="Enter date"
                     onChange={this.handleChange.bind(this, 'date')}/>
                 <ControlLabel srOnly={this.state.ref !== 'date'}>Date is invalid</ControlLabel>
@@ -139,7 +143,7 @@ class Transaction extends Component {
                 <FormControl
                     type="text"
                     ref='payment'
-                    value={this.state.payment}
+                    value={this.state.fields.payment}
                     placeholder="Short payment description"
                     onChange={this.handleChange.bind(this, 'payment')}/>
                 <ControlLabel srOnly={this.state.ref !== 'payment'}>Payment description is short</ControlLabel>
@@ -165,12 +169,12 @@ class Transaction extends Component {
             return <FormGroup
                 className='itemValidation'
                 controlId="credit"
-                validationState={this.validateIsNumber(this.state.credit)}>
+                validationState={this.validateIsNumber(this.state.fields.credit)}>
                 <FormControl
                     type="text"
                     ref='credit'
                     placeholder="Enter credit amount"
-                    value={this.state.credit}
+                    value={this.state.fields.credit}
                     onChange={this.handleChange.bind(this, 'credit')}/>
                 <ControlLabel srOnly={this.state.ref !== 'credit'}>Credit is invalid</ControlLabel>
             </FormGroup>
@@ -185,11 +189,11 @@ class Transaction extends Component {
             return <FormGroup
                 className='itemValidation'
                 controlId="debit"
-                validationState={this.validateIsNumber(this.state.debit)}>
+                validationState={this.validateIsNumber(this.state.fields.debit)}>
                 <FormControl
                     type="text"
                     ref='debit'
-                    value={this.state.debit}
+                    value={this.state.fields.debit}
                     placeholder="Enter debit amount"
                     onChange={this.handleChange.bind(this, 'debit')}/>
                 <ControlLabel srOnly={this.state.ref !== 'debit'}>Debit is invalid</ControlLabel>
@@ -207,16 +211,16 @@ class Transaction extends Component {
     // }
 
     render() {
-
+        console.log(this.state)
         return (
             <Row data-id={this.props.id}>
                 <Col md={1}>{this.props.id}</Col>
-                <Col md={2}>{this.toggleDateRender('date', this.state.date)}</Col>
-                <Col md={3}>{this.togglePaymentRender('payment', this.state.payment)}</Col>
+                <Col md={2}>{this.toggleDateRender('date', this.state.fields.date)}</Col>
+                <Col md={3}>{this.togglePaymentRender('payment', this.state.fields.payment)}</Col>
                 <Col md={2}
-                     className="text-capitalize">{this.toggleCategoryRender('category', this.state.category)}</Col>
-                <Col md={1}>{this.toggleDebitRender('debit', this.state.debit)}</Col>
-                <Col md={1}>{this.toggleCreditRender('credit', this.state.credit)}</Col>
+                     className="text-capitalize">{this.toggleCategoryRender('category', this.state.fields.category)}</Col>
+                <Col md={1}>{this.toggleDebitRender('debit', this.state.fields.debit)}</Col>
+                <Col md={1}>{this.toggleCreditRender('credit', this.state.fields.credit)}</Col>
                 <Col md={1}>
                     {!this.state.isEditMode ? <Button onClick={this.editMe.bind(this, this.props.uniqueKey)}><Glyphicon
                         glyph="glyphicon glyphicon-edit"/></Button> :

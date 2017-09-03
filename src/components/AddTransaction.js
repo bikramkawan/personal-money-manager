@@ -20,7 +20,7 @@ class AddTransaction extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            data: props.data,
             fields: {
                 payment: null,
                 category: null,
@@ -41,10 +41,12 @@ class AddTransaction extends Component {
 
     editRow = (uniqueKey) => {
         this.setState({isEditMode: true});
-        const index = this.state.data.findIndex(d=>d._id === uniqueKey);
+        const index = this.state.data.findIndex(d=>d.key === uniqueKey);
         const temp = this.state.data.slice();
         const obj = temp[index];
-        this.setState({fields: obj})
+        console.log(obj)
+        console.log(this.state.fields,uniqueKey)
+        this.props.onUpdate(uniqueKey, this.state.fields)
 
 
     }
@@ -52,7 +54,8 @@ class AddTransaction extends Component {
 
     deleteRow = (uniqueKey) => {
 
-        const index = this.state.data.findIndex(d=>d._id === uniqueKey);
+        const index = this.state.data.findIndex(d=>d.key === uniqueKey);
+        console.log(uniqueKey, index)
         const temp = this.state.data.slice();
         temp.splice(index, 1);
         this.setState({data: temp}, ()=>this.props.onDelete(uniqueKey))
@@ -61,17 +64,8 @@ class AddTransaction extends Component {
     }
     handleChange = (args)=> {
 
-        if (!_.isUndefined(args.uniqueKey)) {
-            const obj = this.state.fields
-            const updateObj = {...obj, [args.ref]: args.value};
-            this.setState({
-                fields: updateObj,
-            }, ()=>this.props.onUpdate(args.uniqueKey, updateObj))
-
-        }
-
-        const fields = {...this.state.fields, [args.ref]: args.value}
-        this.setState({fields: fields})
+        console.log(args)
+     this.setState({fields: args.fields})
 
 
     }
@@ -96,9 +90,9 @@ class AddTransaction extends Component {
 
         console.log(this.state)
         if (this.state.isEditMode) {
-            // const temp = this.state.data.slice();
-            // temp.splice(this.state.updateIndex, 1, this.state.fields)
-            // this.setState({data: temp, isDisableSaveButton: true})
+            const temp = this.state.data.slice();
+            temp.splice(this.state.updateIndex, 1, this.state.fields)
+            this.setState({data: temp, isDisableSaveButton: true})
             // console.log(this.state.data)
 
         } else {
@@ -107,13 +101,12 @@ class AddTransaction extends Component {
         }
 
 
-        //  this.store.dispatch(isSaved());
-
     }
 
 
-    handleSelect = (categoryName) => {
-        this.setState({fields: {...this.state.fields, category: categoryName}})
+    handleSelect = (args) => {
+        console.log(args)
+        this.setState({fields:args.fields})
     }
 
 
@@ -127,36 +120,23 @@ class AddTransaction extends Component {
     }
 
 
-    componentDidMount() {
-        const {userid} = this.props;
-        const thisUser = userdata.child(userid);
-        thisUser.on('value', (snap, i)=> {
-            let data = [];
-            snap.forEach((d, i)=>{
-              data.push(d.val())
-
-            })
-       this.setState({data})
-        })
-
-
-    }
-
     render() {
-    console.log(this.state)
+        console.log(this.state)
+
         return (<Grid fluid={true}>
                 <Header onSortBy={this.onSortBy}/>
                 {this.state.data.map((data, index)=>
-                <Transaction data={data} onDeleteRow={this.deleteRow}
-                onChange={this.handleChange}
-                onEdit={this.editRow}
-                uniqueKey={data._id}
-                onSelect={this.handleSelect}
-                id={index}
-                key={index}
-                isValidItem={this.isValidateItem}
+                    <Transaction data={data}
+                                 onDeleteRow={this.deleteRow}
+                                 onChange={this.handleChange}
+                                 onEdit={this.editRow}
+                                 uniqueKey={data.key}
+                                 onSelect={this.handleSelect}
+                                 id={index}
+                                 key={data.key}
+                                 isValidItem={this.isValidateItem}
 
-                />)}
+                    />)}
                 <AddItem onChange={this.handleChange} onSelect={this.handleSelect}
                          isValidItem={this.isValidateItem}/>
 

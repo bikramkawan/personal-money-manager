@@ -20,13 +20,14 @@ export default class Report extends Component {
     getSummary() {
 
 
-        const totalCredit = _.sumBy(this.props.data, (d)=> d.credit > 0 ? d.credit : 0);
-        const totalDebit = _.sumBy(this.props.data, (d)=> d.debit > 0 ? d.debit : 0);
+        const totalCredit = _.sumBy(this.props.data, (d)=> parseFloat(d.credit) > 0 ? parseFloat(d.credit) : 0);
+        const totalDebit = _.sumBy(this.props.data, (d)=> parseFloat(d.debit) > 0 ? parseFloat(d.debit) : 0);
         return {totalCredit: totalCredit, totalDebit: totalDebit}
 
     }
 
     render() {
+        console.log(this.props)
         const summary = this.getSummary();
         const income = {salary: summary.totalDebit};
 
@@ -36,13 +37,13 @@ export default class Report extends Component {
                 {/*<Income income={income}/>*/}
                 {/*<Expense data={this.props.data} totalCredit={summary.totalCredit}/>*/}
                 {/*<ExpenseSummary data={this.props.data}/>*/}
-             <Nav bsStyle="pills">
+                <Nav bsStyle="pills">
 
-             <NavItem>
-                <Link to='/Report/Income'><h3>Income</h3></Link>
-            </NavItem>
+                    <NavItem>
+                        <Link to='/Report/Income'><h3>Income</h3></Link>
+                    </NavItem>
 
-        </Nav>
+                </Nav>
 
             </div>
 
