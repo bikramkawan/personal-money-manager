@@ -29,7 +29,7 @@ class Transaction extends Component {
             credit: this.props.data.credit || '',
             date: this.props.data.date || '',
         }
-        this.store = this.props.store;
+
 
 
     }
@@ -239,4 +239,4 @@ class Transaction extends Component {
 
 
 }
-export default connect(mapStateToProps)(Transaction);
+export default Transaction;

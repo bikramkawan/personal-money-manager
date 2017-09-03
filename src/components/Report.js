@@ -8,6 +8,8 @@ import BarChart from './Report/BarChart'
 import Income from './Report/Cateogry/Income';
 import Expense from './Report/Cateogry/Expense';
 import ExpenseSummary from './Report/ExpenseSummary'
+import {Nav, NavItem} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 export default class Report extends Component {
 
@@ -30,10 +32,17 @@ export default class Report extends Component {
 
         return (
             <div style={{overflow: 'auto'}}><BudgetSummary summary={summary}/>
-                {/*<BarChart summary={summary}/>*/}
+                <BarChart summary={summary}/>
                 {/*<Income income={income}/>*/}
                 {/*<Expense data={this.props.data} totalCredit={summary.totalCredit}/>*/}
-                <ExpenseSummary data={this.props.data}/>
+                {/*<ExpenseSummary data={this.props.data}/>*/}
+             <Nav bsStyle="pills">
+
+             <NavItem>
+                <Link to='/Report/Income'><h3>Income</h3></Link>
+            </NavItem>
+
+        </Nav>
 
             </div>
 

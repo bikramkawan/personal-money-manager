@@ -11,7 +11,8 @@ import {Grid, Row, Col, Button, FormGroup, Form, FormControl, ControlLabel, Help
 import AlertDismissable from './AlertDismissable'
 import * as _ from 'lodash';
 import * as $ from 'jquery'
-import SelectBox from './SelectBox/SelectBox'
+import SelectBox from './SelectBox/SelectBox';
+import {userdata} from '../config/Firebase'
 
 
 class AddTransaction extends Component {
@@ -19,7 +20,7 @@ class AddTransaction extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: props.data,
+            data: [],
             fields: {
                 payment: null,
                 category: null,
@@ -93,6 +94,7 @@ class AddTransaction extends Component {
 
     save = ()=> {
 
+        console.log(this.state)
         if (this.state.isEditMode) {
             // const temp = this.state.data.slice();
             // temp.splice(this.state.updateIndex, 1, this.state.fields)
@@ -104,7 +106,8 @@ class AddTransaction extends Component {
             this.props.onSave(this.state.fields)
         }
 
-        this.store.dispatch(isSaved());
+
+        //  this.store.dispatch(isSaved());
 
     }
 
@@ -121,27 +124,39 @@ class AddTransaction extends Component {
         } else {
             this.setState({isDisableSaveButton: true})
         }
+    }
+
+
+    componentDidMount() {
+        const {userid} = this.props;
+        const thisUser = userdata.child(userid);
+        thisUser.on('value', (snap, i)=> {
+            let data = [];
+            snap.forEach((d, i)=>{
+              data.push(d.val())
+
+            })
+       this.setState({data})
+        })
 
 
     }
 
     render() {
-
+    console.log(this.state)
         return (<Grid fluid={true}>
                 <Header onSortBy={this.onSortBy}/>
                 {this.state.data.map((data, index)=>
-                    <Transaction data={data} onDeleteRow={this.deleteRow}
-                                 onChange={this.handleChange}
-                                 onEdit={this.editRow}
-                                 store={this.props.store}
-                                 uniqueKey={data._id}
-                                 onSelect={this.handleSelect}
-                                 id={index}
-                                 key={data._id}
-                                 isValidItem={this.isValidateItem}
+                <Transaction data={data} onDeleteRow={this.deleteRow}
+                onChange={this.handleChange}
+                onEdit={this.editRow}
+                uniqueKey={data._id}
+                onSelect={this.handleSelect}
+                id={index}
+                key={index}
+                isValidItem={this.isValidateItem}
 
-
-                    />)}
+                />)}
                 <AddItem onChange={this.handleChange} onSelect={this.handleSelect}
                          isValidItem={this.isValidateItem}/>
 

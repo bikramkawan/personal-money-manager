@@ -16,6 +16,7 @@ const Menu = () => {
                 <Link to='/Report/'><h3>Report</h3></Link>
             </NavItem>
 
+
         </Nav>)
 }
 export default Menu;

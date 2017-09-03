@@ -8,12 +8,16 @@ input {
   height: 50px;
   border-top: 1px solid #eceeef;
   font-size: 18px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
 }
 .container-fluid .row .glyphicon {
   color: #337ab7;
   cursor: pointer;
 }
 .container-fluid .row.saveRow {
+  justify-content: flex-end;
   height: 50px;
 }
 .container-fluid .row .saveButton {
@@ -34,10 +38,18 @@ input {
   font-size: 15px;
   margin: 0;
   font-weight: normal;
+  z-index: 5;
+  position: absolute;
 }
 .container-fluid .heading {
   font-size: 20px;
   font-weight: bold;
+}
+.container-fluid .heading.sortable {
+  cursor: pointer;
+}
+.container-fluid .heading span {
+  margin-left: 15px;
 }
 .container-fluid .row:nth-child(even) {
   background-color: #F2F2F2;
@@ -90,7 +102,6 @@ input {
   height: 100vh;
   display: flex;
   width: 100%;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 }
