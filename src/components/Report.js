@@ -5,8 +5,12 @@ import React, {Component} from 'react';
 import BudgetSummary from './Report/BudgetSummary';
 import * as _ from 'lodash';
 import BarChart from './Report/BarChart'
-import {Nav, NavItem} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import {Nav, NavItem, Navbar} from 'react-bootstrap';
+import {Link, Route} from 'react-router-dom';
+import Income from './Report/Cateogry/Income'
+import Expense from './Report/Cateogry/Expense'
+import ExpenseSummary from './Report/ExpenseSummary'
+
 
 export default class Report extends Component {
 
@@ -28,18 +32,22 @@ export default class Report extends Component {
         const income = {salary: summary.totalDebit};
 
         return (
-            <div style={{overflow: 'auto'}}><BudgetSummary summary={summary}/>
-                <BarChart summary={summary}/>
-                {/*<Income income={income}/>*/}
-                {/*<Expense data={this.props.data} totalCredit={summary.totalCredit}/>*/}
+            <div style={{overflow: 'auto'}}>
+                <Navbar>
+                    <Nav>
+                        <NavItem><Link to="/dashboard/report/income">Income</Link></NavItem>
+                        <NavItem><Link to="/dashboard/report/expense">Expense</Link></NavItem>
+                    </Nav>
+                </Navbar>
+                <Route exact path='/dashboard/report' component={()=><BudgetSummary summary={summary}/>}/>
+                <Route exact path='/dashboard/report' component={()=><BarChart summary={summary}/>}/>
+                <Route path='/dashboard/report/income' component={()=>
+                    <Income income={income}/>}/>
+                <Route path='/dashboard/report/expense' component={()=>
+                    <Expense data={this.props.data} totalCredit={summary.totalCredit}/>}/>
+
                 {/*<ExpenseSummary data={this.props.data}/>*/}
-                <Nav bsStyle="pills">
 
-                    <NavItem>
-                        <Link to='/Report/Income'><h3>Income</h3></Link>
-                    </NavItem>
-
-                </Nav>
 
             </div>
 

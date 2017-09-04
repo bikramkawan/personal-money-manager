@@ -21,8 +21,7 @@ export default class Income extends Component {
             <Row className='title'>
                 <Col md={6}>Salary</Col>
                 <Col md={2}>0.0</Col>
-                <Col md={2}>{this.props.income.salary}</Col>
-                <Col md={2}>{this.props.income.salary}</Col>
+
             </Row>
             <Row className='title'>
                 <Col md={6}>Freelance</Col>
@@ -45,8 +44,7 @@ export default class Income extends Component {
             <Row className='total'>
                 <Col md={6}>Total Income</Col>
                 <Col md={2}>0.0</Col>
-                <Col md={2}>{this.props.income.salary}</Col>
-                <Col md={2}>{this.props.income.salary}</Col>
+
             </Row>
         </Grid>)
     }

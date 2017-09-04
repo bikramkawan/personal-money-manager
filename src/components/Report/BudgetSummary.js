@@ -45,6 +45,7 @@ export default class BudgetSummary extends Component {
 
     render() {
 
+
         const summary = this.mixinData();
 
         return (<Grid className="grid budgetSummary">

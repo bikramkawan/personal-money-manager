@@ -1,25 +1,12 @@
 /**
  * Created by bikramkawan on 8/11/17.
  */
+import {combineReducers} from 'redux';
+import user from './user'
 
-const initialState = {
+export default combineReducers({
 
-    isEditMode: false
-}
+    user
 
-export default (state = initialState, action) => {
+})
 
-    switch (action) {
-
-        case 'saved':
-            return true;
-
-        default:
-            return false;
-
-
-
-
-    }
-
-}

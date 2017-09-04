@@ -2,14 +2,13 @@
  * Created by bikramkawan on 8/9/17.
  */
 import React, {Component} from 'react';
-import AddTransaction from './components/AddTransaction'
 import {Route, Switch, HashRouter, Link, Redirect} from 'react-router-dom'
-import Menu from './components/Menu'
-import Report from './components/Report'
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard'
 import {firebaseApp} from './config/Firebase'
+import {connect} from 'react-redux';
+import {userLogin} from './actions'
 
 
 import axios from 'axios';
@@ -35,35 +34,38 @@ class App extends Component {
             })
     }
 
-    onSave = (data) => {
-        let records = this.state.data;
-        let newComments = records.concat([data]);
-        this.setState({data: newComments});
-        axios.post(this.props.url, data)
-            .catch(err => {
+    /* Currrently not using express at the moment
+     onSave = (data) => {
+     let records = this.state.data;
+     let newComments = records.concat([data]);
+     this.setState({data: newComments});
+     axios.post(this.props.url, data)
+     .catch(err => {
 
-                this.setState({data: records});
-            });
+     this.setState({data: records});
+     });
 
-    }
+     }
 
-    onUpdate = (uniqueKey, data) => {
-        axios.put(`${this.props.url}/${uniqueKey}`, data)
-            .catch(err => {
-                console.log(err);
-            })
-    }
+     onUpdate = (uniqueKey, data) => {
+     axios.put(`${this.props.url}/${uniqueKey}`, data)
+     .catch(err => {
+     console.log(err);
+     })
+     }
 
-    onDelete = (uniqueKey) => {
-        axios.delete(`${this.props.url}/${uniqueKey}`)
-            .then(res => {
-                console.log('Comment deleted');
-            })
-            .catch(err => {
-                console.error(err);
-            });
+     onDelete = (uniqueKey) => {
+     axios.delete(`${this.props.url}/${uniqueKey}`)
+     .then(res => {
+     console.log('Comment deleted');
+     })
+     .catch(err => {
+     console.error(err);
+     });
 
-    }
+     }
+     */
+
 
     componentDidMount() {
         //  this.loadRecordsFromServer();
@@ -71,6 +73,7 @@ class App extends Component {
             if (user) {
                 console.log(user)
                 this.setState({authed: true, userid: user.uid, email: user.email})
+                this.props.userLogin(user.email,user.uid);
 
             } else {
                 this.setState({
@@ -91,6 +94,7 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <HashRouter>
                 <div className="app">
@@ -132,4 +136,16 @@ class App extends Component {
 
 }
 
-export default App
+
+function mapStateToProps(state) {
+
+    console.log(state)
+    return {
+
+        store: state
+    }
+
+
+}
+
+export default connect(mapStateToProps, {userLogin})(App)
