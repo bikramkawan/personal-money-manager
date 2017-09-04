@@ -3,11 +3,67 @@
  */
 import * as _ from 'lodash';
 const categories = {
-    rent: 'rent',
-    groceries: 'groceries',
-    salary: 'salary',
-    utilities: 'utilities',
-    transportation: 'transportation'
+    income: {
+        salary: 'salary',
+        freelance: 'freelance',
+        gifts: 'gifts',
+        other: 'other'
+    },
+    savings: {
+        investments: 'investments',
+        retirement: 'retirement'
+
+    },
+    housing: {
+
+        rent: 'rent',
+        furnishing: 'furnishing'
+    },
+    utilities: {
+
+        electricity: 'electricity',
+        phone: 'phone',
+        internet: 'internet',
+        other: 'other'
+    },
+    food: {
+        groceries: 'groceries',
+        eatingoutside: 'eatingoutside',
+        alcohol: 'alcohol'
+    },
+    transportation: {
+        public: 'public',
+        repairs: 'repairs',
+        airfare: 'airfare'
+    },
+    health: {
+        insurance: 'insurance',
+        medicine: 'medicine'
+    }, dailyliving: {
+
+        education: 'education',
+        clothing: 'clothing',
+        personal: 'personal',
+        other: 'other'
+
+    },
+    entertainment: {
+        vacation: 'vacation',
+        movies: 'movies',
+        concert: 'concert',
+        sports: 'sports',
+        other: 'other'
+    },
+    business: {
+        lend: 'lend',
+        borrow: 'borrow'
+    },
+    miscellaneous: {
+        bankfees: 'bankfees',
+        other: 'other'
+    }
+
+
 }
 
 export function filterAndSumBy(arr, iterator, iteratorVal, sumBy) {

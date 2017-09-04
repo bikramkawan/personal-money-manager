@@ -2,7 +2,7 @@
  * Created by bikramkawan on 8/11/17.
  */
 import React, {Component} from 'react';
-import SelectBox from '../SelectBox/SelectBox'
+
 import {Row, Col} from 'react-bootstrap';
 import {FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import * as _ from 'lodash';
@@ -38,6 +38,7 @@ export default class AddItem extends Component {
 
 
     handleChange = (ref, e)=> {
+
         let val = e.target.value;
         this.isValidAll();
         let {fields} = this.state;
@@ -46,7 +47,7 @@ export default class AddItem extends Component {
 
         }
         fields = {...fields, [ref]: val};
-        console.log(ref,val)
+        console.log(ref, val)
         this.setState({ref: ref, fields}, ()=>this.props.onChange({
             fields,
             uniqueKey: this.props.uniqueKey
@@ -56,6 +57,10 @@ export default class AddItem extends Component {
     }
 
     handleSelect = (categoryName) => {
+
+        console.log(categoryName.target)
+        console.log(categoryName.target.value)
+        return '';
         let {fields} = this.state;
         fields = {...fields, ['category']: categoryName};
         console.log(fields)
@@ -115,10 +120,23 @@ export default class AddItem extends Component {
     }
 
 
+    renderOptions(d) {
+
+        const values = _.keys(categories[d]);
+        return <optgroup value='tst1' label={d}>
+            {values.map(value=><option value={value} style={{textTransform:'Capitalize'}}>{value}</option>)}
+        </optgroup>
+
+
+    }
+
     render() {
+
+        console.log(_.keys(categories['income']))
 
         return (
             <Row>
+
                 <Col md={1}>
                     {/*<InputBox*/}
                     {/*ref='id'*/}
@@ -134,7 +152,7 @@ export default class AddItem extends Component {
                         <input
                             className="form-control"
                             type="date"
-                            style={{padding:'0'}}
+                            style={{padding: '0'}}
                             onChange={this.handleChange.bind(this, 'date')}/>
                     </FormGroup>
 
@@ -154,8 +172,12 @@ export default class AddItem extends Component {
                     </FormGroup>
                 </Col>
                 <Col md={2}>
-                    <SelectBox ref='category' menuItems={_.keys(categories)}
-                               onSelect={this.handleSelect}/>
+                    {/*<SelectBox ref='category' menuItems={_.keys(categories)}*/}
+                    {/*onSelect={this.handleSelect}/>*/}
+                    <select className="form-control" id="sel1" onChange={this.handleSelect}>
+                        {_.keys(categories).map(d=>this.renderOptions(d))}
+                    </select>
+
                 </Col>
                 <Col md={1}>
                     <FormGroup
@@ -184,6 +206,7 @@ export default class AddItem extends Component {
                         <ControlLabel srOnly={this.state.ref !== 'credit'}>Credit is invalid</ControlLabel>
                     </FormGroup>
                 </Col>
+
             </Row>
 
         )
@@ -191,3 +214,4 @@ export default class AddItem extends Component {
 
 
 }
+
