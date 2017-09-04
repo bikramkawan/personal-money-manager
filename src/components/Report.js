@@ -45,8 +45,8 @@ export default class Report extends Component {
                     <Income income={income}/>}/>
                 <Route path='/dashboard/report/expense' component={()=>
                     <Expense data={this.props.data} totalCredit={summary.totalCredit}/>}/>
-
-                {/*<ExpenseSummary data={this.props.data}/>*/}
+                <Route path='/dashboard/report/expense' component={()=>
+                    <ExpenseSummary data={this.props.data}/>}/>
 
 
             </div>
