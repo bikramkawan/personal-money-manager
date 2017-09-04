@@ -46,7 +46,7 @@ export default class AddItem extends Component {
 
         }
         fields = {...fields, [ref]: val};
-
+        console.log(ref,val)
         this.setState({ref: ref, fields}, ()=>this.props.onChange({
             fields,
             uniqueKey: this.props.uniqueKey
@@ -100,12 +100,12 @@ export default class AddItem extends Component {
     }
 
     isValidAll() {
-        const isDate = (this.validateDate() === 'success');
+        // const isDate = (this.validateDate() === 'success');
         const isPayment = (this.validatePayment() === 'success');
         const isDebit = (this.validateIsNumber(this.state.fields.debit) === 'success');
         const isCredit = (this.validateIsNumber(this.state.fields.credit) === 'success');
 
-        if (isCredit && isDebit && isPayment && isDate) {
+        if (isCredit && isDebit && isPayment) {
             this.props.isValidItem(true)
         } else {
             this.props.isValidItem(false);
@@ -130,16 +130,12 @@ export default class AddItem extends Component {
                     {/*ref='date'*/}
                     {/*placeholder="Enter date.."*/}
                     {/*onChange={this.handleChange.bind(this, 'date')}/>*/}
-                    <FormGroup
-                        className='itemValidation'
-                        controlId="date"
-                        validationState={this.validateDate()}>
-                        <FormControl
-                            type="text"
-                            ref='date'
-                            placeholder="Enter date"
+                    <FormGroup>
+                        <input
+                            className="form-control"
+                            type="date"
+                            style={{padding:'0'}}
                             onChange={this.handleChange.bind(this, 'date')}/>
-                        <ControlLabel srOnly={this.state.ref !== 'date'}>Date is invalid</ControlLabel>
                     </FormGroup>
 
 
