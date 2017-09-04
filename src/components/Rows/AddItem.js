@@ -38,11 +38,15 @@ export default class AddItem extends Component {
 
 
     handleChange = (ref, e)=> {
-        const val = e.target.value;
+        let val = e.target.value;
         this.isValidAll();
         let {fields} = this.state;
+        if (ref === 'credit' || ref === 'debit') {
+            val = parseFloat(val);
+
+        }
         fields = {...fields, [ref]: val};
-        console.log(fields)
+
         this.setState({ref: ref, fields}, ()=>this.props.onChange({
             fields,
             uniqueKey: this.props.uniqueKey

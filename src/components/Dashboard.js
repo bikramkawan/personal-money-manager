@@ -47,6 +47,7 @@ class Dashboard extends Component {
                 data.push({...d.val(), key: d.key})
 
             })
+            console.log(data)
             this.setState({data})
         })
 
@@ -56,13 +57,6 @@ class Dashboard extends Component {
     render() {
 
         return (<div>
-                <Navbar>
-                    <Nav>
-                        <NavItem><Link to="/dashboard/addtransaction">Add Transaction</Link></NavItem>
-                        <NavItem><Link to="/dashboard/report">Report</Link></NavItem>
-                    </Nav>
-
-                </Navbar>
                 <Route path='/dashboard/addtransaction' component={()=> <AddTransaction
                     {...this.props}
                     data={this.state.data}
@@ -70,7 +64,6 @@ class Dashboard extends Component {
                     onDelete={this.onDelete}
                     onSave={this.onSave}/>}/>
                 <Route path='/dashboard/report' component={()=><Report {...this.props} data={this.state.data}/>}/>
-
 
 
             </div>

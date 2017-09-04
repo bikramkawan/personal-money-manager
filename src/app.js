@@ -73,7 +73,7 @@ class App extends Component {
             if (user) {
                 console.log(user)
                 this.setState({authed: true, userid: user.uid, email: user.email})
-                this.props.userLogin(user.email,user.uid);
+                this.props.userLogin(user.email, user.uid);
 
             } else {
                 this.setState({
@@ -101,7 +101,14 @@ class App extends Component {
                     <nav className="navbar navbar-default navbar-static-top">
                         <div className="container">
                             <ul className="nav navbar-nav pull-right">
+                                <li>
 
+                                    {this.state.authed ?
+                                        <span><Link to="/dashboard/addtransaction" className="navbar-brand">Add Transaction</Link>
+                              <Link to="/dashboard/report" className="navbar-brand">Report</Link>
+                               </span>
+                                        : ''}
+                                </li>
                                 <li>
                                     <Link to="/dashboard" className="navbar-brand">Dashboard</Link>
                                 </li>
