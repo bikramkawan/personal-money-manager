@@ -7,12 +7,8 @@ import * as $ from 'jquery';
 
 export default class BarChart extends Component {
 
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
-
         const totalWidth = 2000;
         const totalIncome = 1 / totalWidth * this.props.summary.totalDebit * 100;
         const totalExpense = 1 / totalWidth * this.props.summary.totalCredit * 100;

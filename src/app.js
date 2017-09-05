@@ -2,7 +2,7 @@
  * Created by bikramkawan on 8/9/17.
  */
 import React, {Component} from 'react';
-import {Route, Switch, HashRouter, Link, Redirect} from 'react-router-dom'
+import {Route, HashRouter, Link, Redirect} from 'react-router-dom'
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard'
@@ -71,7 +71,6 @@ class App extends Component {
         //  this.loadRecordsFromServer();
         this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
             if (user) {
-                console.log(user)
                 this.setState({authed: true, userid: user.uid, email: user.email})
                 this.props.userLogin(user.email, user.uid);
 
@@ -94,7 +93,6 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <HashRouter>
                 <div className="app">
@@ -146,9 +144,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
 
-    console.log(state)
     return {
-
         store: state
     }
 

@@ -4,7 +4,6 @@
 import React, {Component} from 'react'
 import {Grid, Row, Col} from 'react-bootstrap'
 
-const budget = {debit: 0.0, credit: 0.0};
 export default class BudgetSummary extends Component {
 
     constructor(props) {

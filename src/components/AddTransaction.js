@@ -15,7 +15,7 @@ import * as _ from 'lodash';
 class AddTransaction extends Component {
 
     constructor(props) {
-        console.log(props)
+
         super(props);
         this.state = {
             data: props.data,
@@ -55,7 +55,6 @@ class AddTransaction extends Component {
 
     }
     handleChange = (args)=> {
-        console.log(args)
         this.setState({fields: args.fields})
 
 
@@ -109,7 +108,7 @@ class AddTransaction extends Component {
 
 
     render() {
-        console.log(this.props)
+
         return (<Grid fluid={true}>
                 <Header onSortBy={this.onSortBy}/>
                 {this.state.data.map((data, index)=>
@@ -143,10 +142,8 @@ class AddTransaction extends Component {
 
 
 function mapStateToProps(state) {
-
-    console.log(state)
-    return {test:'teset'}
+    return {}
 
 }
 
-export default connect(mapStateToProps,null)(AddTransaction)
+export default connect(mapStateToProps, null)(AddTransaction)

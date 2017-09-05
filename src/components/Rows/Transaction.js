@@ -4,7 +4,6 @@
 import React, {Component} from 'react';
 import {Glyphicon, Row, Col, Button} from 'react-bootstrap';
 import {FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
-import SelectBox from '../SelectBox/SelectBox'
 import * as _ from 'lodash';
 import categories from '../../shared/utils'
 
@@ -144,11 +143,32 @@ class Transaction extends Component {
 
     }
 
+    handleSelect = ({target}) => {
+        const child = target.value;
+        const parent = target[target.selectedIndex].id;
+        let {fields} = this.state;
+        fields = {...fields, category: {parent, child}};
+        this.setState({fields}, ()=>this.props.onSelect({
+            fields,
+            uniqueKey: this.props.uniqueKey
+        }))
+
+    }
+
+    renderOptions(d) {
+        const values = _.keys(categories[d]);
+        return <optgroup label={d} key={d}>
+            {values.map((value, main)=><option key={main} id={d} value={value}>{value}</option>)}
+        </optgroup>
+
+    }
 
     toggleCategoryRender(ref, value) {
         if (this.state.isEditMode) {
-            return <SelectBox ref='category' menuItems={_.keys(categories)}
-                              onSelect={this.handleChange.bind(this, 'category')}/>
+            return <select className="form-control" id="sel1" onChange={this.handleSelect}
+                           style={{textTransform: 'Capitalize'}}>
+                {_.keys(categories).map(d=>this.renderOptions(d))}
+            </select>
         }
         return value.child || value.parent || '';
 

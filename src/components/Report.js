@@ -14,13 +14,7 @@ import ExpenseSummary from './Report/ExpenseSummary'
 
 export default class Report extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     getSummary() {
-
-
         const totalCredit = _.sumBy(this.props.data, (d)=> parseFloat(d.credit) > 0 ? parseFloat(d.credit) : 0);
         const totalDebit = _.sumBy(this.props.data, (d)=> parseFloat(d.debit) > 0 ? parseFloat(d.debit) : 0);
         return {totalCredit: totalCredit, totalDebit: totalDebit}

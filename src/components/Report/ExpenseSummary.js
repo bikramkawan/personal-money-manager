@@ -7,12 +7,6 @@ import * as $ from 'jquery';
 import {expenseCategories,filterAndSumBy} from '../../shared/utils'
 import * as _ from 'lodash';
 export default class ExpenseSummary extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-
-
     componentDidMount() {
         const totalWidth = _.sumBy(this.props.data, 'credit');
         const catWidth = _.keys(expenseCategories).map((d, i)=> {

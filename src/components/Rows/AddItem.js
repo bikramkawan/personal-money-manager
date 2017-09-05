@@ -123,7 +123,6 @@ export default class AddItem extends Component {
             {values.map((value, main)=><option key={main} id={d} value={value}>{value}</option>)}
         </optgroup>
 
-
     }
 
     render() {

@@ -5,11 +5,6 @@ import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-bootstrap'
 
 export default class Income extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (<Grid className="grid makeTable Income">
             <Row className='header'>

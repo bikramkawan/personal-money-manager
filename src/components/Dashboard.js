@@ -2,13 +2,12 @@
  * Created by bikramkawan on 9/3/17.
  */
 import React, {Component} from 'react';
-import {Route, Link} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import Report from './Report';
 import * as _ from 'lodash';
 import AddTransaction from './AddTransaction';
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import {userdata} from '../config/Firebase';
-import Income from './Report/Cateogry/Income'
+
 
 class Dashboard extends Component {
 
@@ -27,7 +26,7 @@ class Dashboard extends Component {
     }
     onUpdate = (uniqueKey, data) => {
 
-        const isNull = _.some(data, _.isEmpty);
+        const isNull = !_.values(data).some(x => !_.isEmpty(x));
         if (isNull) return;
         this.userRef.child(uniqueKey).set(data);
 
@@ -47,7 +46,6 @@ class Dashboard extends Component {
                 data.push({...d.val(), key: d.key})
 
             })
-            console.log(data)
             this.setState({data})
         })
 
