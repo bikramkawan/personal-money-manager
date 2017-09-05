@@ -43,9 +43,11 @@ export default class AddItem extends Component {
         this.isValidAll();
         let {fields} = this.state;
         if (ref === 'credit' || ref === 'debit') {
-            val = parseFloat(val);
+            const parsedVal = parseFloat(val);
+            val = _.isNaN(parsedVal) ? '' : parsedVal;
 
         }
+
         fields = {...fields, [ref]: val};
         this.setState({ref: ref, fields}, ()=>this.props.onChange({
             fields,
@@ -95,7 +97,8 @@ export default class AddItem extends Component {
     }
 
     validateIsNumber(val) {
-        if (val < 1) return;
+
+        if (!_.isNumber(val)) return;
         return _.isFinite(parseFloat(val)) ? 'success' : 'error';
 
     }
@@ -106,7 +109,7 @@ export default class AddItem extends Component {
         const isDebit = (this.validateIsNumber(this.state.fields.debit) === 'success');
         const isCredit = (this.validateIsNumber(this.state.fields.credit) === 'success');
 
-        if (isCredit && isDebit && isPayment) {
+        if ((isCredit || isDebit) && isPayment) {
             this.props.isValidItem(true)
         } else {
             this.props.isValidItem(false);
