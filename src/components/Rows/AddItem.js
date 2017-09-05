@@ -47,7 +47,6 @@ export default class AddItem extends Component {
 
         }
         fields = {...fields, [ref]: val};
-        console.log(ref, val)
         this.setState({ref: ref, fields}, ()=>this.props.onChange({
             fields,
             uniqueKey: this.props.uniqueKey
@@ -56,14 +55,11 @@ export default class AddItem extends Component {
 
     }
 
-    handleSelect = (categoryName) => {
-
-        console.log(categoryName.target)
-        console.log(categoryName.target.value)
-        return '';
+    handleSelect = ({target}) => {
+        const child = target.value;
+        const parent = target[target.selectedIndex].id;
         let {fields} = this.state;
-        fields = {...fields, ['category']: categoryName};
-        console.log(fields)
+        fields = {...fields, category: {parent, child}};
         this.setState({fields}, ()=>this.props.onSelect({
             fields,
             uniqueKey: this.props.uniqueKey
@@ -123,16 +119,14 @@ export default class AddItem extends Component {
     renderOptions(d) {
 
         const values = _.keys(categories[d]);
-        return <optgroup value='tst1' label={d}>
-            {values.map(value=><option value={value} style={{textTransform:'Capitalize'}}>{value}</option>)}
+        return <optgroup label={d} key={d}>
+            {values.map((value, main)=><option key={main} id={d} value={value}>{value}</option>)}
         </optgroup>
 
 
     }
 
     render() {
-
-        console.log(_.keys(categories['income']))
 
         return (
             <Row>
@@ -174,7 +168,8 @@ export default class AddItem extends Component {
                 <Col md={2}>
                     {/*<SelectBox ref='category' menuItems={_.keys(categories)}*/}
                     {/*onSelect={this.handleSelect}/>*/}
-                    <select className="form-control" id="sel1" onChange={this.handleSelect}>
+                    <select className="form-control" id="sel1" onChange={this.handleSelect}
+                            style={{textTransform: 'Capitalize'}}>
                         {_.keys(categories).map(d=>this.renderOptions(d))}
                     </select>
 

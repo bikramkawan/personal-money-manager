@@ -150,7 +150,7 @@ class Transaction extends Component {
             return <SelectBox ref='category' menuItems={_.keys(categories)}
                               onSelect={this.handleChange.bind(this, 'category')}/>
         }
-        return value;
+        return value.child || value.parent || '';
 
     }
 
