@@ -4,20 +4,38 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-bootstrap'
 import * as $ from 'jquery';
+import * as _ from 'lodash';
 
 export default class BarChart extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            legendValues: []
+        };
+    }
 
     componentDidMount() {
-        const totalWidth = 2000;
-        const totalIncome = 1 / totalWidth * this.props.summary.totalDebit * 100;
-        const totalExpense = 1 / totalWidth * this.props.summary.totalCredit * 100;
+
+        const totalWidth = $('.barChart.container').innerWidth();
+        const {totalIncome, totalExpense, legendValues} = scaleAmount(totalWidth, this.props.summary)
         $('.income').css('width', `${totalIncome}%`)
         $('.expense').css('width', `${totalExpense}%`)
         $('.netDiff').css('width', `${totalIncome - totalExpense}%`)
+        this.setState({legendValues})
+
+
     }
 
+    renderLegends() {
+
+        return this.state.legendValues.map((value)=> <Col md={3} key={value}>{value}</Col>)
+
+    }
+
+
     render() {
+
         return <Grid className="grid barChart">
             <Row>
                 <Col md={3}> </Col>
@@ -31,18 +49,7 @@ export default class BarChart extends Component {
                 </Col>
             </Row>
             <Row className="indicator">
-                <Col md={3}>
-                    0
-                </Col>
-                <Col md={3}>
-                    500
-                </Col>
-                <Col md={3}>
-                    1000
-                </Col>
-                <Col md={3}>
-                    2000
-                </Col>
+                {this.renderLegends()}
             </Row>
             <Row>
                 <Col md={3}>Total Income </Col>
@@ -66,3 +73,16 @@ export default class BarChart extends Component {
     }
 
 }
+
+function scaleAmount(clientWidth, amountSummary) {
+    let maxValue = Math.max(... _.values(amountSummary))
+    maxValue = maxValue + maxValue * 0.2;
+    const scaleYOverX = (maxValue) / (clientWidth);
+    const totalExpense = ((amountSummary.totalCredit) / scaleYOverX) / clientWidth * 100;
+    const totalIncome = ((amountSummary.totalDebit) / scaleYOverX) / clientWidth * 100;
+    const arr = Array.from({length: 3}, (v, i) => i);
+    const legendValues = arr.map(d=>maxValue / 3 * d)
+    legendValues.push(maxValue);
+    return {totalExpense, totalIncome, legendValues}
+}
+
