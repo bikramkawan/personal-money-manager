@@ -36,7 +36,7 @@ export default class BarChart extends Component {
 
     render() {
 
-        return <Grid className="grid barChart">
+        return <Grid className="grid barChart" fluid={true}>
             <Row>
                 <Col md={3}> </Col>
                 <Col md={4} className="legend">

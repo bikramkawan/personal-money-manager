@@ -2,10 +2,11 @@
   "name": "myapp",
   "version": "0.1.0",
   "private": true,
-   "dependencies": {
+  "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
+    "d3": "^4.10.2",
     "express": "^4.15.4",
     "firebase": "^4.3.0",
     "foreman": "^2.0.0",
@@ -31,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-    },
+  },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "react-scripts": "1.0.10",
