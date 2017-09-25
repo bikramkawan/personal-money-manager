@@ -2,7 +2,7 @@
  * Created by bikramkawan on 9/3/17.
  */
 import React, {Component} from 'react';
-import {Route} from 'react-router-dom';
+import {Route,Switch} from 'react-router-dom';
 import Report from './Report';
 import * as _ from 'lodash';
 import AddTransaction from './AddTransaction';
@@ -52,15 +52,14 @@ class Dashboard extends Component {
     }
 
     render() {
-        return (<div>
+        return (<Switch>
                 <Route path='/dashboard/addtransaction' component={()=> <AddTransaction
                     onUpdate={this.onUpdate}
                     onDelete={this.onDelete}
                     onSave={this.onSave}/>}/>
                 <Route path='/dashboard/report' component={()=><Report {...this.props}/>}/>
 
-
-            </div>
+            </Switch>
         )
     }
 

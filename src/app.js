@@ -9,7 +9,7 @@ import Dashboard from './components/Dashboard'
 import {firebaseApp,userdata} from './config/Firebase'
 import {connect} from 'react-redux';
 import {userLogin,userData} from './actions'
-
+import NavBar from './components/NavBar'
 
 import axios from 'axios';
 
@@ -108,34 +108,8 @@ class App extends Component {
         return (
             <HashRouter>
                 <div className="app">
-                    <nav className="navbar navbar-default navbar-static-top">
-                        <div className="container">
-                            <ul className="nav navbar-nav pull-right">
-                                <li>
-
-                                    {this.state.authed ?
-                                        <span><Link to="/dashboard/addtransaction" className="navbar-brand">Add Transaction</Link>
-                              <Link to="/dashboard/report" className="navbar-brand">Report</Link>
-                               </span>
-                                        : ''}
-                                </li>
-                                <li>
-                                    <Link to="/dashboard" className="navbar-brand">Dashboard</Link>
-                                </li>
-                                <li>
-                                    {this.state.authed
-                                        ? <button
-                                        style={{border: 'none', background: 'transparent'}}
-                                        className="navbar-brand" onClick={this.logout}>Logout</button>
-                                        : <span>
-                        <Link to="/login" className="navbar-brand">Login</Link>
-                        <Link to="/register" className="navbar-brand">Register</Link>
-                      </span>}
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                    <div>
+                <NavBar {...this.props}/>
+                                  <Switch>
                         <Route path='/' render={()=>this.state.authed ? <Redirect to='/dashboard'/> : <div></div>}/>
                         <Route path='/login' render={()=>this.state.authed ? <Redirect to='/dashboard'/> : <Login/>}/>
                         <Route path='/dashboard'
@@ -143,8 +117,9 @@ class App extends Component {
                                    <Dashboard userid={this.state.userid} email={this.state.email}/> :
                                    <Redirect to='/login'/>}/>
                         <Route path='/register' component={Register}/>
+                        </Switch>
 
-                    </div>
+
 
 
                 </div>
