@@ -12,8 +12,8 @@ export default (state = null, action) => {
     switch (action.type) {
 
         case USER_LOGIN:
-            const {email,userid} = action;
-            user = {email,userid};
+            const {email,userid,logged} = action;
+            user = {email,userid,logged};
             return user;
 
         case  USER_DATA:

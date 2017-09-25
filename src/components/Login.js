@@ -2,8 +2,9 @@
  * Created by bikramkawan on 9/1/17.
  */
 import React, {Component} from 'react';
-import {firebaseApp} from '../config/Firebase'
-
+import {firebaseApp,userdata} from '../config/Firebase'
+import {connect} from 'react-redux';
+import {userLogin,userData} from '../actions'
 class Login extends Component {
 
     constructor(props) {
@@ -20,9 +21,39 @@ class Login extends Component {
     login = ()=> {
 
         const {email, password} = this.state;
-        firebaseApp.auth().signInWithEmailAndPassword(email, password)
+        firebaseApp.auth()
+            .signInWithEmailAndPassword(email, password)
             .catch(error=> this.setState({error}))
+
+        this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
+            if (user) {
+               console.log(user)
+                this.props.userLogin(user.email, user.uid,true);
+                // // const {userid} = user.uid;
+                // const thisUser = userdata.child(user.uid);
+                // thisUser.on('value', (snap, i)=> {
+                //     let data = [];
+                //     snap.forEach((d, i)=> {
+                //         data.push({...d.val(), key: d.key})
+                //
+                //     })
+                //     this.setState({data})
+                //     this.props.userData(data);
+                //
+                // })
+                this.props.history.push('/app')
+            } else {
+                console.log(user)
+                this.setState({
+                    authed: false,
+                })
+            }
+        })
+
     }
+
+
+
     render() {
         return (
             <div className="container" style={{margin: '5%'}}>
@@ -55,4 +86,13 @@ class Login extends Component {
 
 }
 
-export default Login;
+
+function mapStateToProps(state) {
+    return {
+        store: state
+    }
+
+
+}
+
+export default connect(mapStateToProps, {userLogin,userData})(Login)

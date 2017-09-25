@@ -2,7 +2,7 @@
  * Created by bikramkawan on 8/9/17.
  */
 import React, {Component} from 'react';
-import {Route, HashRouter, Link, Redirect} from 'react-router-dom'
+import {Route, HashRouter, Link, Redirect,Switch} from 'react-router-dom'
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard'
@@ -10,6 +10,10 @@ import {firebaseApp,userdata} from './config/Firebase'
 import {connect} from 'react-redux';
 import {userLogin,userData} from './actions'
 import NavBar from './components/NavBar'
+import UnauthorizedLayout from './components/Layout/UnauthorizedLayout'
+import AuthorizedRoute from './components/Layout/AuthorizedRoute'
+import PrimaryLayout from './components/Layout/PrimaryLayout'
+
 
 import axios from 'axios';
 
@@ -69,29 +73,29 @@ class App extends Component {
 
     componentDidMount() {
         //  this.loadRecordsFromServer();
-        this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({authed: true, userid: user.uid, email: user.email})
-                this.props.userLogin(user.email, user.uid);
-                // const {userid} = user.uid;
-                const thisUser = userdata.child(user.uid);
-                thisUser.on('value', (snap, i)=> {
-                    let data = [];
-                    snap.forEach((d, i)=> {
-                        data.push({...d.val(), key: d.key})
-
-                    })
-                    this.setState({data})
-                    this.props.userData(data);
-
-                })
-
-            } else {
-                this.setState({
-                    authed: false,
-                })
-            }
-        })
+        // this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
+        //     if (user) {
+        //         this.setState({authed: true, userid: user.uid, email: user.email})
+        //         this.props.userLogin(user.email, user.uid);
+        //         // const {userid} = user.uid;
+        //         const thisUser = userdata.child(user.uid);
+        //         thisUser.on('value', (snap, i)=> {
+        //             let data = [];
+        //             snap.forEach((d, i)=> {
+        //                 data.push({...d.val(), key: d.key})
+        //
+        //             })
+        //             this.setState({data})
+        //             this.props.userData(data);
+        //
+        //         })
+        //
+        //     } else {
+        //         this.setState({
+        //             authed: false,
+        //         })
+        //     }
+        // })
 
     }
 
@@ -108,16 +112,23 @@ class App extends Component {
         return (
             <HashRouter>
                 <div className="app">
-                <NavBar {...this.props}/>
-                                  <Switch>
-                        <Route path='/' render={()=>this.state.authed ? <Redirect to='/dashboard'/> : <div></div>}/>
-                        <Route path='/login' render={()=>this.state.authed ? <Redirect to='/dashboard'/> : <Login/>}/>
-                        <Route path='/dashboard'
-                               render={()=>this.state.authed ?
-                                   <Dashboard userid={this.state.userid} email={this.state.email}/> :
-                                   <Redirect to='/login'/>}/>
-                        <Route path='/register' component={Register}/>
-                        </Switch>
+                {/*<NavBar {...this.props}/>*/}
+                                  {/*<Switch>*/}
+                        {/*<Route path='/' render={()=>this.state.authed ? <Redirect to='/dashboard'/> : <div></div>}/>*/}
+                        {/*<Route path='/login' render={()=>this.state.authed ? <Redirect to='/dashboard'/> : <Login/>}/>*/}
+                        {/*<Route path='/dashboard'*/}
+                               {/*render={()=>this.state.authed ?*/}
+                                   {/*<Dashboard userid={this.state.userid} email={this.state.email}/> :*/}
+                                   {/*<Redirect to='/login'/>}/>*/}
+                        {/*<Route path='/register' component={Register}/>*/}
+                        {/*</Switch>*/}
+
+
+                    <Switch>
+                        <Route path="/auth" component={UnauthorizedLayout} />
+                        <AuthorizedRoute path="/app" component={PrimaryLayout}/>
+                        <Redirect to="/auth" />
+                    </Switch>
 
 
 
@@ -130,6 +141,7 @@ class App extends Component {
 
 
 function mapStateToProps(state) {
+    console.log(state.user)
     return {
         store: state
     }
@@ -137,4 +149,4 @@ function mapStateToProps(state) {
 
 }
 
-export default connect(mapStateToProps, {userLogin,userData})(App)
+export default connect(mapStateToProps,null)(App)

@@ -7,7 +7,7 @@ import Transaction from './Rows/Transaction'
 import AddItem from './Rows/AddItem';
 import {Grid, Row, Col, Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
-
+import {userdata} from '../config/Firebase';
 
 import * as _ from 'lodash';
 
@@ -107,8 +107,27 @@ class AddTransaction extends Component {
     }
 
 
+    componentDidMount() {
+        // const {userid} = this.props;
+        // const thisUser = userdata.child(userid);
+        // thisUser.on('value', (snap, i)=> {
+        //     let data = [];
+        //     snap.forEach((d, i)=> {
+        //         data.push({...d.val(), key: d.key})
+        //
+        //     })
+        //     this.setState({data})
+        // })
+
+
+    }
+
+
+
     render() {
 console.log(this.props)
+        if(!this.props.userdata) return <div></div>;
+
         return (<Grid fluid={true}>
                 <Header onSortBy={this.onSortBy}/>
                 {this.props.userdata.map((data, index)=>
@@ -142,8 +161,9 @@ console.log(this.props)
 
 
 function mapStateToProps({user}) {
+    console.log(user)
     if(!user) return ;
-    const {userdata} = user;
+    const {userdata} = user
     return {
         userdata
     }

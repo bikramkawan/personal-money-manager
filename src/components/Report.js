@@ -13,7 +13,8 @@ import ExpenseSummary from './Report/ExpenseSummary'
 import {Grid, Row, Col} from 'react-bootstrap'
 import D3BarChart from './Report/D3BarChart'
 import D3BarNegative from './Report/D3BarNegative'
-export default class Report extends Component {
+import {connect} from 'react-redux';
+class Report extends Component {
 
     getSummary() {
         const totalCredit = _.sumBy(this.props.userdata, (d)=> parseFloat(d.credit) > 0 ? parseFloat(d.credit) : 0);
@@ -50,15 +51,14 @@ export default class Report extends Component {
                     <Row className="report" style={{display: 'flex'}}>
                         <Col md={6}>
 
-                            <Route exact path='/dashboard/report' component={()=><BudgetSummary summary={summary}/>}/>
+                         <BudgetSummary summary={summary}/>
 
                         </Col>
                         <Col md={6} className="myChart">
-                            <Route exact path='/dashboard/report'
-                                   component={()=>summary.isNegative ?
+                            {summary.isNegative ?
                                        <D3BarNegative selector={"myChart"} data={data}/> :
                                        <D3BarChart selector={"myChart"} data={data}/>}
-                            />
+
 
                         </Col>
                     </Row>
@@ -79,3 +79,14 @@ export default class Report extends Component {
 
 
 }
+function mapStateToProps({user}) {
+    console.log(user)
+    if(!user) return ;
+    const {userdata} = user
+    return {
+        userdata
+    }
+
+}
+
+export default connect(mapStateToProps, null)(Report)
