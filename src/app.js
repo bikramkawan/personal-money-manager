@@ -6,9 +6,9 @@ import {Route, HashRouter, Link, Redirect} from 'react-router-dom'
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard'
-import {firebaseApp} from './config/Firebase'
+import {firebaseApp,userdata} from './config/Firebase'
 import {connect} from 'react-redux';
-import {userLogin} from './actions'
+import {userLogin,userData} from './actions'
 
 
 import axios from 'axios';
@@ -73,6 +73,18 @@ class App extends Component {
             if (user) {
                 this.setState({authed: true, userid: user.uid, email: user.email})
                 this.props.userLogin(user.email, user.uid);
+                // const {userid} = user.uid;
+                const thisUser = userdata.child(user.uid);
+                thisUser.on('value', (snap, i)=> {
+                    let data = [];
+                    snap.forEach((d, i)=> {
+                        data.push({...d.val(), key: d.key})
+
+                    })
+                    this.setState({data})
+                    this.props.userData(data);
+
+                })
 
             } else {
                 this.setState({
@@ -143,7 +155,6 @@ class App extends Component {
 
 
 function mapStateToProps(state) {
-
     return {
         store: state
     }
@@ -151,4 +162,4 @@ function mapStateToProps(state) {
 
 }
 
-export default connect(mapStateToProps, {userLogin})(App)
+export default connect(mapStateToProps, {userLogin,userData})(App)

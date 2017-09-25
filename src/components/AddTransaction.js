@@ -47,8 +47,8 @@ class AddTransaction extends Component {
 
     deleteRow = (uniqueKey) => {
 
-        const index = this.state.data.findIndex(d=>d.key === uniqueKey);
-        const temp = this.state.data.slice();
+        const index = this.props.userdata.findIndex(d=>d.key === uniqueKey);
+        const temp = this.props.userdata.slice();
         temp.splice(index, 1);
         this.setState({data: temp}, ()=>this.props.onDelete(uniqueKey))
 
@@ -60,7 +60,7 @@ class AddTransaction extends Component {
 
     }
     onSortByName = () => {
-        const data = this.state.data.slice();
+        const data = this.props.userdata.slice();
         const sortBy = this.state.sortByAsc ? 'asc' : 'desc';
         const sortedData = _.orderBy(data, 'payment', sortBy)
         this.setState({data: sortedData, sortByAsc: !this.state.sortByAsc})
@@ -68,7 +68,7 @@ class AddTransaction extends Component {
     }
 
     onSortBy = (ref) => {
-        const data = this.state.data.slice();
+        const data = this.props.userdata.slice();
         const sortBy = this.state.sortByAsc ? 'asc' : 'desc';
         const sortedData = _.orderBy(data, ref, sortBy)
         this.setState({data: sortedData, sortByAsc: !this.state.sortByAsc})
@@ -79,7 +79,7 @@ class AddTransaction extends Component {
     save = ()=> {
 
         if (this.state.isEditMode) {
-            const temp = this.state.data.slice();
+            const temp = this.props.userdata.slice();
             temp.splice(this.state.updateIndex, 1, this.state.fields)
             this.setState({data: temp, isDisableSaveButton: true})
 
@@ -108,10 +108,10 @@ class AddTransaction extends Component {
 
 
     render() {
-
+console.log(this.props)
         return (<Grid fluid={true}>
                 <Header onSortBy={this.onSortBy}/>
-                {this.state.data.map((data, index)=>
+                {this.props.userdata.map((data, index)=>
                     <Transaction data={data}
                                  onDeleteRow={this.deleteRow}
                                  onChange={this.handleChange}
@@ -141,8 +141,12 @@ class AddTransaction extends Component {
 }
 
 
-function mapStateToProps(state) {
-    return {}
+function mapStateToProps({user}) {
+    if(!user) return ;
+    const {userdata} = user;
+    return {
+        userdata
+    }
 
 }
 

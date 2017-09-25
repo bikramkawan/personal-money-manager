@@ -16,8 +16,8 @@ import D3BarNegative from './Report/D3BarNegative'
 export default class Report extends Component {
 
     getSummary() {
-        const totalCredit = _.sumBy(this.props.data, (d)=> parseFloat(d.credit) > 0 ? parseFloat(d.credit) : 0);
-        const totalDebit = _.sumBy(this.props.data, (d)=> parseFloat(d.debit) > 0 ? parseFloat(d.debit) : 0);
+        const totalCredit = _.sumBy(this.props.userdata, (d)=> parseFloat(d.credit) > 0 ? parseFloat(d.credit) : 0);
+        const totalDebit = _.sumBy(this.props.userdata, (d)=> parseFloat(d.debit) > 0 ? parseFloat(d.debit) : 0);
         const net = totalDebit - totalCredit;
         const isNegative = net < 0;
         return {totalCredit, totalDebit, net, isNegative}
@@ -28,7 +28,7 @@ export default class Report extends Component {
         const summary = this.getSummary();
         const {totalDebit, totalCredit, net} = summary;
         console.log(totalCredit)
-
+        console.log(this.props)
         var data = [
             {"name": "Total Income", "value": totalDebit},
             {"name": "Total Expense", "value": totalCredit},
@@ -67,9 +67,9 @@ export default class Report extends Component {
                 <Route path='/dashboard/report/income' component={()=>
                     <Income income={income}/>}/>
                 <Route path='/dashboard/report/expense' component={()=>
-                    <Expense data={this.props.data} totalCredit={summary.totalCredit}/>}/>
+                    <Expense data={this.props.userdata} totalCredit={summary.totalCredit}/>}/>
                 <Route path='/dashboard/report/expense' component={()=>
-                    <ExpenseSummary data={this.props.data}/>}/>
+                    <ExpenseSummary data={this.props.userdata}/>}/>
 
 
             </div>

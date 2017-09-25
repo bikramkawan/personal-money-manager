@@ -7,13 +7,12 @@ import Report from './Report';
 import * as _ from 'lodash';
 import AddTransaction from './AddTransaction';
 import {userdata} from '../config/Firebase';
-
+import {connect} from 'react-redux';
 
 class Dashboard extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {data: []};
         this.userid = this.props.userid;
         this.userRef = userdata.child(this.userid);
     }
@@ -38,30 +37,27 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        const {userid} = this.props;
-        const thisUser = userdata.child(userid);
-        thisUser.on('value', (snap, i)=> {
-            let data = [];
-            snap.forEach((d, i)=> {
-                data.push({...d.val(), key: d.key})
-
-            })
-            this.setState({data})
-        })
+        // const {userid} = this.props;
+        // const thisUser = userdata.child(userid);
+        // thisUser.on('value', (snap, i)=> {
+        //     let data = [];
+        //     snap.forEach((d, i)=> {
+        //         data.push({...d.val(), key: d.key})
+        //
+        //     })
+        //     this.setState({data})
+        // })
 
 
     }
 
     render() {
-
         return (<div>
                 <Route path='/dashboard/addtransaction' component={()=> <AddTransaction
-                    {...this.props}
-                    data={this.state.data}
                     onUpdate={this.onUpdate}
                     onDelete={this.onDelete}
                     onSave={this.onSave}/>}/>
-                <Route path='/dashboard/report' component={()=><Report {...this.props} data={this.state.data}/>}/>
+                <Route path='/dashboard/report' component={()=><Report {...this.props}/>}/>
 
 
             </div>
@@ -71,4 +67,14 @@ class Dashboard extends Component {
 
 }
 
-export default Dashboard;
+function mapStateToProps({user}) {
+    if(!user) return ;
+    const {userdata} = user;
+    return {
+        userdata
+    }
+
+
+}
+
+export default connect(mapStateToProps, null)(Dashboard)

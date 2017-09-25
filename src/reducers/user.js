@@ -1,7 +1,7 @@
 /**
  * Created by bikramkawan on 9/3/17.
  */
-import {USER_LOGIN} from '../shared/constants';
+import {USER_LOGIN,USER_DATA} from '../shared/constants';
 
 let user = {
     email: null
@@ -16,9 +16,18 @@ export default (state = null, action) => {
             user = {email,userid};
             return user;
 
+        case  USER_DATA:
+            const {userdata}  = action;
+
+            return {userdata};
+
         default:
             return state;
     }
 
 
 }
+
+
+
+
