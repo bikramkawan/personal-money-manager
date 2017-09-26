@@ -28,19 +28,20 @@ class Login extends Component {
         this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
             if (user) {
                console.log(user)
-                this.props.userLogin(user.email, user.uid,true);
-                // // const {userid} = user.uid;
-                // const thisUser = userdata.child(user.uid);
-                // thisUser.on('value', (snap, i)=> {
-                //     let data = [];
-                //     snap.forEach((d, i)=> {
-                //         data.push({...d.val(), key: d.key})
-                //
-                //     })
-                //     this.setState({data})
-                //     this.props.userData(data);
-                //
-                // })
+
+                // const {userid} = user.uid;
+                const thisUser = userdata.child(user.uid);
+                thisUser.on('value', (snap, i)=> {
+                    const userdata = [];
+                    snap.forEach((d, i)=> {
+                        userdata.push({...d.val(), key: d.key})
+
+                    })
+                    //this.setState({data})
+
+                    this.props.userLogin(user.email, user.uid,true,userdata);
+
+                })
                 this.props.history.push('/app')
             } else {
                 console.log(user)
@@ -51,6 +52,38 @@ class Login extends Component {
         })
 
     }
+
+
+    componentDidMount(){
+
+        this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log(user)
+
+                // const {userid} = user.uid;
+                const thisUser = userdata.child(user.uid);
+                thisUser.on('value', (snap, i)=> {
+                    const userdata = [];
+                    snap.forEach((d, i)=> {
+                        userdata.push({...d.val(), key: d.key})
+
+                    })
+                    //this.setState({data})
+
+                    this.props.userLogin(user.email, user.uid,true,userdata);
+
+                })
+                this.props.history.push('/app')
+            } else {
+                console.log(user)
+                this.setState({
+                    authed: false,
+                })
+            }
+        })
+    }
+
+
 
 
 

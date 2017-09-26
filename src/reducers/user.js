@@ -12,14 +12,14 @@ export default (state = null, action) => {
     switch (action.type) {
 
         case USER_LOGIN:
-            const {email,userid,logged} = action;
-            user = {email,userid,logged};
+            const {email,userid,logged,userdata} = action;
+            user = {email,userid,logged,userdata};
             return user;
 
         case  USER_DATA:
-            const {userdata}  = action;
+            const {userdata1}  = action;
 
-            return {userdata};
+            return {userdata1};
 
         default:
             return state;

@@ -18,38 +18,11 @@ class UserSubLayout extends Component {
 
     componentWillReceiveProps(nextProps){
 
-        console.log(nextProps)
-        console.log(nextProps)
-        if(!nextProps.userid) return
-        const {userid} = nextProps;
-        const thisUser = userdata.child(userid);
-        thisUser.on('value', (snap, i)=> {
-            let data = [];
-            snap.forEach((d, i)=> {
-                data.push({...d.val(), key: d.key})
 
-            })
-            nextProps.userData(data);
-            console.log(data)
-           // this.setState({data})
-        })
 
     }
     componentDidMount(){
 
-        if(!this.props.userid) return
-        const {userid} = this.props;
-        const thisUser = userdata.child(userid);
-        thisUser.on('value', (snap, i)=> {
-            let data = [];
-            snap.forEach((d, i)=> {
-                data.push({...d.val(), key: d.key})
-
-            })
-            this.props.userData(data);
-            console.log(data)
-            // this.setState({data})
-        })
 
     }
 

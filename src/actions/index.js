@@ -3,13 +3,14 @@
  */
 
 import {USER_DATA, USER_LOGIN} from '../shared/constants'
-export const userLogin = (email, userid,logged) => {
+export const userLogin = (email, userid,logged,userdata) => {
 
     const action = {
         type: USER_LOGIN,
         email,
         userid,
-        logged
+        logged,
+        userdata
     }
     return action;
 }

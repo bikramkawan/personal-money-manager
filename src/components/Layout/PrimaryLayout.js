@@ -18,34 +18,16 @@ class PrimaryLayout extends Component {
 
     componentDidMount(){
         this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
-            console.log(user)
-            if (user) {
-                console.log(user)
-                this.props.userLogin(user.email, user.uid,true);
-                // // const {userid} = user.uid;
-                // const thisUser = userdata.child(user.uid);
-                // thisUser.on('value', (snap, i)=> {
-                //     let data = [];
-                //     snap.forEach((d, i)=> {
-                //         data.push({...d.val(), key: d.key})
-                //
-                //     })
-                //     this.setState({data})
-                //     this.props.userData(data);
-                //
-                // })
-
-            } else {
-                console.log(user)
-                this.setState({
-                    authed: false,
-                })
+           if (user) {
+                console.log('Success')
+              } else {
+                console.log(user,'false')
+                this.props.history.push('/')
             }
         })
     }
 
     render(){
-        console.log(this.props)
         return (
 
             <div className="primary-layout">
@@ -60,22 +42,8 @@ class PrimaryLayout extends Component {
             </div>
         )
 
-
-
     }
-
-
-
 }
 
 
-function mapStateToProps(store) {
-    console.log(store)
-
-    return {
-
-    }
-
-}
-
-export default connect(mapStateToProps, {userLogin})(PrimaryLayout)
+export default PrimaryLayout;
