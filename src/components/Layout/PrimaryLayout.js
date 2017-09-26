@@ -49,11 +49,11 @@ class PrimaryLayout extends Component {
         return (
 
             <div className="primary-layout">
-                <NavBar />
+                <NavBar authed={true} {...this.props}/>
                 <main>
                     <Switch>
-                        <Route path={`${this.props.match.path}`} exact component={AppHomePage} />
-                        <Route path={`${this.props.match.path}/users`} component={UserSubLayout} />
+                        <Route path={`${this.props.match.path}`} exact component={UserSubLayout} />
+                        <Route path={`${this.props.match.path}/transaction`} component={UserSubLayout} />
                         <Redirect to={`${this.props.match.url}`} />
                     </Switch>
                 </main>

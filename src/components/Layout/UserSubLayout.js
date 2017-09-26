@@ -57,9 +57,9 @@ class UserSubLayout extends Component {
         return (<div className="user-sub-layout">
             <div className="primary-content">
                 <Switch>
-                    <Route path={this.props.match.path} exact component={BrowseUsersPage} />
+                    <Route path={this.props.match.path} exact component={AddTransaction} />
                     <Route path={`${this.props.match.path}/add`} exact component={AddTransaction} />
-                    <Route path={`${this.props.match.path}/userId`}  component={Report} />
+                    <Route path={`${this.props.match.path}/report`}  component={Report} />
                 </Switch>
             </div>
         </div>)
