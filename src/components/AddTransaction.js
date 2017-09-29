@@ -160,7 +160,6 @@ class AddTransaction extends Component {
 
 
 function mapStateToProps({user}) {
-    console.log(user)
     if(!user) return ;
     const {userdata} = user
     return {

@@ -66,8 +66,7 @@ import {Link, Route} from 'react-router-dom';
 }
 
 function mapStateToProps({user}) {
-    console.log(user)
-    if(!user) return ;
+     if(!user) return ;
     const {userdata} = user
     return {
         userdata

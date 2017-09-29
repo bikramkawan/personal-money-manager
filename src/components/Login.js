@@ -42,8 +42,7 @@ class Login extends Component {
                 })
                 this.props.history.push('/app')
             } else {
-                console.log(user)
-                this.setState({
+                       this.setState({
                     authed: false,
                 })
             }
@@ -72,8 +71,7 @@ class Login extends Component {
                 })
                 this.props.history.push('/app')
             } else {
-                console.log(user)
-                this.setState({
+                    this.setState({
                     authed: false,
                 })
             }

@@ -115,7 +115,7 @@ class App extends Component {
                 })
                 this.props.history.push('/app')
             } else {
-                console.log(user)
+
                 this.setState({
                     authed: false,
                 })

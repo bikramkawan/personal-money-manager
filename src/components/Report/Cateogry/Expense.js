@@ -38,7 +38,6 @@ class Expense extends Component {
     render() {
         if(!this.props.userdata) return <div></div>;
         const expenseByCat = this.prepareData();
-        console.log(expenseByCat)
         return (
 
             <div style={{overflow: 'hidden'}}>

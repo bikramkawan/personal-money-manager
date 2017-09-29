@@ -23,8 +23,7 @@ class Register extends Component {
         const {email, password} = this.state;
         firebaseApp.auth().createUserWithEmailAndPassword(email, password)
             .then((user)=> {
-                console.log(user)
-                const thisUser = users.child(user.uid);
+                  const thisUser = users.child(user.uid);
                 const userdetail = thisUser.child('userdetail');
                 const dataToInsert = {email: user.email, userid: user.uid};
                 userdetail.set(dataToInsert)

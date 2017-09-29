@@ -96,8 +96,7 @@ router.route('/records')
         (req.body.category) ? records.category = req.body.category : null;
         (req.body.credit) ? records.credit = req.body.credit : null;
         (req.body.debit) ? records.debit = req.body.debit : null;
-        console.log(records)
-        records.save(function (err) {
+          records.save(function (err) {
             if (err)
                 res.send(err);
             res.json({message: 'Records successfully added!'});
