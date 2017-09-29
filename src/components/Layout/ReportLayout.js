@@ -6,9 +6,10 @@ import {connect} from 'react-redux'
 import AddTransaction from '../AddTransaction';
 import BrowseUsersPage from '../BrowseUsersPage'
 import {userData} from '../../actions'
+import Income from '../Report/Cateogry/Income';
+import Expense from '../Report/Cateogry/Expense'
 import {firebaseApp,userdata} from '../../config/Firebase'
-import ReportLayout from './ReportLayout'
-class UserSubLayout extends Component {
+class ReportLayout extends Component {
 
     constructor(props){
         super(props);
@@ -31,9 +32,9 @@ class UserSubLayout extends Component {
         return (<div className="user-sub-layout">
             <div className="primary-content">
                 <Switch>
-                    <Route path={this.props.match.path} exact component={AddTransaction} />
-                    <Route path={`${this.props.match.path}/add`} exact component={AddTransaction} />
-                    <Route path={`${this.props.match.path}/report`}  component={ReportLayout} />
+                    <Route path={this.props.match.path} exact component={Report} />
+                    <Route path={`${this.props.match.path}/income`} exact component={Income} />
+                    <Route path={`${this.props.match.path}/expense`}  component={Expense} />
                 </Switch>
             </div>
         </div>)
@@ -54,4 +55,4 @@ function mapStateToProps({user}) {
 
 }
 
-export default connect(mapStateToProps,{userData})(UserSubLayout)
+export default connect(mapStateToProps,{userData})(ReportLayout)

@@ -4,20 +4,20 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-bootstrap'
 import * as _ from 'lodash';
+import {connect} from 'react-redux'
+import {userData} from '../../../actions';
+import {Nav, NavItem, Navbar} from 'react-bootstrap';
+import {Link, Route} from 'react-router-dom';
 
 const expensesCat = {rent: 'rent', transportation: 'transportation', utilities: 'utilities', groceries: 'groceries'};
 
 
-export default class Expense extends Component {
-
-    constructor(props) {
-        super(props);
-        this.data = this.props.data;
-    }
+class Expense extends Component {
 
     prepareData() {
-        const filterByExpense = this.data.filter(d=>d.credit > 0);
-        const rent = _.sumBy(filterByExpense, (d)=> {
+        console.log(this.props)
+        const filterByExpense = this.props.userdata.filter(d=>d.credit > 0);
+            const rent = _.sumBy(filterByExpense, (d)=> {
             if (d.category === expensesCat.rent) return d.credit
         });
         const transportation = _.sumBy(filterByExpense, (d)=> {
@@ -36,8 +36,20 @@ export default class Expense extends Component {
     }
 
     render() {
+        if(!this.props.userdata) return <div></div>;
         const expenseByCat = this.prepareData();
-        return (<Grid className="grid makeTable Income">
+        console.log(expenseByCat)
+        return (
+
+            <div style={{overflow: 'hidden'}}>
+                <Navbar>
+                    <Nav>
+                        <NavItem><Link to="/app/transaction/report/income">Income</Link></NavItem>
+                        <NavItem><Link to="/app/transaction/report/expense">Expense</Link></NavItem>
+                    </Nav>
+                </Navbar>
+
+            <Grid className="grid makeTable Income">
             <Row className='header'>
                 <Col md={6}>Expenses</Col>
                 <Col md={2}>Budget</Col>
@@ -74,7 +86,21 @@ export default class Expense extends Component {
                 <Col md={2}>{this.props.totalCredit}</Col>
                 <Col md={2}>{this.props.totalCredit}</Col>
             </Row>
-        </Grid>)
+        </Grid>
+            </div>)
     }
 
 }
+
+
+function mapStateToProps({user}) {
+    console.log(user)
+    if(!user) return ;
+    const {userdata} = user
+    return {
+        userdata
+    }
+
+}
+
+export default connect(mapStateToProps,{userData})(Expense)

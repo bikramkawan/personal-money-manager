@@ -36,6 +36,7 @@ class PrimaryLayout extends Component {
                     <Switch>
                         <Route path={`${this.props.match.path}`} exact component={UserSubLayout} />
                         <Route path={`${this.props.match.path}/transaction`} component={UserSubLayout} />
+
                         <Redirect to={`${this.props.match.url}`} />
                     </Switch>
                 </main>
