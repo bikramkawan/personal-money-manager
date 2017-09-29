@@ -28,9 +28,7 @@ class Report extends Component {
     render() {
         const summary = this.getSummary();
         const {totalDebit, totalCredit, net} = summary;
-        console.log(totalCredit)
-        console.log(this.props)
-        var data = [
+             var data = [
             {"name": "Total Income", "value": totalDebit},
             {"name": "Total Expense", "value": totalCredit},
             {"name": "Net", "value": net}

@@ -125,7 +125,6 @@ class AddTransaction extends Component {
 
 
     render() {
-console.log(this.props)
         if(!this.props.userdata) return <div></div>;
 
         return (<Grid fluid={true}>

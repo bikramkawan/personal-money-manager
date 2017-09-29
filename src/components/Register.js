@@ -20,7 +20,6 @@ class Register extends Component {
 
 
     register = ()=> {
-        console.log(this.state);
         const {email, password} = this.state;
         firebaseApp.auth().createUserWithEmailAndPassword(email, password)
             .then((user)=> {

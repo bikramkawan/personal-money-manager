@@ -10,8 +10,7 @@ import {Link, Route} from 'react-router-dom';
 
  class Income extends Component {
     render() {
-        console.log(this.props)
-        if(!this.props.userdata) return <div></div>;
+          if(!this.props.userdata) return <div></div>;
         return (
 
             <div style={{overflow: 'hidden'}}>

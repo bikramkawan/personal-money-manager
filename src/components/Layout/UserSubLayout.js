@@ -45,7 +45,6 @@ class UserSubLayout extends Component {
 
 
 function mapStateToProps({user}) {
-    console.log(user)
     if(!user) return ;
     const {userid} = user
     return {

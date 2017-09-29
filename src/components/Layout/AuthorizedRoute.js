@@ -5,8 +5,6 @@ class AuthorizedRoute extends React.Component {
 
     render() {
         let { component:Component, pending, logged, ...rest } = this.props
-        console.log(this.props)
-
         return (
             <Route {...rest} render={props => {
                 if (pending) return <div>Loading...</div>

@@ -9,9 +9,7 @@ class D3BarChart extends Component {
 
 
     componentDidMount() {
-
         var chartDiv = document.querySelector(".myChart");
-        console.log(chartDiv.clientWidth, chartDiv.clientHeight)
         let height = chartDiv.clientHeight;
         let width = chartDiv.clientWidth;
         const selector = this.props.selector;

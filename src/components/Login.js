@@ -27,9 +27,7 @@ class Login extends Component {
 
         this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
             if (user) {
-               console.log(user)
-
-                // const {userid} = user.uid;
+                 // const {userid} = user.uid;
                 const thisUser = userdata.child(user.uid);
                 thisUser.on('value', (snap, i)=> {
                     const userdata = [];
@@ -58,9 +56,8 @@ class Login extends Component {
 
         this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
             if (user) {
-                console.log(user)
 
-                // const {userid} = user.uid;
+               // const {userid} = user.uid;
                 const thisUser = userdata.child(user.uid);
                 thisUser.on('value', (snap, i)=> {
                     const userdata = [];

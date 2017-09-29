@@ -15,7 +15,7 @@ const expensesCat = {rent: 'rent', transportation: 'transportation', utilities: 
 class Expense extends Component {
 
     prepareData() {
-        console.log(this.props)
+
         const filterByExpense = this.props.userdata.filter(d=>d.credit > 0);
             const rent = _.sumBy(filterByExpense, (d)=> {
             if (d.category === expensesCat.rent) return d.credit
@@ -94,7 +94,6 @@ class Expense extends Component {
 
 
 function mapStateToProps({user}) {
-    console.log(user)
     if(!user) return ;
     const {userdata} = user
     return {

@@ -5,11 +5,8 @@ import React, {Component} from 'react';
 import * as d3 from 'd3'
 
 class D3BarNegative extends Component {
-
     componentDidMount() {
-
         var chartDiv = document.querySelector(".myChart");
-        console.log(chartDiv.clientWidth, chartDiv.clientHeight)
         let height = chartDiv.clientHeight;
         let width = chartDiv.clientWidth;
         const selector = this.props.selector;
