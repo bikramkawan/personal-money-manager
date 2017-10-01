@@ -54,6 +54,7 @@ class AddTransaction extends Component {
 
     }
     handleChange = (args)=> {
+        console.log(args)
         this.setState({fields: args.fields})
 
 

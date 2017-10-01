@@ -25,7 +25,7 @@ class ReportLayout extends Component {
 
 
 function mapStateToProps({user}) {
-    if (!user) return;
+    if (!user) return {};
     const {userid} = user
     return {
         userid

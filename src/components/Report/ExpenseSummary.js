@@ -10,6 +10,7 @@ export default class ExpenseSummary extends Component {
     componentDidMount() {
         const totalWidth = _.sumBy(this.props.data, 'credit');
         const catWidth = _.keys(expenseCategories).map((d, i)=> {
+            console.log(d,expenseCategories)
             const val = filterAndSumBy(this.props.data, 'category', d, 'credit');
             return {
                 cat: d,

@@ -33,15 +33,22 @@ class Transaction extends Component {
     }
     handleChange = (ref, e)=> {
 
-        const val = e.target.value;
-        this.isValidAll();
+        let val = e.target.value;
         let {fields} = this.state;
+
+        if (ref === 'credit' || ref === 'debit') {
+            const parsedVal = parseFloat(val);
+            val = _.isNaN(parsedVal) ? '-' : parsedVal;
+
+        }
+
         fields = {...fields, [ref]: val};
+
+        this.isValidAll(fields);
         this.setState({ref: ref, fields}, ()=>this.props.onChange({
             fields,
             uniqueKey: this.props.uniqueKey
         }))
-
     }
 
     editMe = (uniqueKey) => {

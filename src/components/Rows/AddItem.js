@@ -44,7 +44,7 @@ export default class AddItem extends Component {
 
         if (ref === 'credit' || ref === 'debit') {
             const parsedVal = parseFloat(val);
-            val = _.isNaN(parsedVal) ? '' : parsedVal;
+            val = _.isNaN(parsedVal) ? '-' : parsedVal;
 
         }
 
