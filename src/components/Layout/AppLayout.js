@@ -1,20 +1,11 @@
-
 import { Switch, Route, Redirect } from 'react-router-dom'
 import NavBar from '../NavBar'
-import {connect} from 'react-redux'
-import AppHomePage from '../AppHomePage'
 import React, {Component} from 'react';
-import {firebaseApp,userdata} from '../../config/Firebase'
+import {firebaseApp} from '../../config/Firebase'
 
-import {userLogin,userData} from '../../actions'
-import UserSubLayout from './UserSubLayout'
+import DashboardLayout from './DashboardLayout'
 
-class PrimaryLayout extends Component {
-
-    constructor(props){
-        super(props);
-    }
-
+class AppLayout extends Component {
 
     componentDidMount(){
         this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
@@ -30,12 +21,12 @@ class PrimaryLayout extends Component {
     render(){
         return (
 
-            <div className="primary-layout">
+            <div className="app-layout">
                 <NavBar authed={true} {...this.props}/>
                 <main>
                     <Switch>
-                        <Route path={`${this.props.match.path}`} exact component={UserSubLayout} />
-                        <Route path={`${this.props.match.path}/transaction`} component={UserSubLayout} />
+                        <Route path={`${this.props.match.path}`} exact component={DashboardLayout} />
+                        <Route path={`${this.props.match.path}/transaction`} component={DashboardLayout} />
 
                         <Redirect to={`${this.props.match.url}`} />
                     </Switch>
@@ -47,4 +38,4 @@ class PrimaryLayout extends Component {
 }
 
 
-export default PrimaryLayout;
+export default AppLayout;

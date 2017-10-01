@@ -7,7 +7,6 @@ import Transaction from './Rows/Transaction'
 import AddItem from './Rows/AddItem';
 import {Grid, Row, Col, Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {userdata} from '../config/Firebase';
 
 import * as _ from 'lodash';
 
@@ -77,7 +76,7 @@ class AddTransaction extends Component {
 
 
     save = ()=> {
-
+        console.log(this.state)
         if (this.state.isEditMode) {
             const temp = this.props.userdata.slice();
             temp.splice(this.state.updateIndex, 1, this.state.fields)
@@ -104,22 +103,6 @@ class AddTransaction extends Component {
         } else {
             this.setState({isDisableSaveButton: true})
         }
-    }
-
-
-    componentDidMount() {
-        // const {userid} = this.props;
-        // const thisUser = userdata.child(userid);
-        // thisUser.on('value', (snap, i)=> {
-        //     let data = [];
-        //     snap.forEach((d, i)=> {
-        //         data.push({...d.val(), key: d.key})
-        //
-        //     })
-        //     this.setState({data})
-        // })
-
-
     }
 
 
@@ -160,7 +143,7 @@ class AddTransaction extends Component {
 
 
 function mapStateToProps({user}) {
-    if(!user) return ;
+    if(!user) return {} ;
     const {userdata} = user
     return {
         userdata
