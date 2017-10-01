@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 
 import {Row, Col} from 'react-bootstrap';
-import {FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
+import {FormGroup, FormControl, ControlLabel, Glyphicon} from 'react-bootstrap';
 import * as _ from 'lodash';
 import categories from '../../shared/utils'
 
@@ -25,7 +25,7 @@ export default class AddItem extends Component {
             },
             isValidDate: false,
             isValidPayment: false,
-
+            invalidDebitCredit: false,
             isValidEntry: {
                 isdate: false,
                 payment: false,
@@ -40,8 +40,8 @@ export default class AddItem extends Component {
     handleChange = (ref, e)=> {
 
         let val = e.target.value;
-        this.isValidAll();
         let {fields} = this.state;
+
         if (ref === 'credit' || ref === 'debit') {
             const parsedVal = parseFloat(val);
             val = _.isNaN(parsedVal) ? '' : parsedVal;
@@ -49,6 +49,8 @@ export default class AddItem extends Component {
         }
 
         fields = {...fields, [ref]: val};
+
+        this.isValidAll(fields);
         this.setState({ref: ref, fields}, ()=>this.props.onChange({
             fields,
             uniqueKey: this.props.uniqueKey
@@ -103,13 +105,15 @@ export default class AddItem extends Component {
 
     }
 
-    isValidAll() {
-        // const isDate = (this.validateDate() === 'success');
-        const isPayment = (this.validatePayment() === 'success');
-        const isDebit = (this.validateIsNumber(this.state.fields.debit) === 'success');
-        const isCredit = (this.validateIsNumber(this.state.fields.credit) === 'success');
+    isValidAll(fields) {
 
-        if ((isCredit || isDebit) && isPayment) {
+        const isPayment = (this.validatePayment(fields.payment) === 'success');
+        const isDebit = (this.validateIsNumber(fields.debit) === 'success');
+        const isCredit = (this.validateIsNumber(fields.credit) === 'success');
+        const isDate = _.isEmpty(fields.date)
+        this.setState({invalidDebitCredit: (isCredit && isDebit)})
+
+        if (!(isCredit && isDebit) && isPayment && (isDebit || isCredit) && !isDate) {
             this.props.isValidItem(true)
         } else {
             this.props.isValidItem(false);
@@ -164,7 +168,10 @@ export default class AddItem extends Component {
                             ref='payment'
                             placeholder="Short payment description"
                             onChange={this.handleChange.bind(this, 'payment')}/>
-                        <ControlLabel srOnly={this.state.ref !== 'payment'}>Payment description is short</ControlLabel>
+                        <ControlLabel srOnly={this.state.ref !== 'payment'}>
+                            {this.validatePayment() === 'success' ? <Glyphicon glyph="glyphicon glyphicon-ok"/> :
+                                <Glyphicon glyph="glyphicon glyphicon-remove"/>} Payment description is
+                            short</ControlLabel>
                     </FormGroup>
                 </Col>
                 <Col md={2}>
@@ -186,7 +193,10 @@ export default class AddItem extends Component {
                             ref='debit'
                             placeholder="Enter debit amount"
                             onChange={this.handleChange.bind(this, 'debit')}/>
-                        <ControlLabel srOnly={this.state.ref !== 'debit'}>Debit is invalid</ControlLabel>
+                        <ControlLabel srOnly={this.state.ref !== 'debit'}>
+                            {this.validateIsNumber(this.state.fields.debit) === 'success' ?
+                                <Glyphicon glyph="glyphicon glyphicon-ok"/> :
+                                <Glyphicon glyph="glyphicon glyphicon-remove"/>} Debit is invalid</ControlLabel>
                     </FormGroup>
 
                 </Col>
@@ -200,8 +210,17 @@ export default class AddItem extends Component {
                             ref='credit'
                             placeholder="Enter credit amount"
                             onChange={this.handleChange.bind(this, 'credit')}/>
-                        <ControlLabel srOnly={this.state.ref !== 'credit'}>Credit is invalid</ControlLabel>
+                        <ControlLabel srOnly={this.state.ref !== 'credit'}>
+                            {this.validateIsNumber(this.state.fields.credit) === 'success' ?
+                                <Glyphicon glyph="glyphicon glyphicon-ok"/> :
+                                <Glyphicon glyph="glyphicon glyphicon-remove"/>}
+                            Credit is invalid</ControlLabel>
                     </FormGroup>
+                </Col>
+
+                <Col md={2}>
+                    {this.state.invalidDebitCredit &&
+                    <span style={{fontSize: '12px'}}>Input Either Credit or Debit</span>}
                 </Col>
 
             </Row>
