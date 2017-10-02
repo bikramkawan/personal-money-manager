@@ -4,12 +4,8 @@
 import React, {Component} from 'react';
 import BudgetSummary from './Report/BudgetSummary';
 import * as _ from 'lodash';
-import BarChart from './Report/BarChart'
 import {Nav, NavItem, Navbar} from 'react-bootstrap';
 import {Link, Route} from 'react-router-dom';
-import Income from './Report/Cateogry/Income'
-import Expense from './Report/Cateogry/Expense'
-import ExpenseSummary from './Report/ExpenseSummary'
 import {Grid, Row, Col} from 'react-bootstrap'
 import D3BarChart from './Report/D3BarChart'
 import D3BarNegative from './Report/D3BarNegative'
@@ -61,14 +57,6 @@ class Report extends Component {
                         </Col>
                     </Row>
                 </Grid>
-
-                <Route path='/dashboard/report/income' component={()=>
-                    <Income income={income}/>}/>
-                <Route path='/dashboard/report/expense' component={()=>
-                    <Expense data={this.props.userdata} totalCredit={summary.totalCredit}/>}/>
-                <Route path='/dashboard/report/expense' component={()=>
-                    <ExpenseSummary data={this.props.userdata}/>}/>
-
 
             </div>
 

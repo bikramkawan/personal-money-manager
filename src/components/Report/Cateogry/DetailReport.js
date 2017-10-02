@@ -11,11 +11,14 @@ import * as _ from 'lodash'
 import categories, {filterAndSumBy} from '../../../shared/utils'
 
 
-class Income extends Component {
-
+class DetailReport extends Component {
 
     checkEntries(parent, child) {
-        const filter = _.filter(this.props.userdata, function (d) {
+        let onlyIncome = this.props.userdata.filter(item=>item.category.parent==='income');
+        if(this.props.expense){
+            onlyIncome = this.props.userdata.filter(item=>item.category.parent!=='income');
+        }
+        const filter = _.filter(onlyIncome, function (d) {
             return d.category.child === child && d.category.parent === parent
 
         });
@@ -25,23 +28,22 @@ class Income extends Component {
     }
 
     calcTotals(parent) {
-
         const filter = _.filter(this.props.userdata, function (d) {
             return d.category.parent === parent
 
         });
-
-        const sumvalue = _.sumBy(filter, 'debit');
-        console.log(sumvalue)
-
+        const sumvalue = this.props.expense? _.sumBy(filter, 'credit'): _.sumBy(filter, 'credit');
         return sumvalue;
 
 
     }
 
-
     renderChunks() {
-        const parent = _.keys(categories)
+        const {expense} = this.props;
+        let parent = _.keys(categories).filter(cat=>cat ==='income')
+        if(expense){
+            parent = _.keys(categories).filter(cat=>cat !=='income')
+        }
         return parent.map(parentCat => {
             const childs = _.keys(categories[parentCat])
             const totals = this.calcTotals(parentCat)
@@ -63,7 +65,7 @@ class Income extends Component {
                         </Row>)
                     })}
                     <Row className='total'>
-                        <Col md={6}>Total Income</Col>
+                        <Col md={6}>Total</Col>
                         <Col md={2}>{'-'}</Col>
                         <Col md={2}>{totals ? totals : '-'}</Col>
                         <Col md={2}>{totals ? totals : '-'}</Col>
@@ -103,4 +105,4 @@ function mapStateToProps({user}) {
 
 }
 
-export default connect(mapStateToProps, {userData})(Income)
+export default connect(mapStateToProps, {userData})(DetailReport)

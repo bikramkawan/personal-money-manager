@@ -3,8 +3,7 @@ import {Switch, Route} from 'react-router-dom'
 import Report from '../Report';
 import {connect} from 'react-redux'
 import {userData} from '../../actions'
-import Income from '../Report/Cateogry/Income';
-import Expense from '../Report/Cateogry/Expense'
+import DetailReport from '../Report/Cateogry/DetailReport';
 
 class ReportLayout extends Component {
 
@@ -13,8 +12,8 @@ class ReportLayout extends Component {
             <div className="report-content">
                 <Switch>
                     <Route path={this.props.match.path} exact component={Report}/>
-                    <Route path={`${this.props.match.path}/income`} exact component={Income}/>
-                    <Route path={`${this.props.match.path}/expense`} component={Expense}/>
+                    <Route path={`${this.props.match.path}/income`} exact component={()=><DetailReport income/>}/>
+                    <Route path={`${this.props.match.path}/expense`} component={()=><DetailReport expense/>}/>
                 </Switch>
             </div>
         )
