@@ -12,8 +12,8 @@ class ReportLayout extends Component {
             <div className="report-content">
                 <Switch>
                     <Route path={this.props.match.path} exact component={Report}/>
-                    <Route path={`${this.props.match.path}/income`} exact component={()=><DetailReport income/>}/>
-                    <Route path={`${this.props.match.path}/expense`} component={()=><DetailReport expense/>}/>
+                    <Route path={`${this.props.match.path}/income`} exact component={()=><DetailReport report={'income'}/>}/>
+                    <Route path={`${this.props.match.path}/expense`} component={()=><DetailReport report={'expense'}/>}/>
                 </Switch>
             </div>
         )

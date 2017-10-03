@@ -14,16 +14,18 @@ import categories, {filterAndSumBy} from '../../../shared/utils'
 class DetailReport extends Component {
 
     checkEntries(parent, child) {
-        let onlyIncome = this.props.userdata.filter(item=>item.category.parent==='income');
-        if(this.props.expense){
-            onlyIncome = this.props.userdata.filter(item=>item.category.parent!=='income');
+
+        let sumBy = null;
+        if(this.props.report==='expense'){
+           const onlyExpense = this.props.userdata.filter(item=>item.category.parent!=='income')
+               .filter(d=>d.category.child === child && d.category.parent === parent);
+            sumBy = _.sumBy(onlyExpense, 'credit')
+        } else {
+            const onlyIncome = this.props.userdata.filter(item=>item.category.parent==='income')
+                .filter(d=>d.category.child === child && d.category.parent === parent);
+            sumBy = _.sumBy(onlyIncome, 'debit')
         }
-        const filter = _.filter(onlyIncome, function (d) {
-            return d.category.child === child && d.category.parent === parent
-
-        });
-
-        return filter[0];
+        return sumBy;
 
     }
 
@@ -32,18 +34,18 @@ class DetailReport extends Component {
             return d.category.parent === parent
 
         });
-        const sumvalue = this.props.expense? _.sumBy(filter, 'credit'): _.sumBy(filter, 'credit');
+        const sumvalue = (this.props.report==='expense')? _.sumBy(filter, 'credit'): _.sumBy(filter, 'debit');
         return sumvalue;
 
 
     }
 
     renderChunks() {
-        const {expense} = this.props;
-        let parent = _.keys(categories).filter(cat=>cat ==='income')
-        if(expense){
+        const {report} = this.props;
+         let parent = _.keys(categories).filter(cat=>cat ==='income')
+          if(report==='expense'){
             parent = _.keys(categories).filter(cat=>cat !=='income')
-        }
+          }
         return parent.map(parentCat => {
             const childs = _.keys(categories[parentCat])
             const totals = this.calcTotals(parentCat)
@@ -60,8 +62,8 @@ class DetailReport extends Component {
                         return (<Row className='title' key={childCat}>
                             <Col md={6}>{childCat}</Col>
                             <Col md={2}>{'-'}</Col>
-                            <Col md={2}>{value ? value.debit : '-'}</Col>
-                            <Col md={2}>{value ? value.debit : '-'}</Col>
+                            <Col md={2}>{value ? value : '-'}</Col>
+                            <Col md={2}>{value ? value : '-'}</Col>
                         </Row>)
                     })}
                     <Row className='total'>
