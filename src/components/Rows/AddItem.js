@@ -168,10 +168,12 @@ export default class AddItem extends Component {
                             ref='payment'
                             placeholder="Short payment description"
                             onChange={this.handleChange.bind(this, 'payment')}/>
-                        <ControlLabel srOnly={this.state.ref !== 'payment'}>
+                        <ControlLabel
+                            className="onFocus Payment"
+                            srOnly={this.state.ref !== 'payment'}>
                             {this.validatePayment() === 'success' ? <Glyphicon glyph="glyphicon glyphicon-ok"/> :
                                 <Glyphicon glyph="glyphicon glyphicon-remove"/>} Payment description is
-                            short</ControlLabel>
+                            valid </ControlLabel>
                     </FormGroup>
                 </Col>
                 <Col md={2}>
@@ -193,10 +195,12 @@ export default class AddItem extends Component {
                             ref='debit'
                             placeholder="Enter debit amount"
                             onChange={this.handleChange.bind(this, 'debit')}/>
-                        <ControlLabel srOnly={this.state.ref !== 'debit'}>
+                        <ControlLabel
+                            className="onFocus"
+                            srOnly={this.state.ref !== 'debit'}>
                             {this.validateIsNumber(this.state.fields.debit) === 'success' ?
                                 <Glyphicon glyph="glyphicon glyphicon-ok"/> :
-                                <Glyphicon glyph="glyphicon glyphicon-remove"/>} Debit is invalid</ControlLabel>
+                                <Glyphicon glyph="glyphicon glyphicon-remove"/>} Debit is valid</ControlLabel>
                     </FormGroup>
 
                 </Col>
@@ -210,11 +214,13 @@ export default class AddItem extends Component {
                             ref='credit'
                             placeholder="Enter credit amount"
                             onChange={this.handleChange.bind(this, 'credit')}/>
-                        <ControlLabel srOnly={this.state.ref !== 'credit'}>
+                        <ControlLabel
+                            className="onFocus"
+                            srOnly={this.state.ref !== 'credit'}>
                             {this.validateIsNumber(this.state.fields.credit) === 'success' ?
                                 <Glyphicon glyph="glyphicon glyphicon-ok"/> :
                                 <Glyphicon glyph="glyphicon glyphicon-remove"/>}
-                            Credit is invalid</ControlLabel>
+                            Credit is valid</ControlLabel>
                     </FormGroup>
                 </Col>
 

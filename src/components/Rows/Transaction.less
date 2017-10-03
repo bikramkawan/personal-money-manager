@@ -47,7 +47,29 @@
         font-weight: normal;
         z-index: 5;
         position: absolute;
+
       }
+
+      .onFocus {
+        background: lightgray;
+        max-width: 130px !important;
+        width: 130px;
+        margin-left: -22px;
+        height: 30px;
+        margin-top: 6px;
+        text-align: center;
+        border: 1px solid;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        &.Payment {
+          margin-left: 0;
+          width: 90%;
+          max-width: 100% !important;
+        }
+      }
+
     }
 
   }

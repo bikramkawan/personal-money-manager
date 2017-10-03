@@ -20,7 +20,8 @@ class Transaction extends Component {
                 debit: this.props.data.debit || '',
                 credit: this.props.data.credit || '',
                 date: this.props.data.date || '',
-            }
+            },
+            invalidDebitCredit: false
         }
 
 
@@ -69,23 +70,23 @@ class Transaction extends Component {
 
     }
 
-    validateDate() {
-        if (this.state.fields.date.length < 1) return;
-        const date = this.state.fields.date.split('.');
-        let checkLength;
-        if (date.length === 3 && date[0].length === 2 && date[1].length === 2 && date[2].length === 4) {
-            checkLength = true
-        } else {
-            checkLength = false
-        }
-        if (checkLength) {
-
-            return 'success'
-        }
-
-        else if (!checkLength) return 'error';
-
-    }
+    // validateDate() {
+    //     if (this.state.fields.date.length < 1) return;
+    //     const date = this.state.fields.date.split('.');
+    //     let checkLength;
+    //     if (date.length === 3 && date[0].length === 2 && date[1].length === 2 && date[2].length === 4) {
+    //         checkLength = true
+    //     } else {
+    //         checkLength = false
+    //     }
+    //     if (checkLength) {
+    //
+    //         return 'success'
+    //     }
+    //
+    //     else if (!checkLength) return 'error';
+    //
+    // }
 
     validateIsNumber(val) {
         if (val < 1) return;
@@ -93,13 +94,16 @@ class Transaction extends Component {
 
     }
 
-    isValidAll() {
-        const isDate = (this.validateDate() === 'success');
-        const isPayment = (this.validatePayment() === 'success');
-        const isDebit = (this.validateIsNumber(this.state.fields.debit) === 'success');
-        const isCredit = (this.validateIsNumber(this.state.fields.credit) === 'success');
+    isValidAll(fields) {
+        const isPayment = (this.validatePayment(fields.payment) === 'success');
+        const isDebit = (this.validateIsNumber(fields.debit) === 'success');
+        const isCredit = (this.validateIsNumber(fields.credit) === 'success');
+        const isDate = _.isEmpty(fields.date)
 
-        if (isCredit && isDebit && isPayment && isDate) {
+        this.setState({invalidDebitCredit: (isCredit && isDebit)})
+        console.log(this.state, fields)
+        this.setState({invalidDebitCredit: (isCredit && isDebit)})
+        if (!(isCredit && isDebit) && isPayment && (isDebit || isCredit) && !isDate) {
             this.props.isValidItem(true)
         } else {
             this.props.isValidItem(false);
@@ -111,17 +115,13 @@ class Transaction extends Component {
 
     toggleDateRender(ref, value) {
         if (this.state.isEditMode) {
-            return <FormGroup
-                className='itemValidation'
-                controlId="date"
-                validationState={this.validateDate()}>
-                <FormControl
-                    type="text"
-                    ref='date'
-                    value={this.state.fields.date}
-                    placeholder="Enter date"
+            return <FormGroup>
+                <input
+                    className="form-control"
+                    type="date"
+                    style={{padding: '0'}}
+                    value={value}
                     onChange={this.handleChange.bind(this, 'date')}/>
-                <ControlLabel srOnly={this.state.ref !== 'date'}>Date is invalid</ControlLabel>
             </FormGroup>
 
         }
@@ -142,7 +142,13 @@ class Transaction extends Component {
                     value={this.state.fields.payment}
                     placeholder="Short payment description"
                     onChange={this.handleChange.bind(this, 'payment')}/>
-                <ControlLabel srOnly={this.state.ref !== 'payment'}>Payment description is short</ControlLabel>
+                <ControlLabel
+                    className="onFocus Payment"
+                    srOnly={this.state.ref !== 'payment'}>
+                    {this.validatePayment() === 'success' ?
+                        <Glyphicon glyph="glyphicon glyphicon-ok"/> :
+                        <Glyphicon glyph="glyphicon glyphicon-remove"/>} Payment description is
+                    valid</ControlLabel>
             </FormGroup>
 
         }
@@ -193,7 +199,12 @@ class Transaction extends Component {
                     placeholder="Enter credit amount"
                     value={this.state.fields.credit}
                     onChange={this.handleChange.bind(this, 'credit')}/>
-                <ControlLabel srOnly={this.state.ref !== 'credit'}>Credit is invalid</ControlLabel>
+                <ControlLabel
+                    className="onFocus"
+                    srOnly={this.state.ref !== 'credit'}> {this.validateIsNumber(this.state.fields.credit) === 'success' ?
+                    <Glyphicon glyph="glyphicon glyphicon-ok"/> :
+                    <Glyphicon glyph="glyphicon glyphicon-remove"/>}
+                    Credit is valid</ControlLabel>
             </FormGroup>
 
         }
@@ -203,6 +214,7 @@ class Transaction extends Component {
 
     toggleDebitRender(ref, value) {
         if (this.state.isEditMode) {
+            console.log(this.state.fields.debit, value)
             return <FormGroup
                 className='itemValidation'
                 controlId="debit"
@@ -213,7 +225,11 @@ class Transaction extends Component {
                     value={this.state.fields.debit}
                     placeholder="Enter debit amount"
                     onChange={this.handleChange.bind(this, 'debit')}/>
-                <ControlLabel srOnly={this.state.ref !== 'debit'}>Debit is invalid</ControlLabel>
+                <ControlLabel
+                    className="onFocus"
+                    srOnly={this.state.ref !== 'debit'}>{this.validateIsNumber(this.state.fields.debit) === 'success' ?
+                    <Glyphicon glyph="glyphicon glyphicon-ok"/> :
+                    <Glyphicon glyph="glyphicon glyphicon-remove"/>} Debit is valid</ControlLabel>
             </FormGroup>
 
         }
@@ -228,7 +244,7 @@ class Transaction extends Component {
     // }
 
     render() {
-
+        console.log(this.state.invalidDebitCredit)
         return (
             <Row data-id={this.props.id}>
                 <Col md={1}>{this.props.id}</Col>
@@ -241,7 +257,8 @@ class Transaction extends Component {
                 <Col md={1}>
                     {!this.state.isEditMode ? <Button onClick={this.editMe.bind(this, this.props.uniqueKey)}><Glyphicon
                         glyph="glyphicon glyphicon-edit"/></Button> :
-                        <Button onClick={this.update.bind(this, this.props.uniqueKey)}><Glyphicon
+                        <Button disabled={this.state.invalidDebitCredit}
+                                onClick={this.update.bind(this, this.props.uniqueKey)}><Glyphicon
                             glyph="glyphicon glyphicon-ok"/></Button>
                     }
 
