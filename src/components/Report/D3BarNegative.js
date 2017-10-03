@@ -12,41 +12,42 @@ class D3BarNegative extends Component {
         const selector = this.props.selector;
         // d3.select('.' + selector).append('div').text('hfasfasfaelloe')
 
-        var margin = {top: 20, right: 20, bottom: 40, left: 30};
+        var margin = {top: 20, right: 20, bottom: 40, left: 15};
         height = height - margin.top - margin.bottom;
         width = width - margin.left - margin.right;
 
 // Add svg to
+        d3.selectAll('svg').remove();
         var svg = d3.select('.myChart').append('svg')
             .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+            .attr('height', height + margin.top + margin.bottom)
+            .append('g')
+            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
 // X scale
         var x = d3.scaleLinear().range([0, width]);
         var y = d3.scaleBand().rangeRound([height, 0]);
 
-        var xAxis = d3.axisBottom(x);
-        var yAxis = d3.axisLeft(y).tickSize(6, 0);
+        var xAxis = d3.axisBottom(x).ticks(5, 's');
+        var yAxis = d3.axisLeft(y).tickSize(1, 0);
 
 
         var data = this.props.data;
 
-        x.domain(d3.extent(data, function (d) {
-            return d.value;
-        })).nice();
-        y.domain(data.map(function (d) {
-            return d.name;
-        }));
+        x.domain(d3.extent(data, d=> d.value))
+        y.domain(data.map(d=>d.name));
 
-        svg.selectAll('.barChart').data(data).enter().append('rect').attr('class', function (d) {
-            return "barChart bar--" + (d.value < 0 ? "negative" : "positive");
-        }).attr('x', function (d) {
-            return x(Math.min(0, d.value));
-        }).attr('y', function (d) {
-            return y(d.name);
-        }).attr('width', function (d) {
-            return Math.abs(x(d.value) - x(0));
-        }).attr('height', 80);
+        svg.selectAll('.barChart')
+            .data(data)
+            .enter()
+            .append('rect')
+            .attr('class', (d) => "barChart bar--" + (d.value < 0 ? "negative" : "positive"))
+            .attr('x', (d)=> x(Math.min(0, d.value)))
+            .attr('y', (d)=>y(d.name))
+            .attr('width', (d) => Math.abs(x(d.value) - x(0)))
+            .attr('height', 80)
+            .append('title')
+            .text((d) => d.value)
 
         svg.append('g')
             .attr('class', 'x axis')
@@ -57,9 +58,7 @@ class D3BarNegative extends Component {
             .attr('class', 'y axis')
             .attr('transform', 'translate(' + x(0) + ',0)')
             .call(yAxis).selectAll('.tick')
-            .filter(function (d, i) {
-            return data[i].value < 0;
-        });
+            .filter((d, i) => data[i].value < 0);
 
         tickNegative.select('line')
             .attr('x2', 6);
