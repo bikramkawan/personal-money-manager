@@ -7,9 +7,10 @@ import Transaction from './Rows/Transaction'
 import AddItem from './Rows/AddItem';
 import {Grid, Row, Col, Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
-
+import * as d3 from 'd3'
 import * as _ from 'lodash';
-
+import moment from 'moment'
+const Papa = require('papaparse');
 
 class AddTransaction extends Component {
 
@@ -107,9 +108,28 @@ class AddTransaction extends Component {
     }
 
 
+    handleUpload = (evt)=> {
+
+        console.log(evt.target.files)
+
+        const file = evt.target.files[0]
+        // Read the file as text
+        Papa.parse(file, {
+            header:true,
+            complete: function (d) {
+                console.log(d,d.data[0].Date)
+                console.log(moment(d.data[0].Date).format('LLLL'))
+
+
+            }
+        })
+
+
+
+    }
 
     render() {
-        if(!this.props.userdata) return <div></div>;
+        if (!this.props.userdata) return <div></div>;
 
         return (<Grid fluid={true}>
                 <Header onSortBy={this.onSortBy}/>
@@ -129,6 +149,16 @@ class AddTransaction extends Component {
                          isValidItem={this.isValidateItem}/>
 
                 <Row className="saveRow">
+                    <Col md={4} className="saveCol">
+                        <input type="file" id="files" name="files[]" multiple onChange={this.handleUpload}/>
+                        <output id="list"></output>
+                    </Col>
+
+                    <Col md={2} className="saveCol">
+                        <Button bsStyle="primary" className="saveButton"
+                                onClick={this.save}>Upload</Button>
+                    </Col>
+
                     <Col md={2} className="saveCol">
                         <Button bsStyle="primary" className="saveButton" disabled={this.state.isDisableSaveButton}
                                 onClick={this.save}>Save</Button>
@@ -144,7 +174,7 @@ class AddTransaction extends Component {
 
 
 function mapStateToProps({user}) {
-    if(!user) return {} ;
+    if (!user) return {};
     const {userdata} = user
     return {
         userdata
