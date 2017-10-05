@@ -244,7 +244,7 @@ class Transaction extends Component {
     // }
 
     render() {
-        console.log(this.state.invalidDebitCredit)
+
         return (
             <Row data-id={this.props.id}>
                 <Col md={1}>{this.props.id}</Col>
