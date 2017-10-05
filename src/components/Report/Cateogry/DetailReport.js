@@ -16,13 +16,16 @@ class DetailReport extends Component {
     checkEntries(parent, child) {
 
         let sumBy = null;
-        if(this.props.report==='expense'){
-           const onlyExpense = this.props.userdata.filter(item=>item.category.parent!=='income')
-               .filter(d=>d.category.child === child && d.category.parent === parent);
+        if (this.props.report === 'expense') {
+            const onlyExpense = this.props.userdata
+                .filter(item=>item.category.parent !== 'income')
+                .filter(d=>d.category.child === child && d.category.parent === parent)
+                .filter(e=>!isNaN(e.credit));
             sumBy = _.sumBy(onlyExpense, 'credit')
         } else {
-            const onlyIncome = this.props.userdata.filter(item=>item.category.parent==='income')
-                .filter(d=>d.category.child === child && d.category.parent === parent);
+            const onlyIncome = this.props.userdata.filter(item=>item.category.parent === 'income')
+                .filter(d=>d.category.child === child && d.category.parent === parent)
+                .filter(e=>!isNaN(e.debit));
             sumBy = _.sumBy(onlyIncome, 'debit')
         }
         return sumBy;
@@ -30,11 +33,13 @@ class DetailReport extends Component {
     }
 
     calcTotals(parent) {
-        const filter = _.filter(this.props.userdata, function (d) {
-            return d.category.parent === parent
+        const filtered = this.props.userdata
+            .filter(d=>d.category.parent === parent)
+        //.filter(e=> !isNaN(e.debit) && isNaN(e.credit));
 
-        });
-        const sumvalue = (this.props.report==='expense')? _.sumBy(filter, 'credit'): _.sumBy(filter, 'debit');
+        const sumvalue = (this.props.report === 'expense') ?
+            _.sumBy(filtered.filter(e=> isNaN(e.debit) && !isNaN(e.credit)), 'credit') :
+            _.sumBy(filtered.filter(e=> !isNaN(e.debit) && isNaN(e.credit)), 'debit');
         return sumvalue;
 
 
@@ -42,10 +47,10 @@ class DetailReport extends Component {
 
     renderChunks() {
         const {report} = this.props;
-         let parent = _.keys(categories).filter(cat=>cat ==='income')
-          if(report==='expense'){
-            parent = _.keys(categories).filter(cat=>cat !=='income')
-          }
+        let parent = _.keys(categories).filter(cat=>cat === 'income')
+        if (report === 'expense') {
+            parent = _.keys(categories).filter(cat=>cat !== 'income')
+        }
         return parent.map(parentCat => {
             const childs = _.keys(categories[parentCat])
             const totals = this.calcTotals(parentCat)
@@ -62,15 +67,15 @@ class DetailReport extends Component {
                         return (<Row className='title' key={childCat}>
                             <Col md={6}>{childCat}</Col>
                             <Col md={2}>{'-'}</Col>
-                            <Col md={2}>{value ? value : '-'}</Col>
-                            <Col md={2}>{value ? value : '-'}</Col>
+                            <Col md={2}>{value ? value.toFixed(2) : '-'}</Col>
+                            <Col md={2}>{value ? value.toFixed(2) : '-'}</Col>
                         </Row>)
                     })}
                     <Row className='total'>
                         <Col md={6}>Total</Col>
                         <Col md={2}>{'-'}</Col>
-                        <Col md={2}>{totals ? totals : '-'}</Col>
-                        <Col md={2}>{totals ? totals : '-'}</Col>
+                        <Col md={2}>{totals ? totals.toFixed(2) : '-'}</Col>
+                        <Col md={2}>{totals ? totals.toFixed(2) : '-'}</Col>
                     </Row>
                 </Grid>
 
@@ -99,7 +104,7 @@ class DetailReport extends Component {
 }
 
 function mapStateToProps({user}) {
-    if (!user) return{};
+    if (!user) return {};
     const {userdata} = user
     return {
         userdata

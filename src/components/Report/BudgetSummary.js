@@ -60,23 +60,23 @@ export default class BudgetSummary extends Component {
 
             <Row className="body">
                 <Col md={3}>Total Income</Col>
-                <Col md={3}>{summary.budgetIncome}</Col>
-                <Col md={3}>{summary.actualIncome}</Col>
-                <Col md={3}>{summary.diffIncome}</Col>
+                <Col md={3}>{summary.budgetIncome.toFixed(2)}</Col>
+                <Col md={3}>{summary.actualIncome.toFixed(2)}</Col>
+                <Col md={3}>{summary.diffIncome.toFixed(2)}</Col>
             </Row>
 
             <Row className="body">
                 <Col md={3}>Total Expenses</Col>
-                <Col md={3}>{summary.budgetExpense}</Col>
-                <Col md={3}>{summary.actualExpense}</Col>
-                <Col md={3}>{summary.diffExpense}</Col>
+                <Col md={3}>{summary.budgetExpense.toFixed(2)}</Col>
+                <Col md={3}>{summary.actualExpense.toFixed(2)}</Col>
+                <Col md={3}>{summary.diffExpense.toFixed(2)}</Col>
             </Row>
 
             <Row className="body net">
                 <Col md={3}>Net</Col>
-                <Col md={3}>{summary.netBudget} </Col>
-                <Col md={3}>{summary.netActual}</Col>
-                <Col md={3}>{summary.netDiff}</Col>
+                <Col md={3}>{summary.netBudget.toFixed(2)} </Col>
+                <Col md={3}>{summary.netActual.toFixed(2)}</Col>
+                <Col md={3}>{summary.netDiff.toFixed(2)}</Col>
             </Row>
 
 

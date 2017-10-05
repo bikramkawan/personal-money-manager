@@ -41,15 +41,14 @@ class D3BarChart extends Component {
         g.append("g")
             .attr("class", "axis axis--y")
             .call(d3.axisLeft(y)
-                .ticks(5)
-                .tickFormat((d)=> d)
+                .ticks(5,'s')
                 .tickSizeInner([-width]))
             .append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 6)
             .attr("dy", "0.71em")
             .attr("text-anchor", "end")
-            .attr("fill", "#5D6971")
+            .attr("fill", "red")
 
 
         g.selectAll(".bar")
@@ -60,7 +59,7 @@ class D3BarChart extends Component {
             .attr("width", x.bandwidth())
             .attr("height", (d) => height - y(d.value))
             .append('title')
-            .text((d) => d.value)
+            .text((d) => d.value.toFixed(2))
 
 
     }

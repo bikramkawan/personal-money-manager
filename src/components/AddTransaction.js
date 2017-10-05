@@ -56,7 +56,6 @@ class AddTransaction extends Component {
 
     }
     handleChange = (args)=> {
-        console.log(args)
         this.setState({fields: args.fields})
 
 
@@ -79,7 +78,6 @@ class AddTransaction extends Component {
 
 
     save = ()=> {
-        console.log(this.state)
         if (this.state.isEditMode) {
             const temp = this.props.userdata.slice();
             temp.splice(this.state.updateIndex, 1, this.state.fields)
@@ -126,7 +124,7 @@ class AddTransaction extends Component {
                 const formatted = d.data.map((item)=> {
                     const {date, payment, category, debit, credit} = item;
                     let newObj = {
-                        date:moment(date).format('YYYY-MM-DD'),
+                        date: moment(date).format('YYYY-MM-DD'),
                         payment,
                         debit: isNaN(parseFloat(debit)) ? '-' : parseFloat(debit),
                         credit: isNaN(parseFloat(credit)) ? '-' : parseFloat(credit)
@@ -282,9 +280,6 @@ class AddTransaction extends Component {
 
     render() {
         if (!this.props.userdata) return <div></div>;
-       // console.log(this.props.userdata)
-        // const houses = _.uniqBy(this.props.userdata, 'category').map(d=>d.category)
-
         return (<Grid fluid={true}>
                 <Header onSortBy={this.onSortBy}/>
                 {this.props.userdata.map((data, index)=>
@@ -304,13 +299,13 @@ class AddTransaction extends Component {
 
                 <Row className="saveRow">
                     {/*<Col md={4} className="saveCol">*/}
-                        {/*<input type="file" id="files" name="files[]" multiple onChange={this.handleUpload}/>*/}
-                        {/*<output id="list"></output>*/}
+                    {/*<input type="file" id="files" name="files[]" multiple onChange={this.handleUpload}/>*/}
+                    {/*<output id="list"></output>*/}
                     {/*</Col>*/}
 
                     {/*<Col md={2} className="saveCol">*/}
-                        {/*<Button bsStyle="primary" className="saveButton"*/}
-                                {/*onClick={this.save}>Upload</Button>*/}
+                    {/*<Button bsStyle="primary" className="saveButton"*/}
+                    {/*onClick={this.save}>Upload</Button>*/}
                     {/*</Col>*/}
 
                     <Col md={2} className="saveCol">
