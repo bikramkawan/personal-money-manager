@@ -2,7 +2,8 @@
  * Created by bikramkawan on 9/1/17.
  */
 import React, {Component} from 'react';
-import {firebaseApp,users} from '../config/Firebase'
+import {firebaseApp, users} from '../config/Firebase'
+import FrontNavBar from './FrontNavBar'
 
 class Register extends Component {
 
@@ -23,7 +24,7 @@ class Register extends Component {
         const {email, password} = this.state;
         firebaseApp.auth().createUserWithEmailAndPassword(email, password)
             .then((user)=> {
-                  const thisUser = users.child(user.uid);
+                const thisUser = users.child(user.uid);
                 const userdetail = thisUser.child('userdetail');
                 const dataToInsert = {email: user.email, userid: user.uid};
                 userdetail.set(dataToInsert)
@@ -37,7 +38,8 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="container" style={{margin: '5%'}}>
+            <div className="container register" style={{margin: '5%'}}>
+                <FrontNavBar/>
                 <div className="form-group">
                     <input type="text"
                            placeholder="Enter Email"
@@ -45,7 +47,7 @@ class Register extends Component {
                            style={{margin: '10px'}}
                            onChange={({target})=>this.setState({email: target.value})}
                     />
-                    <input type="text"
+                    <input type="password"
                            placeholder="Enter Password"
                            className="form-control"
                            style={{margin: '10px'}}

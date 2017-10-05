@@ -2,9 +2,12 @@
  * Created by bikramkawan on 9/1/17.
  */
 import React, {Component} from 'react';
-import {firebaseApp,userdata} from '../config/Firebase'
+import {firebaseApp, userdata} from '../config/Firebase'
 import {connect} from 'react-redux';
-import {userLogin,userData} from '../actions'
+import {userLogin, userData} from '../actions'
+import {Link} from 'react-router-dom'
+import FrontNavBar from './FrontNavBar'
+
 class Login extends Component {
 
     constructor(props) {
@@ -27,7 +30,7 @@ class Login extends Component {
 
         this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
             if (user) {
-                 // const {userid} = user.uid;
+                // const {userid} = user.uid;
                 const thisUser = userdata.child(user.uid);
                 thisUser.on('value', (snap, i)=> {
                     const userdata = [];
@@ -37,12 +40,12 @@ class Login extends Component {
                     })
                     //this.setState({data})
 
-                    this.props.userLogin(user.email, user.uid,true,userdata);
+                    this.props.userLogin(user.email, user.uid, true, userdata);
 
                 })
                 this.props.history.push('/app')
             } else {
-                       this.setState({
+                this.setState({
                     authed: false,
                 })
             }
@@ -51,12 +54,12 @@ class Login extends Component {
     }
 
 
-    componentDidMount(){
+    componentDidMount() {
 
         this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
             if (user) {
 
-               // const {userid} = user.uid;
+                // const {userid} = user.uid;
                 const thisUser = userdata.child(user.uid);
                 thisUser.on('value', (snap, i)=> {
                     const userdata = [];
@@ -66,12 +69,12 @@ class Login extends Component {
                     })
                     //this.setState({data})
 
-                    this.props.userLogin(user.email, user.uid,true,userdata);
+                    this.props.userLogin(user.email, user.uid, true, userdata);
 
                 })
                 this.props.history.push('/app')
             } else {
-                    this.setState({
+                this.setState({
                     authed: false,
                 })
             }
@@ -79,12 +82,10 @@ class Login extends Component {
     }
 
 
-
-
-
     render() {
         return (
-            <div className="container" style={{margin: '5%'}}>
+            <div className="container login" style={{margin: '5%'}}>
+                <FrontNavBar/>
                 <div className="form-group">
                     <input type="text"
                            placeholder="Enter Email"
@@ -92,7 +93,7 @@ class Login extends Component {
                            style={{margin: '10px'}}
                            onChange={({target})=>this.setState({email: target.value})}
                     />
-                    <input type="text"
+                    <input type="password"
                            placeholder="Enter Password"
                            className="form-control"
                            style={{margin: '10px'}}
@@ -123,4 +124,4 @@ function mapStateToProps(state) {
 
 }
 
-export default connect(mapStateToProps, {userLogin,userData})(Login)
+export default connect(mapStateToProps, {userLogin, userData})(Login)
