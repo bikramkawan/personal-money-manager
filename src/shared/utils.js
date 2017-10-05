@@ -7,6 +7,8 @@ const categories = {
         salary: 'salary',
         freelance: 'freelance',
         gifts: 'gifts',
+        refunds:'refunds',
+        financialAid:'financialAid',
         other: 'other'
     },
     savings: {
@@ -24,12 +26,14 @@ const categories = {
         electricity: 'electricity',
         phone: 'phone',
         internet: 'internet',
+        gas:'gas',
         other: 'other'
     },
     food: {
         groceries: 'groceries',
         eatingoutside: 'eatingoutside',
-        alcohol: 'alcohol'
+        alcohol: 'alcohol',
+        other:'other'
     },
     transportation: {
         public: 'public',
@@ -39,11 +43,14 @@ const categories = {
     health: {
         insurance: 'insurance',
         medicine: 'medicine'
-    }, dailyliving: {
+    },
+    dailyliving: {
 
         education: 'education',
         clothing: 'clothing',
         personal: 'personal',
+        cleaning:'cleaning',
+        laundry:'laundry',
         other: 'other'
 
     },
