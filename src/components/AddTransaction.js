@@ -265,13 +265,13 @@ class AddTransaction extends Component {
 
                 })
 
-                console.log(formatted)
-                formatted.forEach(function (e, i) {
-                    const temp = that.userRef.push();
-                    // console.log(temp.key,i)
-                    temp.set(e)
-                    //   console.log(temp.key,i,'after')
-                })
+                // console.log(formatted)
+                // formatted.forEach(function (e, i) {
+                //     const temp = that.userRef.push();
+                //     // console.log(temp.key,i)
+                //     temp.set(e)
+                //     //   console.log(temp.key,i,'after')
+                // })
 
 
             }
@@ -303,15 +303,15 @@ class AddTransaction extends Component {
                          isValidItem={this.isValidateItem}/>
 
                 <Row className="saveRow">
-                    <Col md={4} className="saveCol">
-                        <input type="file" id="files" name="files[]" multiple onChange={this.handleUpload}/>
-                        <output id="list"></output>
-                    </Col>
+                    {/*<Col md={4} className="saveCol">*/}
+                        {/*<input type="file" id="files" name="files[]" multiple onChange={this.handleUpload}/>*/}
+                        {/*<output id="list"></output>*/}
+                    {/*</Col>*/}
 
-                    <Col md={2} className="saveCol">
-                        <Button bsStyle="primary" className="saveButton"
-                                onClick={this.save}>Upload</Button>
-                    </Col>
+                    {/*<Col md={2} className="saveCol">*/}
+                        {/*<Button bsStyle="primary" className="saveButton"*/}
+                                {/*onClick={this.save}>Upload</Button>*/}
+                    {/*</Col>*/}
 
                     <Col md={2} className="saveCol">
                         <Button bsStyle="primary" className="saveButton" disabled={this.state.isDisableSaveButton}
