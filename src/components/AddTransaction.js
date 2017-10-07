@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import * as d3 from 'd3'
 import * as _ from 'lodash';
 import moment from 'moment'
+import {List} from 'react-virtualized';
 import {userdata} from '../config/Firebase';
 const Papa = require('papaparse');
 
@@ -106,6 +107,39 @@ class AddTransaction extends Component {
         }
     }
 
+
+    rowRenderer = ({
+        key,         // Unique key within array of rows
+        index,       // Index of row within collection
+        isScrolling, // The List is currently being scrolled
+        isVisible,   // This row is visible within the List (eg it is not an overscanned row)
+        style        // Style object to be applied to row (to position it)
+    })=> {
+
+        const data = this.props.userdata;
+        return (
+
+            <div className="test"
+                 key={key}
+                 style={style}
+            >
+
+                <Transaction data={data[index]}
+                             onDeleteRow={this.deleteRow}
+                             onChange={this.handleChange}
+                             onEdit={this.editRow}
+                             uniqueKey={data[index].key}
+                             onSelect={this.handleSelect}
+                             id={index}
+                             key={data[index].key}
+                             isValidItem={this.isValidateItem}
+
+                />
+            </div>
+        )
+
+
+    }
 
     handleUpload = (evt)=> {
 
@@ -282,18 +316,7 @@ class AddTransaction extends Component {
         if (!this.props.userdata) return <div></div>;
         return (<Grid fluid={true}>
                 <Header onSortBy={this.onSortBy}/>
-                {this.props.userdata.map((data, index)=>
-                    <Transaction data={data}
-                                 onDeleteRow={this.deleteRow}
-                                 onChange={this.handleChange}
-                                 onEdit={this.editRow}
-                                 uniqueKey={data.key}
-                                 onSelect={this.handleSelect}
-                                 id={index}
-                                 key={data.key}
-                                 isValidItem={this.isValidateItem}
 
-                    />)}
                 <AddItem onChange={this.handleChange} onSelect={this.handleSelect}
                          isValidItem={this.isValidateItem}/>
 
@@ -314,6 +337,17 @@ class AddTransaction extends Component {
                     </Col>
 
                 </Row>
+
+
+                <List
+                    width={1260}
+                    height={600}
+                    rowCount={this.props.userdata.length}
+                    rowHeight={52}
+                    rowRenderer={this.rowRenderer}
+                    overscanRowCount={2}
+                />
+
 
             </Grid>
         )
