@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import Header from './Rows/Header'
 import Transaction from './Rows/Transaction'
 import AddItem from './Rows/AddItem';
-import {Grid, Row, Col, Button} from 'react-bootstrap';
+import {Grid, Row, Col, Button, Glyphicon} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as d3 from 'd3'
 import * as _ from 'lodash';
@@ -33,6 +33,7 @@ class AddTransaction extends Component {
             value: '',
             isDisableSaveButton: true,
             sortByAsc: true,
+            openModal: false
 
         }
 
@@ -116,10 +117,11 @@ class AddTransaction extends Component {
         style        // Style object to be applied to row (to position it)
     })=> {
 
-        const data = this.props.userdata;
+        const data = _(this.props.userdata.slice()).reverse().value();
+
         return (
 
-            <div className="test"
+            <div className="list-row"
                  key={key}
                  style={style}
             >
@@ -312,44 +314,67 @@ class AddTransaction extends Component {
 
     }
 
+
+    showDialog = () => {
+
+        this.setState({openModal: !this.state.openModal})
+
+    }
+
+    hideDialog = () => {
+        this.setState({openModal: false})
+    }
+
     render() {
         if (!this.props.userdata) return <div></div>;
-        return (<Grid fluid={true}>
-                <Header onSortBy={this.onSortBy}/>
+        let classList = this.state.openModal ? 'disable' : '';
 
-                <AddItem onChange={this.handleChange} onSelect={this.handleSelect}
-                         isValidItem={this.isValidateItem}/>
+        return (<div>
 
-                <Row className="saveRow">
-                    {/*<Col md={4} className="saveCol">*/}
-                    {/*<input type="file" id="files" name="files[]" multiple onChange={this.handleUpload}/>*/}
-                    {/*<output id="list"></output>*/}
-                    {/*</Col>*/}
+                { this.state.openModal &&
+                <Grid className="add-modal" fluid={true} style={{width: this.props.width}}>
+                    <Header className="add-modal-header"/>
+                    <Glyphicon onClick={this.hideDialog} className="close-modal"
+                               glyph="glyphicon glyphicon-remove" bsSize={'large'}/>
+                    <AddItem onChange={this.handleChange} onSelect={this.handleSelect}
+                             isValidItem={this.isValidateItem}/>
 
-                    {/*<Col md={2} className="saveCol">*/}
-                    {/*<Button bsStyle="primary" className="saveButton"*/}
-                    {/*onClick={this.save}>Upload</Button>*/}
-                    {/*</Col>*/}
+                    <Row className="saveRow">
+                        {/*<Col md={4} className="saveCol">*/}
+                        {/*<input type="file" id="files" name="files[]" multiple onChange={this.handleUpload}/>*/}
+                        {/*<output id="list"></output>*/}
+                        {/*</Col>*/}
 
-                    <Col md={2} className="saveCol">
-                        <Button bsStyle="primary" className="saveButton" disabled={this.state.isDisableSaveButton}
-                                onClick={this.save}>Save</Button>
-                    </Col>
+                        {/*<Col md={2} className="saveCol">*/}
+                        {/*<Button bsStyle="primary" className="saveButton"*/}
+                        {/*onClick={this.save}>Upload</Button>*/}
+                        {/*</Col>*/}
 
-                </Row>
+                        <Col md={2} className="saveCol">
+                            <Button bsStyle="primary" className="saveButton"
+                                    disabled={this.state.isDisableSaveButton}
+                                    onClick={this.save}>Save</Button>
+                        </Col>
 
-
-                <List
-                    width={1260}
-                    height={600}
-                    rowCount={this.props.userdata.length}
-                    rowHeight={52}
-                    rowRenderer={this.rowRenderer}
-                    overscanRowCount={2}
-                />
+                    </Row>
+                </Grid>
+                }
 
 
-            </Grid>
+                <Grid className={classList} fluid={true} style={{width: this.props.width}}>
+                    <Row className = 'add-modal-header' onClick={this.showDialog}> Add New Data</Row>
+                    <Header onSortBy={this.onSortBy}/>
+                    <List
+                        width={this.props.width}
+                        height={600}
+                        rowCount={this.props.userdata.length}
+                        rowHeight={52}
+                        rowRenderer={this.rowRenderer}
+                        overscanRowCount={2}
+                    />
+
+                </Grid>
+            </div>
         )
     }
 

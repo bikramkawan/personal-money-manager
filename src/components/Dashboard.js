@@ -58,11 +58,14 @@ class Dashboard extends Component {
     }
 
     render() {
+         const width = window.document.querySelector('.dashboard-layout');
+        if(!width) return <div></div>
         return (
             <AddTransaction
                 onUpdate={this.onUpdate}
                 onDelete={this.onDelete}
-                onSave={this.onSave}/>
+                onSave={this.onSave}
+                width = {width.clientWidth}/>
 
         )
     }
