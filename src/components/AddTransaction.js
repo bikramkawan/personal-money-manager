@@ -33,7 +33,8 @@ class AddTransaction extends Component {
             value: '',
             isDisableSaveButton: true,
             sortByAsc: true,
-            openModal: false
+            openModal: false,
+            sortRef: null
 
         }
 
@@ -71,11 +72,8 @@ class AddTransaction extends Component {
     }
 
     onSortBy = (ref) => {
-        const data = this.props.userdata.slice();
-        const sortBy = this.state.sortByAsc ? 'asc' : 'desc';
-        const sortedData = _.orderBy(data, ref, sortBy)
-        this.setState({data: sortedData, sortByAsc: !this.state.sortByAsc})
-
+        this.setState({sortRef: ref, sortByAsc: !this.state.sortByAsc})
+        this.renderRow();
     }
 
 
@@ -114,10 +112,19 @@ class AddTransaction extends Component {
         index,       // Index of row within collection
         isScrolling, // The List is currently being scrolled
         isVisible,   // This row is visible within the List (eg it is not an overscanned row)
-        style        // Style object to be applied to row (to position it)
+        style,       // Style object to be applied to row (to position it)
+        sort
     })=> {
 
-        const data = _(this.props.userdata.slice()).reverse().value();
+        let data = _(this.props.userdata.slice()).reverse().value();
+        if (this.state.sortRef) {
+            const sortBy = this.state.sortByAsc ? 'asc' : 'desc';
+
+            //https://stackoverflow.com/questions/41338449/lodash-sort-array-of-objects-prioritizing-alphabets-first-followed-by-numbers
+            data = _.chain(_.partition(data.slice(), i => !isNaN(i[this.state.sortRef])))
+                .flatMap(p => _.orderBy(p, this.state.sortRef, sortBy)).value();
+
+        }
 
         return (
 
@@ -142,6 +149,20 @@ class AddTransaction extends Component {
 
 
     }
+
+    renderRow() {
+
+        return (<List
+            width={this.props.width}
+            height={600}
+            rowCount={this.props.userdata.length}
+            rowHeight={52}
+            rowRenderer={this.rowRenderer}
+            overscanRowCount={2}
+            sort={this.state.sortByAsc}
+        />)
+    }
+
 
     handleUpload = (evt)=> {
 
@@ -362,16 +383,9 @@ class AddTransaction extends Component {
 
 
                 <Grid className={classList} fluid={true} style={{width: this.props.width}}>
-                    <Row className = 'add-modal-header' onClick={this.showDialog}> Add New Data</Row>
+                    <Row className='add-modal-header' onClick={this.showDialog}> Add New Data</Row>
                     <Header onSortBy={this.onSortBy}/>
-                    <List
-                        width={this.props.width}
-                        height={600}
-                        rowCount={this.props.userdata.length}
-                        rowHeight={52}
-                        rowRenderer={this.rowRenderer}
-                        overscanRowCount={2}
-                    />
+                    {this.renderRow()}
 
                 </Grid>
             </div>

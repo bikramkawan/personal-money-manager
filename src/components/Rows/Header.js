@@ -16,7 +16,7 @@ class Header extends Component {
     }
 
     onSortBy = (ref) => {
-        this.setState({ref: ref, isSorted: true, sortByAsc: !this.state.sortByAsc}, this.props.onSortBy(ref))
+        this.setState({ref: ref, isSorted: true, sortByAsc: !this.state.sortByAsc}, ()=>this.props.onSortBy(ref))
     }
 
     renderSortIcon(ref) {
