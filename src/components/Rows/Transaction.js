@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {Glyphicon, Row, Col, Button} from 'react-bootstrap';
 import {FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import * as _ from 'lodash';
+import moment from 'moment'
 import categories from '../../shared/utils'
 
 class Transaction extends Component {
@@ -40,7 +41,10 @@ class Transaction extends Component {
         if (ref === 'credit' || ref === 'debit') {
             const parsedVal = parseFloat(val);
             val = _.isNaN(parsedVal) ? '-' : parsedVal;
+        }
+        if (ref === 'date') {
 
+            val = moment(val).format('X')
         }
 
         fields = {...fields, [ref]: val};
@@ -125,7 +129,7 @@ class Transaction extends Component {
             </FormGroup>
 
         }
-        return value;
+        return moment.unix(value).format('YYYY-MM-DD');
 
     }
 

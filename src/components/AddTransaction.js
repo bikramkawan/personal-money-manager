@@ -176,12 +176,10 @@ class AddTransaction extends Component {
         Papa.parse(file, {
             header: true,
             complete: function (d) {
-                console.log(d, d.data[0])
-                console.log(moment(d.data[0].Date).format('YYYY-DD-MM'))
                 const formatted = d.data.map((item)=> {
                     const {date, payment, category, debit, credit} = item;
                     let newObj = {
-                        date: moment(date).format('YYYY-MM-DD'),
+                        date: moment(date).format('X'),
                         payment,
                         debit: isNaN(parseFloat(debit)) ? '-' : parseFloat(debit),
                         credit: isNaN(parseFloat(credit)) ? '-' : parseFloat(credit)

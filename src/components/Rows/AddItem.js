@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 import {Row, Col} from 'react-bootstrap';
 import {FormGroup, FormControl, ControlLabel, Glyphicon} from 'react-bootstrap';
 import * as _ from 'lodash';
+import moment from 'moment';
 import categories from '../../shared/utils'
 
 
@@ -48,6 +49,10 @@ export default class AddItem extends Component {
 
         }
 
+        if (ref === 'date') {
+
+            val = moment(val).format('X')
+        }
         fields = {...fields, [ref]: val};
 
         this.isValidAll(fields);
