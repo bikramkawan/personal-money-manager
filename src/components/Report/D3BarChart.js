@@ -41,7 +41,7 @@ class D3BarChart extends Component {
         g.append("g")
             .attr("class", "axis axis--y")
             .call(d3.axisLeft(y)
-                .ticks(5,'s')
+                .ticks(5, 's')
                 .tickSizeInner([-width]))
             .append("text")
             .attr("transform", "rotate(-90)")
@@ -53,7 +53,8 @@ class D3BarChart extends Component {
 
         g.selectAll(".bar")
             .data(data)
-            .enter().append("rect").classed('bar--positive', true)
+            .enter().append("rect")
+            .attr('class', (d)=> `bar--positive  ${d.class}`)
             .attr("x", (d) => x(d.name))
             .attr("y", (d)=>y(d.value))
             .attr("width", x.bandwidth())

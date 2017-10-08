@@ -36,26 +36,35 @@
   }
 }
 
+.bar--positive {
+  fill: steelblue;
+  &.income {
+    fill: lightgreen
+  }
+  &.expense {
+    fill: darkred
+  }
+  &.net {
+    fill: lightgreen
+  }
 
+}
 
-    .bar--positive {
-      fill: steelblue;
-    }
+.bar--negative {
+  fill: brown;
+}
 
-    .bar--negative {
-      fill: brown;
-    }
+.axis text {
+  font: 20px sans-serif;
+}
 
-    .axis text {
-      font: 20px sans-serif;
-    }
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
 
-    .axis path,
-    .axis line {
-      fill: none;
-      stroke: #000;
-      shape-rendering: crispEdges;
-    }
 .toolTip {
   position: absolute;
   display: none;

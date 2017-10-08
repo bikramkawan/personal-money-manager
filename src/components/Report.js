@@ -25,9 +25,9 @@ class Report extends Component {
         const summary = this.getSummary();
         const {totalDebit, totalCredit, net} = summary;
              var data = [
-            {"name": "Total Income", "value": totalDebit},
-            {"name": "Total Expense", "value": totalCredit},
-            {"name": "Net", "value": net}
+            {"name": "Total Income", "value": totalDebit ,class:'income'},
+            {"name": "Total Expense", "value": totalCredit,class:'expense'},
+            {"name": "Net", "value": net,class:'net'}
         ];
 
         const income = {salary: summary.totalDebit};
