@@ -4,12 +4,13 @@
 import React, {Component} from 'react';
 import BudgetSummary from './Summary/BudgetSummary';
 import * as _ from 'lodash';
-import {Nav, NavItem, Navbar} from 'react-bootstrap';
-import {Link, Route} from 'react-router-dom';
 import {Grid, Row, Col} from 'react-bootstrap'
 import D3BarChart from './Charts/D3BarChart'
 import D3BarNegative from './Charts/D3BarNegative'
 import {connect} from 'react-redux';
+import ReportSubNavBar from '../NavBar/ReportSubNavBar'
+
+
 class Report extends Component {
 
     getSummary() {
@@ -24,34 +25,28 @@ class Report extends Component {
     render() {
         const summary = this.getSummary();
         const {totalDebit, totalCredit, net} = summary;
-             var data = [
-            {"name": "Total Income", "value": totalDebit ,class:'income'},
-            {"name": "Total Expense", "value": totalCredit,class:'expense'},
-            {"name": "Net", "value": net,class:'net'}
+        var data = [
+            {"name": "Total Income", "value": totalDebit, class: 'income'},
+            {"name": "Total Expense", "value": totalCredit, class: 'expense'},
+            {"name": "Net", "value": net, class: 'net'}
         ];
 
         const income = {salary: summary.totalDebit};
 
         return (
             <div style={{overflow: 'hidden'}}>
-                <Navbar>
-                    <Nav>
-                        <NavItem><Link to="/app/transactions/report/income">Income</Link></NavItem>
-                        <NavItem><Link to="/app/transactions/report/expense">Expense</Link></NavItem>
-                    </Nav>
-                </Navbar>
-
+                <ReportSubNavBar/>
                 <Grid>
                     <Row className="report" style={{display: 'flex'}}>
                         <Col md={6}>
 
-                         <BudgetSummary summary={summary}/>
+                            <BudgetSummary summary={summary}/>
 
                         </Col>
                         <Col md={6} className="myChart">
                             {summary.isNegative ?
-                                       <D3BarNegative selector={"myChart"} data={data}/> :
-                                       <D3BarChart selector={"myChart"} data={data}/>}
+                                <D3BarNegative selector={"myChart"} data={data}/> :
+                                <D3BarChart selector={"myChart"} data={data}/>}
 
 
                         </Col>
@@ -66,7 +61,7 @@ class Report extends Component {
 
 }
 function mapStateToProps({user}) {
-      if(!user) return ;
+    if (!user) return;
     const {userdata} = user
     return {
         userdata

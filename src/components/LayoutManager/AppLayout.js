@@ -1,5 +1,5 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
-import NavBar from '../NavBar/NavBar'
+import NavBar from '../NavBar/AuthNav'
 import React, {Component} from 'react';
 import {firebaseApp} from '../../config/Firebase'
 

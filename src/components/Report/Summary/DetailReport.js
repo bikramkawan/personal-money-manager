@@ -5,10 +5,9 @@ import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {userData} from '../../../actions';
-import {Nav, NavItem, Navbar} from 'react-bootstrap';
-import {Link, Route} from 'react-router-dom';
 import * as _ from 'lodash'
-import categories, {filterAndSumBy} from '../../../shared/utils'
+import ReportSubNavBar from '../../NavBar/ReportSubNavBar'
+import categories from '../../../shared/utils'
 
 
 class DetailReport extends Component {
@@ -90,12 +89,7 @@ class DetailReport extends Component {
         return (
 
             <div style={{overflow: 'hidden'}}>
-                <Navbar>
-                    <Nav>
-                        <NavItem><Link to="/app/transactions/report/income">Income</Link></NavItem>
-                        <NavItem><Link to="/app/transactions/report/expense">Expense</Link></NavItem>
-                    </Nav>
-                </Navbar>
+                <ReportSubNavBar/>
                 {this.renderChunks()}
 
             </div>)

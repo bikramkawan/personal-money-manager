@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import {firebaseApp, users} from '../config/Firebase'
-import FrontNavBar from './NavBar/FrontNavBar'
+import FrontNavBar from './NavBar/UnAuthNav'
 
 class Register extends Component {
 
