@@ -9,8 +9,6 @@ class D3BarNegative extends Component {
         var chartDiv = document.querySelector(".myChart");
         let height = chartDiv.clientHeight;
         let width = chartDiv.clientWidth;
-        const selector = this.props.selector;
-        // d3.select('.' + selector).append('div').text('hfasfasfaelloe')
 
         var margin = {top: 20, right: 20, bottom: 40, left: 15};
         height = height - margin.top - margin.bottom;

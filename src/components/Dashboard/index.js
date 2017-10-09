@@ -2,14 +2,12 @@
  * Created by bikramkawan on 9/3/17.
  */
 import React, {Component} from 'react';
-import {Route, Switch} from 'react-router-dom';
-import Report from '../Report/Report';
 import * as _ from 'lodash';
-import AddTransaction from './Dashboard';
+import Dashboard from './Dashboard';
 import {userdata} from '../../config/Firebase';
 import {connect} from 'react-redux';
 
-class Dashboard extends Component {
+class Main extends Component {
 
     // constructor(props) {
     //     super(props);
@@ -61,7 +59,7 @@ class Dashboard extends Component {
          const width = window.document.querySelector('.dashboard-layout');
         if(!width) return <div></div>
         return (
-            <AddTransaction
+            <Dashboard
                 onUpdate={this.onUpdate}
                 onDelete={this.onDelete}
                 onSave={this.onSave}
@@ -83,4 +81,4 @@ function mapStateToProps({user}) {
 
 }
 
-export default connect(mapStateToProps, null)(Dashboard)
+export default connect(mapStateToProps, null)(Main)

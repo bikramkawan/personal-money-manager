@@ -2,7 +2,7 @@
  * Created by bikramkawan on 8/9/17.
  */
 import React, {Component} from 'react';
-import {Route, HashRouter, Link, Redirect, Switch} from 'react-router-dom'
+import {Route, HashRouter,Redirect, Switch} from 'react-router-dom'
 import {firebaseApp, userdata} from './config/Firebase'
 import {connect} from 'react-redux';
 import {userLogin} from './actions'

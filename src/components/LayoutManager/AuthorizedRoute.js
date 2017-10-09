@@ -19,7 +19,6 @@ class AuthorizedRoute extends React.Component {
 
 
 function mapStateToProps(state) {
-    const {user} = state;
     return {
         logged: true
     }

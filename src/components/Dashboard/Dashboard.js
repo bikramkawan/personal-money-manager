@@ -7,14 +7,13 @@ import Transaction from './TransactionRow'
 import AddItem from './AddTransaction';
 import {Grid, Row, Col, Button, Glyphicon} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import * as d3 from 'd3'
 import * as _ from 'lodash';
 import moment from 'moment'
 import {List} from 'react-virtualized';
 import {userdata} from '../../config/Firebase';
 const Papa = require('papaparse');
 
-class AddTransaction extends Component {
+class Dashboard extends Component {
 
     constructor(props) {
 
@@ -177,7 +176,7 @@ class AddTransaction extends Component {
             header: true,
             complete: function (d) {
                 const formatted = d.data.map((item)=> {
-                    const {date, payment, category, debit, credit} = item;
+                    const {date, payment,debit, credit} = item;
                     let newObj = {
                         date: moment(date).format('X'),
                         payment,
@@ -318,7 +317,7 @@ class AddTransaction extends Component {
 
                 })
 
-                // console.log(formatted)
+                 console.log(formatted)
                 // formatted.forEach(function (e, i) {
                 //     const temp = that.userRef.push();
                 //     // console.log(temp.key,i)
@@ -402,4 +401,4 @@ function mapStateToProps({user}) {
 
 }
 
-export default connect(mapStateToProps, null)(AddTransaction)
+export default connect(mapStateToProps, null)(Dashboard)

@@ -2,7 +2,6 @@
  * Created by bikramkawan on 9/7/17.
  */
 import React, {Component} from 'react';
-import * as _ from 'lodash';
 import * as d3 from 'd3'
 
 class D3BarChart extends Component {

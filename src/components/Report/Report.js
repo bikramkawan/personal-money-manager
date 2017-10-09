@@ -31,8 +31,6 @@ class Report extends Component {
             {"name": "Net", "value": net, class: 'net'}
         ];
 
-        const income = {salary: summary.totalDebit};
-
         return (
             <div style={{overflow: 'hidden'}}>
                 <ReportSubNavBar/>

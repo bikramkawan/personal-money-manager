@@ -5,7 +5,6 @@ import React, {Component} from 'react';
 import {firebaseApp, userdata} from '../config/Firebase'
 import {connect} from 'react-redux';
 import {userLogin, userData} from '../actions'
-import {Link} from 'react-router-dom'
 import FrontNavBar from './NavBar/UnAuthNav'
 
 class Login extends Component {

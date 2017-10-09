@@ -2,19 +2,13 @@
  * Created by bikramkawan on 9/3/17.
  */
 import React, {Component} from 'react';
-import {Link, NavLink} from 'react-router-dom';
-import {firebaseApp, userdata} from '../../config/Firebase'
+import {NavLink} from 'react-router-dom';
+import {firebaseApp} from '../../config/Firebase'
 import endpoints from '../../shared/endpoints'
 
 class AuthNav extends Component {
 
-    constructor(props) {
-        super(props);
-
-    }
-
     logout = ()=> {
-
         firebaseApp.auth().signOut();
         this.props.history.push('/')
 

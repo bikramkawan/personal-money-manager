@@ -1,9 +1,9 @@
 /**
  * Created by bikramkawan on 10/9/17.
  */
-import React, {Component} from 'react';
+import React from 'react';
 import {Nav, NavItem, Navbar} from 'react-bootstrap';
-import {Link, Route} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import endpoints from '../../shared/endpoints'
 
 const ReportSubNavBar = () => {
