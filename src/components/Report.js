@@ -36,8 +36,8 @@ class Report extends Component {
             <div style={{overflow: 'hidden'}}>
                 <Navbar>
                     <Nav>
-                        <NavItem><Link to="/app/transaction/report/income">Income</Link></NavItem>
-                        <NavItem><Link to="/app/transaction/report/expense">Expense</Link></NavItem>
+                        <NavItem><Link to="/app/transactions/report/income">Income</Link></NavItem>
+                        <NavItem><Link to="/app/transactions/report/expense">Expense</Link></NavItem>
                     </Nav>
                 </Navbar>
 

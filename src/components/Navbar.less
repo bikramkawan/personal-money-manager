@@ -1,0 +1,49 @@
+.navbar-nav.pull-right {
+
+  width: 35%;
+  display: flex;
+  justify-content: space-between;
+
+  .nav-list {
+    
+    &.authed {
+      display: flex;
+      flex: 2;
+
+      & span {
+        display: flex;
+        justify-content: space-around;
+        flex: 1;
+      }
+    }
+
+    &.logout {
+      flex: 1;
+    }
+
+  }
+
+}
+
+.highlightNav {
+  background: darkgrey !important;
+  color: black !important;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.navbar-brand {
+  font-size: 20px !important;
+  color: #000!important;
+  &:hover {
+
+  }
+  &.true {
+    .highlightNav
+  }
+
+  &.selected {
+    .highlightNav
+  }
+
+}

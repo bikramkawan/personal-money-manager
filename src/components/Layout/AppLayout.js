@@ -26,7 +26,7 @@ class AppLayout extends Component {
                 <main>
                     <Switch>
                         <Route path={`${this.props.match.path}`} exact component={DashboardLayout} />
-                        <Route path={`${this.props.match.path}/transaction`} component={DashboardLayout} />
+                        <Route path={`${this.props.match.path}/transactions`} component={DashboardLayout} />
 
                         <Redirect to={`${this.props.match.url}`} />
                     </Switch>
