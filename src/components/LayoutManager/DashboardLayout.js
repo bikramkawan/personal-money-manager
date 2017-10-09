@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Switch, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {userData} from '../../actions'
-import Dashboard from '../Dashboard'
+import Dashboard from '../Dashboard/index'
 import ReportLayout from './ReportLayout'
 
 class DashboardLayout extends Component {

@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-bootstrap'
 import * as $ from 'jquery';
-import {expenseCategories,filterAndSumBy} from '../../shared/utils'
+import {expenseCategories,filterAndSumBy} from '../../../shared/utils'
 import * as _ from 'lodash';
 export default class ExpenseSummary extends Component {
     componentDidMount() {

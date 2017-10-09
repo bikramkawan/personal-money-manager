@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {Switch, Route} from 'react-router-dom'
-import Report from '../Report';
+import Report from '../Report/Report';
 import {connect} from 'react-redux'
 import {userData} from '../../actions'
-import DetailReport from '../Report/Cateogry/DetailReport';
+import DetailReport from '../Report/Summary/DetailReport';
 
 class ReportLayout extends Component {
 

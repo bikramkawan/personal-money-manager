@@ -3,10 +3,10 @@
  */
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
-import Report from './Report';
+import Report from '../Report/Report';
 import * as _ from 'lodash';
-import AddTransaction from './AddTransaction';
-import {userdata} from '../config/Firebase';
+import AddTransaction from './Dashboard';
+import {userdata} from '../../config/Firebase';
 import {connect} from 'react-redux';
 
 class Dashboard extends Component {

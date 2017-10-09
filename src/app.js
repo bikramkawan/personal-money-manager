@@ -6,9 +6,9 @@ import {Route, HashRouter, Link, Redirect, Switch} from 'react-router-dom'
 import {firebaseApp, userdata} from './config/Firebase'
 import {connect} from 'react-redux';
 import {userLogin} from './actions'
-import UnauthorizedLayout from './components/Layout/UnauthorizedLayout'
-import AuthorizedRoute from './components/Layout/AuthorizedRoute'
-import AppLayout from './components/Layout/AppLayout'
+import UnauthorizedLayout from './components/LayoutManager/UnauthorizedLayout'
+import AuthorizedRoute from './components/LayoutManager/AuthorizedRoute'
+import AppLayout from './components/LayoutManager/AppLayout'
 
 
 import axios from 'axios';

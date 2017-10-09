@@ -2,16 +2,16 @@
  * Created by bikramkawan on 8/12/17.
  */
 import React, {Component} from 'react';
-import Header from './Rows/Header'
-import Transaction from './Rows/Transaction'
-import AddItem from './Rows/AddItem';
+import Header from './Header'
+import Transaction from './TransactionRow'
+import AddItem from './AddTransaction';
 import {Grid, Row, Col, Button, Glyphicon} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as d3 from 'd3'
 import * as _ from 'lodash';
 import moment from 'moment'
 import {List} from 'react-virtualized';
-import {userdata} from '../config/Firebase';
+import {userdata} from '../../config/Firebase';
 const Papa = require('papaparse');
 
 class AddTransaction extends Component {

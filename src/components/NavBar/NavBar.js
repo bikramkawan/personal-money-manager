@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {firebaseApp, userdata} from '../config/Firebase'
+import {firebaseApp, userdata} from '../../config/Firebase'
 class NavBar extends Component {
 
     constructor(props) {

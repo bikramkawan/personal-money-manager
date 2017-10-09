@@ -2,13 +2,13 @@
  * Created by bikramkawan on 8/13/17.
  */
 import React, {Component} from 'react';
-import BudgetSummary from './Report/BudgetSummary';
+import BudgetSummary from './Summary/BudgetSummary';
 import * as _ from 'lodash';
 import {Nav, NavItem, Navbar} from 'react-bootstrap';
 import {Link, Route} from 'react-router-dom';
 import {Grid, Row, Col} from 'react-bootstrap'
-import D3BarChart from './Report/D3BarChart'
-import D3BarNegative from './Report/D3BarNegative'
+import D3BarChart from './Charts/D3BarChart'
+import D3BarNegative from './Charts/D3BarNegative'
 import {connect} from 'react-redux';
 class Report extends Component {
 
