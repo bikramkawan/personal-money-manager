@@ -4,12 +4,14 @@
 import React, {Component} from 'react';
 import {Nav, NavItem, Navbar} from 'react-bootstrap';
 import {Link, Route} from 'react-router-dom';
+import endpoints from '../../shared/endpoints'
+
 const ReportSubNavBar = () => {
 
     return ( <Navbar>
         <Nav>
-            <NavItem><Link to="/app/transactions/report/income">Income</Link></NavItem>
-            <NavItem><Link to="/app/transactions/report/expense">Expense</Link></NavItem>
+            <NavItem><Link to={endpoints.income}>Income</Link></NavItem>
+            <NavItem><Link to={endpoints.expense}>Expense</Link></NavItem>
         </Nav>
     </Navbar>)
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
+import endpoints from '../../shared/endpoints'
 
 // Pages
 import Login from '../Login'
@@ -15,9 +16,9 @@ const UnauthorizedLayout = () => (
 
          */}
         <Switch>
-            <Route path="/auth/login" component={Login}/>
-            <Route path="/auth/register" component={Register}/>
-            <Redirect to="/auth/login"/>
+            <Route path={endpoints.login} component={Login}/>
+            <Route path={endpoints.register} component={Register}/>
+            <Redirect to={endpoints.login}/>
         </Switch>
     </div>
 )
