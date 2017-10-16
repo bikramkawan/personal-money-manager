@@ -17,109 +17,115 @@ export default class AddItem extends Component {
         this.state = {
             ref: '',
             value: '',
-            fields: {
-                payment: '',
-                category: '',
-                debit: '',
-                credit: '',
-                date: '',
-            },
+            payment: '',
+            category: '',
+            debit: '',
+            credit: '',
+            date: '',
             isValidDate: false,
             isValidPayment: false,
             invalidDebitCredit: false,
-            isValidEntry: {
-                isdate: false,
-                payment: false,
-                debit: false,
-                credit: false,
-            }
+            isValidNumber: false,
+            isValidCategory: false,
 
         }
+        this.delayOnChange = _.debounce(this.delayOnChange, 150);
     }
 
 
     handleChange = (ref, e)=> {
+        this.delayOnChange(ref, e.target.value);
 
-        let val = e.target.value;
-        let {fields} = this.state;
 
-        if (ref === 'credit' || ref === 'debit') {
-            const parsedVal = parseFloat(val);
-            val = _.isNaN(parsedVal) ? '-' : parsedVal;
+    }
 
-        }
-
-        if (ref === 'date') {
-
-            val = moment(val).format('X')
-        }
-        fields = {...fields, [ref]: val};
-
-        this.isValidAll(fields);
-        this.setState({ref: ref, fields}, ()=>this.props.onChange({
-            fields,
-            uniqueKey: this.props.uniqueKey
-        }))
-        //  this.setState({ref: ref, [ref]: val}, ()=>this.props.onChange({ref: ref, value: val}))
+    delayOnChange(ref, value) {
+        this.setState({[ref]: value, ref})
+        this.isValidAll(ref)
 
     }
 
     handleSelect = ({target}) => {
         const child = target.value;
         const parent = target[target.selectedIndex].id;
-        let {fields} = this.state;
-        fields = {...fields, category: {parent, child}};
-        this.setState({fields}, ()=>this.props.onSelect({
-            fields,
-            uniqueKey: this.props.uniqueKey
-        }))
+        this.delayOnChange('category', {parent, child})
+        this.isValidAll('category')
 
     }
 
     validatePayment() {
-        const length = this.state.fields.payment.length;
-        if (length < 1) return;
+        const {payment} = this.state;
+        const isValid = (payment && payment.length > 6);
+        this.setState({isValidPayment: isValid});
 
-        return (length > 6) ? 'success' : 'error';
 
     }
 
 
-    validateDate() {
-        if (this.state.fields.date.length < 1) return;
-        const date = this.state.fields.date.split('.');
-        let checkLength;
-        if (date.length === 3 && date[0].length === 2 && date[1].length === 2 && date[2].length === 4) {
-            checkLength = true
-        } else {
-            checkLength = false
+    validateIsNumber(ref) {
+
+        if (ref === 'debit') {
+            const {debit} = this.state;
+            const isValid = (debit && !isNaN(debit));
+            this.setState({isValidNumber: isValid || false, credit: ''})
+            //  return isValid;
         }
-        if (checkLength) {
+        if (ref === 'credit') {
+            const {credit} = this.state;
+            const isValid = (credit && !isNaN(credit));
+            this.setState({isValidNumber: isValid || false, debit: ''})
 
-            return 'success'
         }
 
-        else if (!checkLength) return 'error';
 
     }
 
-    validateIsNumber(val) {
+    validateDate(ref) {
 
-        if (!_.isNumber(val)) return;
-        return _.isFinite(parseFloat(val)) ? 'success' : 'error';
+        const isValid = !_.isEmpty(this.state.date)
+        this.setState({isValidDate: isValid})
+
 
     }
 
-    isValidAll(fields) {
 
-        const isPayment = (this.validatePayment(fields.payment) === 'success');
-        const isDebit = (this.validateIsNumber(fields.debit) === 'success');
-        const isCredit = (this.validateIsNumber(fields.credit) === 'success');
-        const isDate = _.isEmpty(fields.date)
-        this.setState({invalidDebitCredit: (isCredit && isDebit)})
+    validateCategory(ref) {
 
-        if (!(isCredit && isDebit) && isPayment && (isDebit || isCredit) && !isDate) {
+        const isValid = !_.isEmpty(this.state.category)
+        this.setState({isValidCategory: isValid})
+        return isValid;
+
+
+    }
+
+    parseValues() {
+
+        const {date, debit, credit, category, payment} = this.state;
+
+        const fields = {
+            date: moment(date).format('X'),
+            debit: !isNaN(parseFloat(debit)) ? parseFloat(debit) : debit,
+            credit: !isNaN(parseFloat(credit)) ? parseFloat(credit) : credit,
+            category,
+            payment
+        }
+
+        return fields
+
+    }
+
+    isValidAll(ref) {
+
+
+        this.validatePayment();
+        this.validateIsNumber(ref);
+        this.validateDate(ref);
+        this.validateCategory(ref);
+        const {isValidNumber, isValidDate, isValidCategory, isValidPayment} = this.state;
+        const fields = this.parseValues();
+        if (isValidDate && isValidPayment && isValidNumber && isValidCategory) {
             this.props.isValidItem(true)
+            this.props.onChange({fields, uniqueKey: this.props.uniqueKey})
         } else {
             this.props.isValidItem(false);
         }
@@ -136,6 +142,7 @@ export default class AddItem extends Component {
         </optgroup>
 
     }
+
 
     render() {
 
@@ -167,7 +174,7 @@ export default class AddItem extends Component {
                     <FormGroup
                         className='itemValidation'
                         controlId="payment"
-                        validationState={this.validatePayment()}>
+                        validationState={this.state.isValidPayment ? 'success' : 'error'}>
                         <FormControl
                             type="text"
                             ref='payment'
@@ -176,7 +183,7 @@ export default class AddItem extends Component {
                         <ControlLabel
                             className="onFocus Payment"
                             srOnly={this.state.ref !== 'payment'}>
-                            {this.validatePayment() === 'success' ? <Glyphicon glyph="glyphicon glyphicon-ok"/> :
+                            {this.state.isValidPayment ? <Glyphicon glyph="glyphicon glyphicon-ok"/> :
                                 <Glyphicon glyph="glyphicon glyphicon-remove"/>} Payment description is
                             valid </ControlLabel>
                     </FormGroup>
@@ -194,16 +201,17 @@ export default class AddItem extends Component {
                     <FormGroup
                         className='itemValidation'
                         controlId="debit"
-                        validationState={this.validateIsNumber(this.state.fields.debit)}>
+                        validationState={this.state.isValidNumber ? 'success' : 'error'}>
                         <FormControl
                             type="text"
                             ref='debit'
                             placeholder="Enter debit amount"
+                            value={this.state.debit}
                             onChange={this.handleChange.bind(this, 'debit')}/>
                         <ControlLabel
                             className="onFocus"
                             srOnly={this.state.ref !== 'debit'}>
-                            {this.validateIsNumber(this.state.fields.debit) === 'success' ?
+                            {this.state.isValidNumber ?
                                 <Glyphicon glyph="glyphicon glyphicon-ok"/> :
                                 <Glyphicon glyph="glyphicon glyphicon-remove"/>} Debit is valid</ControlLabel>
                     </FormGroup>
@@ -213,16 +221,17 @@ export default class AddItem extends Component {
                     <FormGroup
                         className='itemValidation'
                         controlId="credit"
-                        validationState={this.validateIsNumber(this.state.fields.credit)}>
+                        validationState={this.state.isValidNumber ? 'success' : 'error'}>
                         <FormControl
                             type="text"
                             ref='credit'
                             placeholder="Enter credit amount"
+                            value={this.state.credit}
                             onChange={this.handleChange.bind(this, 'credit')}/>
                         <ControlLabel
                             className="onFocus"
                             srOnly={this.state.ref !== 'credit'}>
-                            {this.validateIsNumber(this.state.fields.credit) === 'success' ?
+                            {this.state.isValidNumber ?
                                 <Glyphicon glyph="glyphicon glyphicon-ok"/> :
                                 <Glyphicon glyph="glyphicon glyphicon-remove"/>}
                             Credit is valid</ControlLabel>
@@ -230,7 +239,7 @@ export default class AddItem extends Component {
                 </Col>
 
                 <Col md={2}>
-                    {this.state.invalidDebitCredit &&
+                    {this.state.isValidNumber &&
                     <span style={{fontSize: '12px'}}>Input Either Credit or Debit</span>}
                 </Col>
 
