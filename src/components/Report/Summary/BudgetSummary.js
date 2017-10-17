@@ -6,8 +6,7 @@ import {Grid, Row, Col} from 'react-bootstrap'
 
 export default class BudgetSummary extends Component {
 
-    constructor(props) {
-        super(props);
+    componentWillMount() {
         this.summary = this.props.summary;
     }
 
@@ -18,7 +17,7 @@ export default class BudgetSummary extends Component {
         const actualIncome = this.summary.totalDebit;
         const actualExpense = this.summary.totalCredit;
         const netActual = actualIncome - actualExpense;
-        const netBudget = budgetIncome-budgetExpense;
+        const netBudget = budgetIncome - budgetExpense;
         const diffIncome = actualIncome - budgetIncome;
         const diffExpense = actualExpense - budgetExpense;
         const netDiff = diffIncome - diffExpense;
@@ -34,7 +33,7 @@ export default class BudgetSummary extends Component {
             diffIncome: diffIncome,
             diffExpense: diffExpense,
             netDiff: netDiff,
-            netBudget:netBudget
+            netBudget: netBudget
 
         };
 
@@ -42,11 +41,13 @@ export default class BudgetSummary extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.summary = nextProps.summary;
+    }
+
     render() {
 
-
         const summary = this.mixinData();
-
         return (<Grid className="grid budgetSummary" fluid={true}>
             <Row className="header">
                 <Col md={12}><h4>Budget Summary</h4></Col>

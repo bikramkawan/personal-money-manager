@@ -8,10 +8,15 @@ class D3BarChart extends Component {
 
 
     componentDidMount() {
+        this.renderChart(this.props);
+    }
+
+    renderChart(props) {
+
         var chartDiv = document.querySelector(".myChart");
         let height = chartDiv.clientHeight;
         let width = chartDiv.clientWidth;
-        const selector = this.props.selector;
+        const selector = props.selector;
         // d3.select('.' + selector).append('div').text('hfasfasfaelloe')
 
         d3.selectAll('svg').remove();
@@ -27,9 +32,9 @@ class D3BarChart extends Component {
 
         var g = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-        const data = this.props.data;
+        const data = props.data;
 
-        x.domain(data.map((d) =>d.name));
+        x.domain(data.map((d) => d.name));
         y.domain([0, d3.max(data, (d) => d.value)]);
 
         g.append("g")
@@ -53,21 +58,20 @@ class D3BarChart extends Component {
         g.selectAll(".bar")
             .data(data)
             .enter().append("rect")
-            .attr('class', (d)=> `bar--positive  ${d.class}`)
+            .attr('class', (d) => `bar--positive  ${d.class}`)
             .attr("x", (d) => x(d.name))
-            .attr("y", (d)=>y(d.value))
+            .attr("y", (d) => y(d.value))
             .attr("width", x.bandwidth())
             .attr("height", (d) => height - y(d.value))
             .append('title')
             .text((d) => d.value.toFixed(2))
 
-
     }
 
-    renderChart() {
-
-
+    componentWillReceiveProps(nextProps) {
+        this.renderChart(nextProps);
     }
+
 
     render() {
 
