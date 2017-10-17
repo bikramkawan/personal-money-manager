@@ -17,11 +17,11 @@ export default class AddItem extends Component {
         this.state = {
             ref: '',
             value: '',
-            payment: '',
-            category: '',
-            debit: '',
-            credit: '',
-            date: '',
+            payment: this.props.data.payment || '',
+            category: this.props.data.category || '',
+            debit: this.props.data.debit || '',
+            credit: this.props.data.credit || '',
+            date: this.formatDate(this.props.data.date) || '',
             isValidDate: false,
             isValidPayment: false,
             invalidDebitCredit: false,
@@ -29,11 +29,11 @@ export default class AddItem extends Component {
             isValidCategory: false,
 
         }
-        this.delayOnChange = _.debounce(this.delayOnChange, 150);
+        this.delayOnChange = _.debounce(this.delayOnChange, 50);
     }
 
 
-    handleChange = (ref, e)=> {
+    handleChange = (ref, e) => {
         this.delayOnChange(ref, e.target.value);
 
 
@@ -93,7 +93,6 @@ export default class AddItem extends Component {
 
         const isValid = !_.isEmpty(this.state.category)
         this.setState({isValidCategory: isValid})
-        return isValid;
 
 
     }
@@ -101,7 +100,6 @@ export default class AddItem extends Component {
     parseValues() {
 
         const {date, debit, credit, category, payment} = this.state;
-
         const fields = {
             date: moment(date).format('X'),
             debit: !isNaN(parseFloat(debit)) ? parseFloat(debit) : debit,
@@ -123,6 +121,7 @@ export default class AddItem extends Component {
         this.validateCategory(ref);
         const {isValidNumber, isValidDate, isValidCategory, isValidPayment} = this.state;
         const fields = this.parseValues();
+        console.log(this.state)
         if (isValidDate && isValidPayment && isValidNumber && isValidCategory) {
             this.props.isValidItem(true)
             this.props.onChange({fields, uniqueKey: this.props.uniqueKey})
@@ -138,11 +137,15 @@ export default class AddItem extends Component {
 
         const values = _.keys(categories[d]);
         return <optgroup label={d} key={d}>
-            {values.map((value, main)=><option key={main} id={d} value={value}>{value}</option>)}
+            {values.map((value, main) => <option key={main} id={d} value={value}>{value}</option>)}
         </optgroup>
 
     }
 
+    formatDate(unixDate) {
+        return (unixDate && moment.unix(unixDate).format('YYYY-MM-DD')) || ''
+
+    }
 
     render() {
 
@@ -165,6 +168,7 @@ export default class AddItem extends Component {
                             className="form-control"
                             type="date"
                             style={{padding: '0'}}
+                            value={this.state.date}
                             onChange={this.handleChange.bind(this, 'date')}/>
                     </FormGroup>
 
@@ -179,6 +183,7 @@ export default class AddItem extends Component {
                             type="text"
                             ref='payment'
                             placeholder="Short payment description"
+                            value={this.state.payment}
                             onChange={this.handleChange.bind(this, 'payment')}/>
                         <ControlLabel
                             className="onFocus Payment"
@@ -193,7 +198,7 @@ export default class AddItem extends Component {
                     {/*onSelect={this.handleSelect}/>*/}
                     <select className="form-control" id="sel1" onChange={this.handleSelect}
                             style={{textTransform: 'Capitalize'}}>
-                        {_.keys(categories).map(d=>this.renderOptions(d))}
+                        {_.keys(categories).map(d => this.renderOptions(d))}
                     </select>
 
                 </Col>

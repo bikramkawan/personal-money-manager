@@ -11,6 +11,8 @@ import * as _ from 'lodash';
 import moment from 'moment'
 import {List} from 'react-virtualized';
 import {userdata} from '../../config/Firebase';
+import DataInputDialog from './DataInputDialog'
+
 const Papa = require('papaparse');
 
 class Dashboard extends Component {
@@ -33,16 +35,19 @@ class Dashboard extends Component {
             isDisableSaveButton: true,
             sortByAsc: true,
             openModal: false,
-            sortRef: null
+            sortRef: null,
+            uniqueKey: null
 
         }
 
         this.store = this.props.store;
     }
 
-    editRow = (uniqueKey) => {
-        this.setState({isEditMode: true});
-        this.props.onUpdate(uniqueKey, this.state.fields)
+    editRow = (uniqueKey, fields) => {
+        this.setState({isEditMode: true, openModal: true, fields, uniqueKey});
+
+
+        //  this.props.onUpdate(uniqueKey, this.state.fields)
 
 
     }
@@ -50,15 +55,16 @@ class Dashboard extends Component {
 
     deleteRow = (uniqueKey) => {
 
-        const index = this.props.userdata.findIndex(d=>d.key === uniqueKey);
+        const index = this.props.userdata.findIndex(d => d.key === uniqueKey);
         const temp = this.props.userdata.slice();
         temp.splice(index, 1);
-        this.setState({data: temp}, ()=>this.props.onDelete(uniqueKey))
+        this.setState({data: temp}, () => this.props.onDelete(uniqueKey))
 
 
     }
-    handleChange = (args)=> {
+    handleChange = (args) => {
         this.setState({fields: args.fields})
+
 
 
     }
@@ -76,17 +82,24 @@ class Dashboard extends Component {
     }
 
 
-    save = ()=> {
-        if (this.state.isEditMode) {
-            const temp = this.props.userdata.slice();
-            temp.splice(this.state.updateIndex, 1, this.state.fields)
-            this.setState({data: temp, isDisableSaveButton: true})
+    save = (uniqueKey) => {
 
+        // if (this.state.isEditMode) {
+        //     const temp = this.props.userdata.slice();
+        //     temp.splice(this.state.updateIndex, 1, this.state.fields)
+        //     this.setState({data: temp, isDisableSaveButton: true})
+        //
+        // } else {
+        //
+        //     this.props.onSave(this.state.fields)
+        // }
+        if (uniqueKey) {
+            this.props.onUpdate(uniqueKey, this.state.fields)
         } else {
-
             this.props.onSave(this.state.fields)
         }
 
+        // this.props.onUpdate(uniqueKey, this.state.fields)
 
     }
 
@@ -96,7 +109,7 @@ class Dashboard extends Component {
     }
 
 
-    isValidateItem = (isValid)=> {
+    isValidateItem = (isValid) => {
 
         if (isValid) {
             this.setState({isDisableSaveButton: false})
@@ -107,13 +120,13 @@ class Dashboard extends Component {
 
 
     rowRenderer = ({
-        key,         // Unique key within array of rows
-        index,       // Index of row within collection
-        isScrolling, // The List is currently being scrolled
-        isVisible,   // This row is visible within the List (eg it is not an overscanned row)
-        style,       // Style object to be applied to row (to position it)
-        sort
-    })=> {
+                       key,         // Unique key within array of rows
+                       index,       // Index of row within collection
+                       isScrolling, // The List is currently being scrolled
+                       isVisible,   // This row is visible within the List (eg it is not an overscanned row)
+                       style,       // Style object to be applied to row (to position it)
+                       sort
+                   }) => {
 
         let data = _(this.props.userdata.slice()).reverse().value();
         if (this.state.sortRef) {
@@ -133,6 +146,7 @@ class Dashboard extends Component {
             >
 
                 <Transaction data={data[index]}
+                             onClick={this.showDialog}
                              onDeleteRow={this.deleteRow}
                              onChange={this.handleChange}
                              onEdit={this.editRow}
@@ -163,7 +177,7 @@ class Dashboard extends Component {
     }
 
 
-    handleUpload = (evt)=> {
+    handleUpload = (evt) => {
 
         console.log(evt.target.files)
         const that = this;
@@ -175,8 +189,8 @@ class Dashboard extends Component {
         Papa.parse(file, {
             header: true,
             complete: function (d) {
-                const formatted = d.data.map((item)=> {
-                    const {date, payment,debit, credit} = item;
+                const formatted = d.data.map((item) => {
+                    const {date, payment, debit, credit} = item;
                     let newObj = {
                         date: moment(date).format('X'),
                         payment,
@@ -317,7 +331,7 @@ class Dashboard extends Component {
 
                 })
 
-                 console.log(formatted)
+                console.log(formatted)
                 // formatted.forEach(function (e, i) {
                 //     const temp = that.userRef.push();
                 //     // console.log(temp.key,i)
@@ -339,8 +353,8 @@ class Dashboard extends Component {
 
     }
 
-    hideDialog = () => {
-        this.setState({openModal: false})
+    hideDialog = (value) => {
+        this.setState({openModal: value})
     }
 
     render() {
@@ -349,33 +363,17 @@ class Dashboard extends Component {
 
         return (<div>
 
-                { this.state.openModal &&
-                <Grid className="add-modal" fluid={true} style={{width: this.props.width}}>
-                    <Header className="add-modal-header"/>
-                    <Glyphicon onClick={this.hideDialog} className="close-modal"
-                               glyph="glyphicon glyphicon-remove" bsSize={'large'}/>
-                    <AddItem onChange={this.handleChange} onSelect={this.handleSelect}
-                             isValidItem={this.isValidateItem}/>
+                {this.state.openModal && <DataInputDialog {...this.props}
+                                                   onChange={this.handleChange}
+                                                   onEdit={this.state.isEditMode}
+                                                   hideDialog={this.hideDialog}
+                                                   data={this.state.fields}
+                                                   onSave={this.save}
+                                                   uniqueKey={this.state.uniqueKey}
 
-                    <Row className="saveRow">
-                        {/*<Col md={4} className="saveCol">*/}
-                        {/*<input type="file" id="files" name="files[]" multiple onChange={this.handleUpload}/>*/}
-                        {/*<output id="list"></output>*/}
-                        {/*</Col>*/}
 
-                        {/*<Col md={2} className="saveCol">*/}
-                        {/*<Button bsStyle="primary" className="saveButton"*/}
-                        {/*onClick={this.save}>Upload</Button>*/}
-                        {/*</Col>*/}
+                />
 
-                        <Col md={2} className="saveCol">
-                            <Button bsStyle="primary" className="saveButton"
-                                    disabled={this.state.isDisableSaveButton}
-                                    onClick={this.save}>Save</Button>
-                        </Col>
-
-                    </Row>
-                </Grid>
                 }
 
 

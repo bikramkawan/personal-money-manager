@@ -33,46 +33,46 @@ class Transaction extends Component {
 
         this.props.onDeleteRow(uniqueKey);
     }
-    handleChange = (ref, e)=> {
-
-        let val = e.target.value;
-        let {fields} = this.state;
-
-        if (ref === 'credit' || ref === 'debit') {
-            const parsedVal = parseFloat(val);
-            val = _.isNaN(parsedVal) ? '-' : parsedVal;
-        }
-        if (ref === 'date') {
-
-            val = moment(val).format('X')
-        }
-
-        fields = {...fields, [ref]: val};
-
-        this.isValidAll(fields);
-        this.setState({ref: ref, fields}, ()=>this.props.onChange({
-            fields,
-            uniqueKey: this.props.uniqueKey
-        }))
-    }
+    // handleChange = (ref, e)=> {
+    //
+    //     let val = e.target.value;
+    //     let {fields} = this.state;
+    //
+    //     if (ref === 'credit' || ref === 'debit') {
+    //         const parsedVal = parseFloat(val);
+    //         val = _.isNaN(parsedVal) ? '-' : parsedVal;
+    //     }
+    //     if (ref === 'date') {
+    //
+    //         val = moment(val).format('X')
+    //     }
+    //
+    //     fields = {...fields, [ref]: val};
+    //
+    //     this.isValidAll(fields);
+    //     this.setState({ref: ref, fields}, ()=>this.props.onChange({
+    //         fields,
+    //         uniqueKey: this.props.uniqueKey
+    //     }))
+    // }
 
     editMe = (uniqueKey) => {
 
-        this.setState({isEditMode: true}, ()=>this.props.onEdit(uniqueKey))
+        this.setState({isEditMode: false}, ()=>this.props.onEdit(uniqueKey,this.props.data))
     }
 
-    update = (uniqueKey) => {
-
-        this.setState({isEditMode: false}, ()=>this.props.onEdit(uniqueKey))
-    }
-
-    validatePayment() {
-        const length = this.state.fields.payment.length;
-        if (length < 1) return;
-
-        return (length > 6) ? 'success' : 'error';
-
-    }
+    // update = (uniqueKey) => {
+    //
+    //     this.setState({isEditMode: false}, ()=>this.props.onEdit(uniqueKey,this.props.data))
+    // }
+    //
+    // validatePayment() {
+    //     const length = this.state.fields.payment.length;
+    //     if (length < 1) return;
+    //
+    //     return (length > 6) ? 'success' : 'error';
+    //
+    // }
 
     // validateDate() {
     //     if (this.state.fields.date.length < 1) return;
@@ -92,29 +92,29 @@ class Transaction extends Component {
     //
     // }
 
-    validateIsNumber(val) {
-        if (val < 1) return;
-        return _.isFinite(parseFloat(val)) ? 'success' : 'error';
+    // validateIsNumber(val) {
+    //     if (val < 1) return;
+    //     return _.isFinite(parseFloat(val)) ? 'success' : 'error';
+    //
+    // }
 
-    }
-
-    isValidAll(fields) {
-        const isPayment = (this.validatePayment(fields.payment) === 'success');
-        const isDebit = (this.validateIsNumber(fields.debit) === 'success');
-        const isCredit = (this.validateIsNumber(fields.credit) === 'success');
-        const isDate = _.isEmpty(fields.date)
-
-        this.setState({invalidDebitCredit: (isCredit && isDebit)})
-        console.log(this.state, fields)
-        this.setState({invalidDebitCredit: (isCredit && isDebit)})
-        if (!(isCredit && isDebit) && isPayment && (isDebit || isCredit) && !isDate) {
-            this.props.isValidItem(true)
-        } else {
-            this.props.isValidItem(false);
-        }
-
-
-    }
+    // isValidAll(fields) {
+    //     const isPayment = (this.validatePayment(fields.payment) === 'success');
+    //     const isDebit = (this.validateIsNumber(fields.debit) === 'success');
+    //     const isCredit = (this.validateIsNumber(fields.credit) === 'success');
+    //     const isDate = _.isEmpty(fields.date)
+    //
+    //     this.setState({invalidDebitCredit: (isCredit && isDebit)})
+    //
+    //     this.setState({invalidDebitCredit: (isCredit && isDebit)})
+    //     if (!(isCredit && isDebit) && isPayment && (isDebit || isCredit) && !isDate) {
+    //         this.props.isValidItem(true)
+    //     } else {
+    //         this.props.isValidItem(false);
+    //     }
+    //
+    //
+    // }
 
 
     toggleDateRender(ref, value) {
@@ -160,17 +160,17 @@ class Transaction extends Component {
 
     }
 
-    handleSelect = ({target}) => {
-        const child = target.value;
-        const parent = target[target.selectedIndex].id;
-        let {fields} = this.state;
-        fields = {...fields, category: {parent, child}};
-        this.setState({fields}, ()=>this.props.onSelect({
-            fields,
-            uniqueKey: this.props.uniqueKey
-        }))
-
-    }
+    // handleSelect = ({target}) => {
+    //     const child = target.value;
+    //     const parent = target[target.selectedIndex].id;
+    //     let {fields} = this.state;
+    //     fields = {...fields, category: {parent, child}};
+    //     this.setState({fields}, ()=>this.props.onSelect({
+    //         fields,
+    //         uniqueKey: this.props.uniqueKey
+    //     }))
+    //
+    // }
 
     renderOptions(d) {
         const values = _.keys(categories[d]);
@@ -259,11 +259,16 @@ class Transaction extends Component {
                 <Col md={1}>{this.toggleDebitRender('debit', this.state.fields.debit)}</Col>
                 <Col md={1}>{this.toggleCreditRender('credit', this.state.fields.credit)}</Col>
                 <Col md={1}>
-                    {!this.state.isEditMode ? <Button onClick={this.editMe.bind(this, this.props.uniqueKey)}><Glyphicon
-                        glyph="glyphicon glyphicon-edit"/></Button> :
-                        <Button disabled={this.state.invalidDebitCredit}
-                                onClick={this.update.bind(this, this.props.uniqueKey)}><Glyphicon
-                            glyph="glyphicon glyphicon-ok"/></Button>
+                    {/*{!this.state.isEditMode ? <Button onClick={this.editMe.bind(this, this.props.uniqueKey)}><Glyphicon*/}
+                        {/*glyph="glyphicon glyphicon-edit"/></Button> :*/}
+                        {/*<Button disabled={this.state.invalidDebitCredit}*/}
+                                {/*onClick={this.update.bind(this, this.props.uniqueKey)}><Glyphicon*/}
+                            {/*glyph="glyphicon glyphicon-ok"/></Button>*/}
+                    {/*}   */}
+                    {<Button onClick={this.editMe.bind(this, this.props.uniqueKey)}>
+                        <Glyphicon
+                        glyph="glyphicon glyphicon-edit"/>
+                    </Button>
                     }
 
                 </Col>
