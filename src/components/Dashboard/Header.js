@@ -29,14 +29,14 @@ class Header extends Component {
         } else if (this.state.isSorted && !this.state.sortByAsc && this.state.ref === ref) {
             return <Glyphicon
                 glyph="glyphicon glyphicon-sort-by-attributes"/>;
-        }else {
+        } else {
             return '';
         }
     }
 
     render() {
         return (
-            <Row>
+            <Row className="header-transaction">
                 <Col md={1} className="heading">#</Col>
                 <Col md={2} className="heading">Date</Col>
                 <Col md={3} className="heading sortable" onClick={this.onSortBy.bind(this, 'payment')}>Payment

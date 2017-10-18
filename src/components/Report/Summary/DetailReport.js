@@ -54,7 +54,7 @@ class DetailReport extends Component {
             const childs = _.keys(categories[parentCat])
             const totals = this.calcTotals(parentCat)
             return (
-                <Grid className="grid makeTable Income" key={parentCat}>
+                <Grid className="grid makeTable Income " key={parentCat}>
                     <Row className='header'>
                         <Col md={6}>{parentCat}</Col>
                         <Col md={2}>Budget</Col>
@@ -90,7 +90,10 @@ class DetailReport extends Component {
 
             <div style={{overflow: 'hidden'}}>
                 <ReportSubNavBar/>
-                {this.renderChunks()}
+                <div className="detail-report-container">
+                    {this.renderChunks()}
+                </div>
+
 
             </div>)
     }

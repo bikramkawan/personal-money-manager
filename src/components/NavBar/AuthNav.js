@@ -17,7 +17,7 @@ class AuthNav extends Component {
     render() {
         const {pathname} =this.props.location;
         return (
-            <nav className="navbar navbar-default navbar-static-top">
+            <nav className="navbar navbar-default navbar-static-top transaction-nav">
                 <div className="container">
                     <ul className="nav navbar-nav pull-right">
                         <li className="nav-list authed">

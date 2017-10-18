@@ -66,7 +66,6 @@ class Dashboard extends Component {
         this.setState({fields: args.fields})
 
 
-
     }
     onSortByName = () => {
         const data = this.props.userdata.slice();
@@ -120,13 +119,13 @@ class Dashboard extends Component {
 
 
     rowRenderer = ({
-                       key,         // Unique key within array of rows
-                       index,       // Index of row within collection
-                       isScrolling, // The List is currently being scrolled
-                       isVisible,   // This row is visible within the List (eg it is not an overscanned row)
-                       style,       // Style object to be applied to row (to position it)
-                       sort
-                   }) => {
+        key,         // Unique key within array of rows
+        index,       // Index of row within collection
+        isScrolling, // The List is currently being scrolled
+        isVisible,   // This row is visible within the List (eg it is not an overscanned row)
+        style,       // Style object to be applied to row (to position it)
+        sort
+    }) => {
 
         let data = _(this.props.userdata.slice()).reverse().value();
         if (this.state.sortRef) {
@@ -164,10 +163,10 @@ class Dashboard extends Component {
     }
 
     renderRow() {
-
+        console.log(this.props.height,this.props.width)
         return (<List
             width={this.props.width}
-            height={this.props.height}
+            height={this.props.height - 80}
             rowCount={this.props.userdata.length}
             rowHeight={52}
             rowRenderer={this.rowRenderer}
@@ -359,17 +358,17 @@ class Dashboard extends Component {
 
     render() {
         if (!this.props.userdata) return <div></div>;
-        let classList = this.state.openModal ? 'disable' : '';
+        let classList = this.state.openModal ? 'transaction-container disable' : 'transaction-container';
 
         return (<div>
 
                 {this.state.openModal && <DataInputDialog {...this.props}
-                                                   onChange={this.handleChange}
-                                                   onEdit={this.state.isEditMode}
-                                                   hideDialog={this.hideDialog}
-                                                   data={this.state.fields}
-                                                   onSave={this.save}
-                                                   uniqueKey={this.state.uniqueKey}
+                                                          onChange={this.handleChange}
+                                                          onEdit={this.state.isEditMode}
+                                                          hideDialog={this.hideDialog}
+                                                          data={this.state.fields}
+                                                          onSave={this.save}
+                                                          uniqueKey={this.state.uniqueKey}
 
 
                 />

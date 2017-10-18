@@ -58,7 +58,7 @@ class Transaction extends Component {
 
     editMe = (uniqueKey) => {
 
-        this.setState({isEditMode: false}, ()=>this.props.onEdit(uniqueKey,this.props.data))
+        this.setState({isEditMode: false}, ()=>this.props.onEdit(uniqueKey, this.props.data))
     }
 
     // update = (uniqueKey) => {
@@ -212,7 +212,7 @@ class Transaction extends Component {
             </FormGroup>
 
         }
-        return value;
+        return value ? value : '-';
 
     }
 
@@ -237,7 +237,7 @@ class Transaction extends Component {
             </FormGroup>
 
         }
-        return value;
+        return value ? value : '-';
 
     }
 
@@ -260,14 +260,14 @@ class Transaction extends Component {
                 <Col md={1}>{this.toggleCreditRender('credit', this.state.fields.credit)}</Col>
                 <Col md={1}>
                     {/*{!this.state.isEditMode ? <Button onClick={this.editMe.bind(this, this.props.uniqueKey)}><Glyphicon*/}
-                        {/*glyph="glyphicon glyphicon-edit"/></Button> :*/}
-                        {/*<Button disabled={this.state.invalidDebitCredit}*/}
-                                {/*onClick={this.update.bind(this, this.props.uniqueKey)}><Glyphicon*/}
-                            {/*glyph="glyphicon glyphicon-ok"/></Button>*/}
+                    {/*glyph="glyphicon glyphicon-edit"/></Button> :*/}
+                    {/*<Button disabled={this.state.invalidDebitCredit}*/}
+                    {/*onClick={this.update.bind(this, this.props.uniqueKey)}><Glyphicon*/}
+                    {/*glyph="glyphicon glyphicon-ok"/></Button>*/}
                     {/*}   */}
                     {<Button onClick={this.editMe.bind(this, this.props.uniqueKey)}>
                         <Glyphicon
-                        glyph="glyphicon glyphicon-edit"/>
+                            glyph="glyphicon glyphicon-edit"/>
                     </Button>
                     }
 
