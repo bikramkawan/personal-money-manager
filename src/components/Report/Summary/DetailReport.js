@@ -19,12 +19,12 @@ class DetailReport extends Component {
             const onlyExpense = this.props.userdata
                 .filter(item=>item.category.parent !== 'income')
                 .filter(d=>d.category.child === child && d.category.parent === parent)
-                .filter(e=>!isNaN(e.credit));
+                .filter(e=>!isNaN(parseFloat(e.credit)));
             sumBy = _.sumBy(onlyExpense, 'credit')
         } else {
             const onlyIncome = this.props.userdata.filter(item=>item.category.parent === 'income')
                 .filter(d=>d.category.child === child && d.category.parent === parent)
-                .filter(e=>!isNaN(e.debit));
+                .filter(e=>!isNaN(parseFloat(e.debit)));
             sumBy = _.sumBy(onlyIncome, 'debit')
         }
         return sumBy;
@@ -37,8 +37,8 @@ class DetailReport extends Component {
         //.filter(e=> !isNaN(e.debit) && isNaN(e.credit));
 
         const sumvalue = (this.props.report === 'expense') ?
-            _.sumBy(filtered.filter(e=> isNaN(e.debit) && !isNaN(e.credit)), 'credit') :
-            _.sumBy(filtered.filter(e=> !isNaN(e.debit) && isNaN(e.credit)), 'debit');
+            _.sumBy(filtered.filter(e=> isNaN(parseFloat(e.debit)) && !isNaN(parseFloat(e.credit))), 'credit') :
+            _.sumBy(filtered.filter(e=> !isNaN(parseFloat(e.debit)) && isNaN(parseFloat(e.credit))), 'debit');
         return sumvalue;
 
 
