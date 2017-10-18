@@ -8,7 +8,7 @@ import endpoints from '../../shared/endpoints'
 
 const ReportSubNavBar = () => {
 
-    return ( <Navbar>
+    return ( <Navbar className="report-Nav">
         <Nav>
             <NavItem><Link to={endpoints.income}>Income</Link></NavItem>
             <NavItem><Link to={endpoints.expense}>Expense</Link></NavItem>

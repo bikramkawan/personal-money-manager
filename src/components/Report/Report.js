@@ -34,11 +34,14 @@ class Report extends Component {
         return (
             <div style={{overflow: 'hidden'}}>
                 <ReportSubNavBar/>
-                <Grid>
+                <Grid className="report-container">
+                    <Row className="header text-center">
+                        <Col md={12}><h2>Budget Summary</h2></Col>
+                    </Row>
                     <Row className="report" style={{display: 'flex'}}>
-                        <Col md={6}>
+                        <Col md={6}  className="summary-container">
 
-                            <BudgetSummary summary={summary}/>
+                            <BudgetSummary  summary={summary}/>
 
                         </Col>
                         <Col md={6} className="myChart">

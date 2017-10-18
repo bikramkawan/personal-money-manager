@@ -56,14 +56,15 @@ class Main extends Component {
     }
 
     render() {
-         const width = window.document.querySelector('.dashboard-layout');
-        if(!width) return <div></div>
+        const selector = window.document.querySelector('.dashboard-layout');
+        if (!selector) return <div></div>
         return (
             <Dashboard
                 onUpdate={this.onUpdate}
                 onDelete={this.onDelete}
                 onSave={this.onSave}
-                width = {width.clientWidth}/>
+                width={selector.clientWidth}
+                height={selector.clientHeight}/>
 
         )
     }

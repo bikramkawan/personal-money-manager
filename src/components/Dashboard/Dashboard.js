@@ -167,7 +167,7 @@ class Dashboard extends Component {
 
         return (<List
             width={this.props.width}
-            height={600}
+            height={this.props.height}
             rowCount={this.props.userdata.length}
             rowHeight={52}
             rowRenderer={this.rowRenderer}

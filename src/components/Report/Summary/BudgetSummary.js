@@ -49,12 +49,10 @@ export default class BudgetSummary extends Component {
 
         const summary = this.mixinData();
         return (<Grid className="grid budgetSummary" fluid={true}>
-            <Row className="header">
-                <Col md={12}><h4>Budget Summary</h4></Col>
-            </Row>
+
             <Row className="title">
                 <Col md={3}></Col>
-                <Col md={3}>Budget </Col>
+                <Col md={3}>Budget</Col>
                 <Col md={3}>Actual</Col>
                 <Col md={3}>Difference</Col>
             </Row>
