@@ -1,25 +1,27 @@
 /**
  * Created by bikramkawan on 9/3/17.
  */
-import {USER_LOGIN,USER_DATA} from '../shared/constants';
+import {USER_LOGIN, USER_DATA} from '../shared/constants';
+import moment from 'moment';
 
-let user = {
-    email: null
+const initialState = {
+    email: null,
+    userid: null,
+    userdata: [],
+    allData: []
 }
 
-export default (state = null, action) => {
-
+export default (state = initialState, action) => {
+    console.log(state)
     switch (action.type) {
 
         case USER_LOGIN:
-            const {email,userid,logged,userdata} = action;
-            user = {email,userid,logged,userdata};
-            return user;
+            const {email, userid, logged, userdata} = action;
+            return {...state, email, userid, logged, userdata, allData: userdata};
 
         case  USER_DATA:
-            const {userdata1}  = action;
-
-            return {userdata1};
+            const filtered = state.allData.slice().filter(d=>moment.unix(d.date).year()>2011);
+            return {...state, userdata: filtered};
 
         default:
             return state;

@@ -119,13 +119,13 @@ class Dashboard extends Component {
 
 
     rowRenderer = ({
-        key,         // Unique key within array of rows
-        index,       // Index of row within collection
-        isScrolling, // The List is currently being scrolled
-        isVisible,   // This row is visible within the List (eg it is not an overscanned row)
-        style,       // Style object to be applied to row (to position it)
-        sort
-    }) => {
+                       key,         // Unique key within array of rows
+                       index,       // Index of row within collection
+                       isScrolling, // The List is currently being scrolled
+                       isVisible,   // This row is visible within the List (eg it is not an overscanned row)
+                       style,       // Style object to be applied to row (to position it)
+                       sort
+                   }) => {
 
         let data = _(this.props.userdata.slice()).reverse().value();
         if (this.state.sortRef) {
@@ -163,7 +163,7 @@ class Dashboard extends Component {
     }
 
     renderRow() {
-        console.log(this.props.height,this.props.width)
+        console.log(this.props.height, this.props.width)
         return (<List
             width={this.props.width}
             height={this.props.height - 80}
@@ -356,6 +356,18 @@ class Dashboard extends Component {
         this.setState({openModal: value})
     }
 
+    renderOptions(param) {
+
+        const {userdata} = this.props;
+        const years = _.uniq(userdata,(y)=>moment.unix(y.date).year());
+        console.log(years)
+        years.map(e=> console.log(moment.unix(e.date).year()))
+        // return <optgroup label={d} key={d}>
+        //     {values.map((value, main) => <option key={main} id={d} value={value}>{value}</option>)}
+        // </optgroup>
+
+    }
+
     render() {
         if (!this.props.userdata) return <div></div>;
         let classList = this.state.openModal ? 'transaction-container disable' : 'transaction-container';
@@ -377,7 +389,16 @@ class Dashboard extends Component {
 
 
                 <Grid className={classList} fluid={true} style={{width: this.props.width}}>
-                    <Row className='add-modal-header' onClick={this.showDialog}> Add New Data</Row>
+
+                    <Row className='add-modal-header'>
+                        <Col md={6} className='add-data' onClick={this.showDialog}> Add New Data </Col>
+                        <Col md={2} className='filter-data'>Filter Data : </Col>
+                        <Col md={4} className='filter-data'> <select className="form-control" id="sel1"
+                                                                     onChange={this.handleSelect}
+                                                                     style={{textTransform: 'Capitalize'}}>
+                            {this.renderOptions('Year')}
+                        </select></Col>
+                    </Row>
                     <Header onSortBy={this.onSortBy}/>
                     {this.renderRow()}
 
@@ -389,9 +410,11 @@ class Dashboard extends Component {
 }
 
 
-function mapStateToProps({user}) {
-    if (!user) return {};
-    const {userdata, userid} = user
+function mapStateToProps(state) {
+
+    if (!state.user) return {};
+    const {userdata, userid} = state.user
+    console.log(moment.unix(userdata[0].date).year(), userdata[0].date)
     return {
         userdata, userid
     }

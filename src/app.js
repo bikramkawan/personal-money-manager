@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {Route, HashRouter,Redirect, Switch} from 'react-router-dom'
 import {firebaseApp, userdata} from './config/Firebase'
 import {connect} from 'react-redux';
-import {userLogin} from './actions'
+import {userLogin,userData} from './actions'
 import UnauthorizedLayout from './components/LayoutManager/UnauthorizedLayout'
 import AuthorizedRoute from './components/LayoutManager/AuthorizedRoute'
 import AppLayout from './components/LayoutManager/AppLayout'
@@ -68,6 +68,7 @@ class App extends Component {
 
 
     componentDidMount() {
+
         this.registerFirebase = firebaseApp.auth().onAuthStateChanged((user) => {
             if (user) {
                 // const {userid} = user.uid;
@@ -81,6 +82,7 @@ class App extends Component {
                     //this.setState({data})
 
                     this.props.userLogin(user.email, user.uid, true, userdata);
+                    this.props.userData(userdata)
 
                 })
                 this.props.history.push('/app')
@@ -122,6 +124,7 @@ class App extends Component {
 
 
 function mapStateToProps(state) {
+    console.log(state)
     return {
         store: state
     }
@@ -129,4 +132,4 @@ function mapStateToProps(state) {
 
 }
 
-export default connect(mapStateToProps, {userLogin})(App)
+export default connect(mapStateToProps, {userLogin,userData})(App)
