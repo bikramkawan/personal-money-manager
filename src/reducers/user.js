@@ -1,8 +1,9 @@
 /**
  * Created by bikramkawan on 9/3/17.
  */
-import {USER_LOGIN, USER_DATA} from '../shared/constants';
+import {USER_LOGIN, FILTER_DATA} from '../shared/constants';
 import moment from 'moment';
+import * as _ from 'lodash';
 
 const initialState = {
     email: null,
@@ -17,10 +18,16 @@ export default (state = initialState, action) => {
 
         case USER_LOGIN:
             const {email, userid, logged, userdata} = action;
-            return {...state, email, userid, logged, userdata, allData: userdata};
+            const years = getUniqueYears(userdata);
+            return {...state, email, userid, logged, userdata, allData: userdata, years};
 
-        case  USER_DATA:
-            const filtered = state.allData.slice().filter(d=>moment.unix(d.date).year()>2011);
+        case  FILTER_DATA:
+            let filtered = state.allData.slice();
+            console.log(action)
+            if (!isNaN(action.param)) {
+                filtered = filtered.filter(d=>moment.unix(d.date).year() === action.param.year);
+            }
+
             return {...state, userdata: filtered};
 
         default:
@@ -31,5 +38,9 @@ export default (state = initialState, action) => {
 }
 
 
+function getUniqueYears(data) {
+    return ['All'].concat(_.uniq(data.map(d=>moment.unix(d.date).year())))
 
+
+}
 

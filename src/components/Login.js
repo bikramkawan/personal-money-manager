@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import {firebaseApp, userdata} from '../config/Firebase'
 import {connect} from 'react-redux';
-import {userLogin, userData} from '../actions'
+import {userLogin, filterData} from '../actions'
 import FrontNavBar from './NavBar/UnAuthNav'
 
 class Login extends Component {
@@ -123,4 +123,4 @@ function mapStateToProps(state) {
 
 }
 
-export default connect(mapStateToProps, {userLogin, userData})(Login)
+export default connect(mapStateToProps, {userLogin, filterData})(Login)

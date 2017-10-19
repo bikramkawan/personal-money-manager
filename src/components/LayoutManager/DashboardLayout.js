@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Switch, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {userData} from '../../actions'
+import {filterData} from '../../actions'
 import Dashboard from '../Dashboard/index'
 import ReportLayout from './ReportLayout'
 
@@ -31,4 +31,4 @@ function mapStateToProps({user}) {
 
 }
 
-export default connect(mapStateToProps, {userData})(DashboardLayout)
+export default connect(mapStateToProps, {filterData})(DashboardLayout)

@@ -2,7 +2,7 @@
  * Created by bikramkawan on 8/11/17.
  */
 
-import {USER_DATA, USER_LOGIN} from '../shared/constants'
+import {FILTER_DATA, USER_LOGIN} from '../shared/constants'
 export const userLogin = (email, userid,logged,userdata) => {
 
     const action = {
@@ -15,10 +15,10 @@ export const userLogin = (email, userid,logged,userdata) => {
     return action;
 }
 
-export const userData = (userdata) => {
+export const filterData = (param) => {
     const action = {
-        type: USER_DATA,
-        userdata
+        type: FILTER_DATA,
+        param
     }
     return action;
 }

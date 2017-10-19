@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {userData} from '../../../actions';
+import {filterData} from '../../../actions';
 import * as _ from 'lodash'
 import ReportSubNavBar from '../../NavBar/ReportSubNavBar'
 import categories from '../../../shared/utils'
@@ -109,4 +109,4 @@ function mapStateToProps({user}) {
 
 }
 
-export default connect(mapStateToProps, {userData})(DetailReport)
+export default connect(mapStateToProps, {filterData})(DetailReport)

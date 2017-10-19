@@ -9,11 +9,13 @@ import {Grid, Row, Col, Button, Glyphicon} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as _ from 'lodash';
 import moment from 'moment'
+import {filterData} from '../../actions'
 import {List} from 'react-virtualized';
 import {userdata} from '../../config/Firebase';
 import DataInputDialog from './DataInputDialog'
 
 const Papa = require('papaparse');
+const classes = require('classnames');
 
 class Dashboard extends Component {
 
@@ -36,11 +38,18 @@ class Dashboard extends Component {
             sortByAsc: true,
             openModal: false,
             sortRef: null,
-            uniqueKey: null
+            uniqueKey: null,
+            filterParam: {
+                year: null,
+                month: null,
+                filterByYear: false,
+                filterByMonth: false,
+            }
 
         }
 
         this.store = this.props.store;
+
     }
 
     editRow = (uniqueKey, fields) => {
@@ -119,13 +128,13 @@ class Dashboard extends Component {
 
 
     rowRenderer = ({
-                       key,         // Unique key within array of rows
-                       index,       // Index of row within collection
-                       isScrolling, // The List is currently being scrolled
-                       isVisible,   // This row is visible within the List (eg it is not an overscanned row)
-                       style,       // Style object to be applied to row (to position it)
-                       sort
-                   }) => {
+        key,         // Unique key within array of rows
+        index,       // Index of row within collection
+        isScrolling, // The List is currently being scrolled
+        isVisible,   // This row is visible within the List (eg it is not an overscanned row)
+        style,       // Style object to be applied to row (to position it)
+        sort
+    }) => {
 
         let data = _(this.props.userdata.slice()).reverse().value();
         if (this.state.sortRef) {
@@ -356,16 +365,31 @@ class Dashboard extends Component {
         this.setState({openModal: value})
     }
 
-    renderOptions(param) {
+    renderYears() {
+        return this.props.years.map((value, index) => <option key={index} id={index} value={value}>{value}</option>)
 
-        const {userdata} = this.props;
-        const years = _.uniq(userdata,(y)=>moment.unix(y.date).year());
-        console.log(years)
-        years.map(e=> console.log(moment.unix(e.date).year()))
-        // return <optgroup label={d} key={d}>
-        //     {values.map((value, main) => <option key={main} id={d} value={value}>{value}</option>)}
-        // </optgroup>
+    }
 
+    filterSelect = (ref, {target}) => {
+
+        let {filterParam}  = this.state;
+
+        filterParam[ref] = parseFloat(target.value);
+        console.log(filterParam)
+        this.setState({filterParam})
+        //  this.props.filterData({year: parseFloat(target.value)})
+    }
+
+
+    handleCheckBox = ({target}) => {
+        console.log(target.value, target.checked)
+
+        let {filterParam}  = this.state;
+
+        filterParam[target.value] = target.checked;
+        console.log(filterParam)
+        this.setState({filterParam})
+        console.log(this.state)
     }
 
     render() {
@@ -391,13 +415,39 @@ class Dashboard extends Component {
                 <Grid className={classList} fluid={true} style={{width: this.props.width}}>
 
                     <Row className='add-modal-header'>
-                        <Col md={6} className='add-data' onClick={this.showDialog}> Add New Data </Col>
+                        <Col md={4} className='add-data' onClick={this.showDialog}> Add New Data </Col>
                         <Col md={2} className='filter-data'>Filter Data : </Col>
-                        <Col md={4} className='filter-data'> <select className="form-control" id="sel1"
-                                                                     onChange={this.handleSelect}
-                                                                     style={{textTransform: 'Capitalize'}}>
-                            {this.renderOptions('Year')}
-                        </select></Col>
+                        <Col md={6} className='filter-data'>
+                            <div className="fields">
+
+                                <span className="year">
+                                    <input type="checkbox" name="filterByYear" value="filterByYear"
+                                           onChange={this.handleCheckBox}/>
+                                Year </span>
+                                <select
+                                    className={classes('form-control yearSelect', {hideMe: !this.state.filterParam.filterByYear})}
+                                    id="sel1"
+                                    onChange={this.filterSelect.bind(this, 'year')}
+                                    style={{textTransform: 'Capitalize'}}>
+                                    {this.renderYears()}
+                                </select>
+
+                            </div>
+                            <div className="fields">
+
+                               <span className={classes('month', {hideMe: !this.state.filterParam.filterByYear})}>
+                                   <input type="checkbox" name="filterByMonth" value="filterByMonth"
+                                          onChange={this.handleCheckBox}
+                                   />
+                                Month </span> <select
+                                className={classes('form-control monthSelect', {hideMe: !this.state.filterParam.filterByMonth})}
+                                id="sel1"
+                                onChange={this.filterSelect.bind(this, 'month')}
+                                style={{textTransform: 'Capitalize'}}>
+                                {this.renderYears()}
+                            </select>
+                            </div>
+                        </Col>
                     </Row>
                     <Header onSortBy={this.onSortBy}/>
                     {this.renderRow()}
@@ -413,12 +463,12 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
 
     if (!state.user) return {};
-    const {userdata, userid} = state.user
-    console.log(moment.unix(userdata[0].date).year(), userdata[0].date)
+    const {userdata, userid, years} = state.user
+
     return {
-        userdata, userid
+        userdata, userid, years
     }
 
 }
 
-export default connect(mapStateToProps, null)(Dashboard)
+export default connect(mapStateToProps, {filterData})(Dashboard)

@@ -142,6 +142,45 @@
   .filter-data {
     background: grey;
     height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .fields {
+      display: flex;
+      justify-content: center;
+      flex: 1;
+
+      .yearSelect {
+
+        &.hideMe {
+          visibility: hidden;
+        }
+
+      }
+      .month {
+        &.hideMe {
+          visibility: hidden;
+        }
+      }
+
+      .monthSelect {
+        &.hideMe {
+          visibility: hidden;
+        }
+      }
+
+      input {
+        margin: 3px 10px 0;
+      }
+
+      select {
+        width: 80px;
+        margin-left: 20px;
+      }
+
+    }
+
   }
 }
 
