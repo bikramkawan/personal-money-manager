@@ -13,7 +13,6 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-    console.log(state)
     switch (action.type) {
 
         case USER_LOGIN:
@@ -23,9 +22,14 @@ export default (state = initialState, action) => {
 
         case  FILTER_DATA:
             let filtered = state.allData.slice();
-            console.log(action)
-            if (!isNaN(action.param)) {
-                filtered = filtered.filter(d=>moment.unix(d.date).year() === action.param.year);
+
+            const {filterByYear, filterByMonth, year, month} = action.filterParam;
+
+            if (filterByYear && year) {
+                filtered = filtered.filter(d => moment.unix(d.date).year() === year);
+            }
+            if (filterByYear && filterByMonth && year && month) {
+                filtered = filtered.filter(d => moment.unix(d.date).year() === year && moment.unix(d.date).month() === month - 1)
             }
 
             return {...state, userdata: filtered};
@@ -39,7 +43,7 @@ export default (state = initialState, action) => {
 
 
 function getUniqueYears(data) {
-    return ['All'].concat(_.uniq(data.map(d=>moment.unix(d.date).year())))
+    return ['All'].concat(_.uniq(data.map(d => moment.unix(d.date).year())))
 
 
 }

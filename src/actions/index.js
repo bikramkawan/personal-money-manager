@@ -15,10 +15,10 @@ export const userLogin = (email, userid,logged,userdata) => {
     return action;
 }
 
-export const filterData = (param) => {
+export const filterData = (filterParam) => {
     const action = {
         type: FILTER_DATA,
-        param
+        filterParam
     }
     return action;
 }

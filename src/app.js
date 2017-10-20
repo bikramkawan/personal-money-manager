@@ -2,10 +2,10 @@
  * Created by bikramkawan on 8/9/17.
  */
 import React, {Component} from 'react';
-import {Route, HashRouter,Redirect, Switch} from 'react-router-dom'
+import {Route, HashRouter, Redirect, Switch} from 'react-router-dom'
 import {firebaseApp, userdata} from './config/Firebase'
 import {connect} from 'react-redux';
-import {userLogin,filterData} from './actions'
+import {userLogin, filterData} from './actions'
 import UnauthorizedLayout from './components/LayoutManager/UnauthorizedLayout'
 import AuthorizedRoute from './components/LayoutManager/AuthorizedRoute'
 import AppLayout from './components/LayoutManager/AppLayout'
@@ -73,16 +73,15 @@ class App extends Component {
             if (user) {
                 // const {userid} = user.uid;
                 const thisUser = userdata.child(user.uid);
-                thisUser.on('value', (snap, i)=> {
+                thisUser.on('value', (snap, i) => {
                     const userdata = [];
-                    snap.forEach((d, i)=> {
+                    snap.forEach((d, i) => {
                         userdata.push({...d.val(), key: d.key})
 
                     })
                     //this.setState({data})
 
                     this.props.userLogin(user.email, user.uid, true, userdata);
-                    this.props.filterData(userdata)
 
                 })
                 this.props.history.push('/app')
@@ -98,7 +97,7 @@ class App extends Component {
     }
 
 
-    logout = ()=> {
+    logout = () => {
         firebaseApp.auth().signOut();
     }
 
@@ -124,7 +123,6 @@ class App extends Component {
 
 
 function mapStateToProps(state) {
-    console.log(state)
     return {
         store: state
     }
@@ -132,4 +130,4 @@ function mapStateToProps(state) {
 
 }
 
-export default connect(mapStateToProps, {userLogin,filterData})(App)
+export default connect(mapStateToProps, {userLogin, filterData})(App)

@@ -13,6 +13,7 @@ import {filterData} from '../../actions'
 import {List} from 'react-virtualized';
 import {userdata} from '../../config/Firebase';
 import DataInputDialog from './DataInputDialog'
+import {MONTHS} from '../../shared/constants'
 
 const Papa = require('papaparse');
 const classes = require('classnames');
@@ -128,13 +129,13 @@ class Dashboard extends Component {
 
 
     rowRenderer = ({
-        key,         // Unique key within array of rows
-        index,       // Index of row within collection
-        isScrolling, // The List is currently being scrolled
-        isVisible,   // This row is visible within the List (eg it is not an overscanned row)
-        style,       // Style object to be applied to row (to position it)
-        sort
-    }) => {
+                       key,         // Unique key within array of rows
+                       index,       // Index of row within collection
+                       isScrolling, // The List is currently being scrolled
+                       isVisible,   // This row is visible within the List (eg it is not an overscanned row)
+                       style,       // Style object to be applied to row (to position it)
+                       sort
+                   }) => {
 
         let data = _(this.props.userdata.slice()).reverse().value();
         if (this.state.sortRef) {
@@ -172,7 +173,6 @@ class Dashboard extends Component {
     }
 
     renderRow() {
-        console.log(this.props.height, this.props.width)
         return (<List
             width={this.props.width}
             height={this.props.height - 80}
@@ -365,37 +365,31 @@ class Dashboard extends Component {
         this.setState({openModal: value})
     }
 
-    renderYears() {
-        return this.props.years.map((value, index) => <option key={index} id={index} value={value}>{value}</option>)
+    renderOptions(options) {
+        return options.map((value, index) => <option key={index} id={index} value={value}>{value}</option>)
 
     }
 
     filterSelect = (ref, {target}) => {
-
-        let {filterParam}  = this.state;
-
+        let {filterParam} = this.state;
         filterParam[ref] = parseFloat(target.value);
-        console.log(filterParam)
         this.setState({filterParam})
-        //  this.props.filterData({year: parseFloat(target.value)})
+        this.props.filterData(filterParam)
     }
 
 
     handleCheckBox = ({target}) => {
-        console.log(target.value, target.checked)
 
-        let {filterParam}  = this.state;
-
+        let {filterParam} = this.state;
         filterParam[target.value] = target.checked;
-        console.log(filterParam)
         this.setState({filterParam})
-        console.log(this.state)
+
     }
 
     render() {
-        if (!this.props.userdata) return <div></div>;
+        if (!this.props.userdata && this.props.years) return <div></div>;
         let classList = this.state.openModal ? 'transaction-container disable' : 'transaction-container';
-
+        const {filterByYear, filterByMonth} = this.state.filterParam;
         return (<div>
 
                 {this.state.openModal && <DataInputDialog {...this.props}
@@ -425,26 +419,26 @@ class Dashboard extends Component {
                                            onChange={this.handleCheckBox}/>
                                 Year </span>
                                 <select
-                                    className={classes('form-control yearSelect', {hideMe: !this.state.filterParam.filterByYear})}
+                                    className={classes('form-control yearSelect', {hideMe: !filterByYear})}
                                     id="sel1"
                                     onChange={this.filterSelect.bind(this, 'year')}
                                     style={{textTransform: 'Capitalize'}}>
-                                    {this.renderYears()}
+                                    {this.renderOptions(this.props.years)}
                                 </select>
 
                             </div>
                             <div className="fields">
 
-                               <span className={classes('month', {hideMe: !this.state.filterParam.filterByYear})}>
+                               <span className={classes('month', {hideMe: !filterByYear})}>
                                    <input type="checkbox" name="filterByMonth" value="filterByMonth"
                                           onChange={this.handleCheckBox}
                                    />
                                 Month </span> <select
-                                className={classes('form-control monthSelect', {hideMe: !this.state.filterParam.filterByMonth})}
+                                className={classes('form-control monthSelect', {hideMe: !filterByMonth || !filterByYear})}
                                 id="sel1"
                                 onChange={this.filterSelect.bind(this, 'month')}
                                 style={{textTransform: 'Capitalize'}}>
-                                {this.renderYears()}
+                                {this.renderOptions(MONTHS)}
                             </select>
                             </div>
                         </Col>
