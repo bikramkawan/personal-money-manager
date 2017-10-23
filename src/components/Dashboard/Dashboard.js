@@ -4,8 +4,7 @@
 import React, {Component} from 'react';
 import Header from './Header'
 import Transaction from './TransactionRow'
-import AddItem from './AddTransaction';
-import {Grid, Row, Col, Button, Glyphicon} from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as _ from 'lodash';
 import moment from 'moment'

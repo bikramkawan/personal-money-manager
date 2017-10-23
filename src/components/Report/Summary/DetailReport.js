@@ -13,9 +13,8 @@ import categories from '../../../shared/utils'
 class DetailReport extends Component {
 
     checkEntries(parent, child) {
-
         let sumBy = null;
-        if (this.props.report === 'expense') {
+        if (this.report === 'expense') {
             const onlyExpense = this.props.userdata
                 .filter(item=>item.category.parent !== 'income')
                 .filter(d=>d.category.child === child && d.category.parent === parent)
@@ -36,7 +35,7 @@ class DetailReport extends Component {
             .filter(d=>d.category.parent === parent)
         //.filter(e=> !isNaN(e.debit) && isNaN(e.credit));
 
-        const sumvalue = (this.props.report === 'expense') ?
+        const sumvalue = (this.report === 'expense') ?
             _.sumBy(filtered.filter(e=> isNaN(parseFloat(e.debit)) && !isNaN(parseFloat(e.credit))), 'credit') :
             _.sumBy(filtered.filter(e=> !isNaN(parseFloat(e.debit)) && isNaN(parseFloat(e.credit))), 'debit');
         return sumvalue;
@@ -45,9 +44,9 @@ class DetailReport extends Component {
     }
 
     renderChunks() {
-        const {report} = this.props;
+        this.report = (this.props.match.path.indexOf('expense') > 0) ? 'expense' : 'income';
         let parent = _.keys(categories).filter(cat=>cat === 'income')
-        if (report === 'expense') {
+        if (this.report === 'expense') {
             parent = _.keys(categories).filter(cat=>cat !== 'income')
         }
         return parent.map(parentCat => {
