@@ -22,13 +22,5 @@ class DashboardLayout extends Component {
 }
 
 
-function mapStateToProps({user}) {
-    if (!user) return {};
-    const {userid} = user
-    return {
-        userid
-    }
 
-}
-
-export default connect(mapStateToProps, {filterData})(DashboardLayout)
+export default DashboardLayout
