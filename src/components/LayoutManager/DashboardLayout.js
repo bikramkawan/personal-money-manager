@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
 import {Switch, Route} from 'react-router-dom'
-import {connect} from 'react-redux'
-import {filterData} from '../../actions'
 import Dashboard from '../Dashboard/index'
 import ReportLayout from './ReportLayout'
 
