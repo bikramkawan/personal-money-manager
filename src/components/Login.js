@@ -103,6 +103,12 @@ class Login extends Component {
                     <button className="btn btn-primary" style={{margin: '10px'}} onClick={this.login}>Login</button>
 
                 </div>
+
+                <div className="demo-login">
+                    <span>Demo Login</span>
+                    <span>Email: bikram@bikram.com</span>
+                   <span> Password:bikram</span>
+                </div>
             </div>
 
 
